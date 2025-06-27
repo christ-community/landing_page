@@ -30,8 +30,8 @@ const HeroSection = () => {
     <section className="relative h-[90vh] bg-secondary overflow-hidden">
       {/* Background with angled image layout */}
       <div className="absolute inset-0 flex">
-        {/* Left area with colorful gradient background */}
-        <div className="w-[40%] bg-gradient-to-br from-secondary via-tertiary/20 to-secondary"></div>
+        {/* Left area with gradient flowing from top */}
+        <div className="w-[40%] bg-gradient-to-b from-tertiary/30 via-secondary to-primary/10"></div>
         
         {/* Right area with angled image - larger now */}
         <div className="w-[60%] relative">
