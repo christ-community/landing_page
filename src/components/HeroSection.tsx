@@ -30,8 +30,8 @@ const HeroSection = () => {
     <section className="relative h-[90vh] bg-secondary overflow-hidden">
       {/* Background with angled image layout */}
       <div className="absolute inset-0 flex">
-        {/* Left dark area for text - smaller now */}
-        <div className="w-[40%] bg-secondary"></div>
+        {/* Left area with colorful gradient background */}
+        <div className="w-[40%] bg-gradient-to-br from-secondary via-tertiary/20 to-secondary"></div>
         
         {/* Right area with angled image - larger now */}
         <div className="w-[60%] relative">
@@ -66,14 +66,14 @@ const HeroSection = () => {
         <div className="container mx-auto px-6 lg:px-12 pb-20">
           <div className="max-w-2xl">
             {/* Main Heading - Tighter spacing */}
-            <h1 className="text-5xl lg:text-7xl font-bold text-primary leading-[0.85] mb-8">
+            <h1 className="text-5xl lg:text-7xl font-bold text-primary leading-[0.85] mb-8 drop-shadow-lg">
               Building community
               <br />
               <span className="text-primary">through Christ</span>
             </h1>
 
             {/* Description */}
-            <p className="text-lg lg:text-xl text-primary/90 leading-relaxed mb-10 max-w-xl">
+            <p className="text-lg lg:text-xl text-primary/90 leading-relaxed mb-10 max-w-xl drop-shadow-md">
               Join us as we gather to worship, grow in faith, and serve our community together. 
               Experience God's love in a welcoming environment where everyone belongs.
             </p>
@@ -82,7 +82,7 @@ const HeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <Button 
                 size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 shadow-lg"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
               >
                 Join Us Sunday
               </Button>
@@ -90,7 +90,7 @@ const HeroSection = () => {
               <Button 
                 variant="secondary"
                 size="lg"
-                className="bg-tertiary hover:bg-tertiary/90 text-tertiary-foreground px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 shadow-lg"
+                className="bg-tertiary hover:bg-tertiary/90 text-tertiary-foreground px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
               >
                 Plan Your Visit
               </Button>
