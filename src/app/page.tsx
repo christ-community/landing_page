@@ -1,6 +1,26 @@
+'use client';
+
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 export default function Home() {
+  const [apiResponse, setApiResponse] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const callAPI = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch('/api/hello');
+      const data = await response.json();
+      setApiResponse(data.message);
+    } catch (error) {
+      setApiResponse("Error connecting to API");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-accent/20 to-background p-4">
       <div className="relative">
@@ -26,13 +46,30 @@ export default function Home() {
             Welcome to our church family
           </p>
           
+          {/* API Demo Button */}
+          <div className="mb-6">
+            <Button 
+              onClick={callAPI}
+              disabled={isLoading}
+              className="bg-tertiary hover:bg-tertiary/90 text-white px-6 py-2 rounded-lg transition-colors"
+            >
+              {isLoading ? "Connecting..." : "Connect with Us"}
+            </Button>
+            
+            {/* API Response */}
+            {apiResponse && (
+              <div className="mt-4 p-3 bg-accent/20 rounded-lg border border-accent/50">
+                <p className="text-sm text-muted-foreground">{apiResponse}</p>
+              </div>
+            )}
+          </div>
+          
           {/* Decorative element */}
           <div className="flex items-center justify-center mb-6">
             <div className="w-8 h-px bg-gradient-to-r from-transparent via-tertiary to-transparent"></div>
             <div className="w-2 h-2 bg-tertiary rounded-full mx-4 shadow-lg"></div>
             <div className="w-10 h-px bg-gradient-to-r from-tertiary via-transparent to-transparent"></div>
           </div>
-          
         </div>
       </div>
     </div>
