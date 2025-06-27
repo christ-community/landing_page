@@ -1,6 +1,7 @@
 'use client';
 
 import Header from "@/components/Header";
+import HeroSection from "@/components/HeroSection";
 
 export default function Home() {
   return (
@@ -8,9 +9,12 @@ export default function Home() {
       {/* Header Component */}
       <Header />
       
+      {/* Hero Section */}
+      <HeroSection />
+      
       {/* Main Content Area */}
       <main className="container mx-auto px-4 lg:px-8 py-12">
-        {/* Content will be added here later */}
+        {/* Additional content sections will be added here later */}
       </main>
     </div>
   );
