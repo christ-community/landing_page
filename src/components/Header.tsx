@@ -19,7 +19,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
-import type { HeaderConfig, NavigationItem, ActionButton, Logo } from "@/types";
+import type { HeaderConfig } from "@/types";
 
 // Default configuration - this will later come from Contentful
 const defaultHeaderConfig: HeaderConfig = {
@@ -29,7 +29,7 @@ const defaultHeaderConfig: HeaderConfig = {
     width: 120,
     height: 120,
   },
-  navigationItems: [
+  navigationItems:  [
     { href: "#about", label: "About" },
     { href: "#messages", label: "Messages" },
     { href: "#events", label: "Events" },

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import type { HeroConfig, HeroImage, HeroButton, HeroContent } from "@/types";
+import type { HeroConfig } from "@/types";
 
 // Default configuration - this will later come from Contentful
 const defaultHeroConfig: HeroConfig = {
@@ -80,8 +80,8 @@ const HeroSection = ({ config }: HeroSectionProps) => {
             </div>
           ))}
         </div>
-      </div>
-
+              </div>
+              
       {/* Content Container - Bottom left position */}
       <div className="relative z-20 h-full flex items-end">
         <div className="container mx-auto px-6 lg:px-12 pb-20">
@@ -95,17 +95,17 @@ const HeroSection = ({ config }: HeroSectionProps) => {
                   <span className="text-primary">{content.subtitle}</span>
                 </>
               )}
-            </h1>
-
-            {/* Description */}
+              </h1>
+              
+              {/* Description */}
             <p className="text-lg lg:text-xl text-primary/90 leading-relaxed mb-10 max-w-xl drop-shadow-md">
               {content.description}
-            </p>
-
-            {/* Action Buttons */}
+              </p>
+              
+              {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               {content.buttons.map((button, index) => (
-                <Button
+                <Button 
                   key={index}
                   size="lg"
                   className={
@@ -126,8 +126,8 @@ const HeroSection = ({ config }: HeroSectionProps) => {
             </div>
           </div>
         </div>
-      </div>
-
+              </div>
+              
       {/* Connect Widget - Bottom Right */}
       {connectButtonLabel && (
         <div className="absolute bottom-6 right-6 z-30">
@@ -154,7 +154,7 @@ const HeroSection = ({ config }: HeroSectionProps) => {
           />
         ))}
       </div>
-
+      
       {/* Enhanced vivid red line with multiple effects using tertiary color */}
       <div className="absolute bottom-0 left-0 right-0 z-25">
         {/* Glowing tertiary line with gradient effect */}

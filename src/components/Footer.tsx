@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import type { FooterConfig, SocialMediaLink, QuickLink, ContactInfo, ServiceTime } from "@/types";
+import type { FooterConfig } from "@/types";
 
 // Default configuration - this will later come from Contentful
 const defaultFooterConfig: FooterConfig = {
