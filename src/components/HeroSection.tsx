@@ -1,10 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+import type { HeroConfig, HeroImage, HeroButton, HeroContent } from "@/types";
 
-const HeroSection = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  
-  const images = [
+// Default configuration - this will later come from Contentful
+const defaultHeroConfig: HeroConfig = {
+  content: {
+    title: "Building community through Christ",
+    description: "Join us as we gather to worship, grow in faith, and serve our community together. Experience God's love in a welcoming environment where everyone belongs.",
+    buttons: [
+      { label: "Join Us Sunday", variant: "primary" },
+      { label: "Plan Your Visit", variant: "secondary" },
+    ]
+  },
+  images: [
     {
       src: "/Church-Conference.jpg",
       alt: "Church conference with speaker and congregation"
@@ -13,18 +21,31 @@ const HeroSection = () => {
       src: "/worship-conference.jpeg", 
       alt: "Worship service with band and congregation"
     }
-  ];
+  ],
+  autoChangeInterval: 12000,
+  connectButtonLabel: "Connect with us"
+};
 
-  // Auto-change images every 12 seconds (slower)
+interface HeroSectionProps {
+  config?: Partial<HeroConfig>;
+}
+
+const HeroSection = ({ config }: HeroSectionProps) => {
+  const heroConfig = { ...defaultHeroConfig, ...config };
+  const { content, images, autoChangeInterval, connectButtonLabel } = heroConfig;
+  
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Auto-change images
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => 
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       );
-    }, 12000);
+    }, autoChangeInterval);
 
     return () => clearInterval(interval);
-  }, [images.length]);
+  }, [images.length, autoChangeInterval]);
 
   return (
     <section className="relative h-[90vh] bg-secondary overflow-hidden">
@@ -67,49 +88,57 @@ const HeroSection = () => {
           <div className="max-w-2xl">
             {/* Main Heading - Tighter spacing */}
             <h1 className="text-5xl lg:text-7xl font-bold text-primary leading-[0.85] mb-8 drop-shadow-lg">
-              Building community
-              <br />
-              <span className="text-primary">through Christ</span>
+              {content.title}
+              {content.subtitle && (
+                <>
+                  <br />
+                  <span className="text-primary">{content.subtitle}</span>
+                </>
+              )}
             </h1>
 
             {/* Description */}
             <p className="text-lg lg:text-xl text-primary/90 leading-relaxed mb-10 max-w-xl drop-shadow-md">
-              Join us as we gather to worship, grow in faith, and serve our community together. 
-              Experience God's love in a welcoming environment where everyone belongs.
+              {content.description}
             </p>
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <Button 
-                size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
-              >
-                Join Us Sunday
-              </Button>
-              
-              <Button 
-                variant="secondary"
-                size="lg"
-                className="bg-tertiary hover:bg-tertiary/90 text-tertiary-foreground px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
-              >
-                Plan Your Visit
-              </Button>
+              {content.buttons.map((button, index) => (
+                <Button
+                  key={index}
+                  size="lg"
+                  className={
+                    button.variant === 'primary'
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                      : "bg-tertiary hover:bg-tertiary/90 text-tertiary-foreground px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                  }
+                  onClick={button.onClick}
+                  asChild={!!button.href}
+                >
+                  {button.href ? (
+                    <a href={button.href}>{button.label}</a>
+                  ) : (
+                    button.label
+                  )}
+                </Button>
+              ))}
             </div>
-
-            
           </div>
         </div>
       </div>
 
       {/* Connect Widget - Bottom Right */}
-      <div className="absolute bottom-6 right-6 z-30">
-        <Button 
-          variant="secondary"
-          className="bg-primary/10 backdrop-blur-sm text-primary border border-primary/20 hover:bg-primary/20 px-5 py-2.5 text-sm rounded-full shadow-lg transition-all duration-300"
-        >
-          Connect with us
-        </Button>
-      </div>
+      {connectButtonLabel && (
+        <div className="absolute bottom-6 right-6 z-30">
+          <Button 
+            variant="secondary"
+            className="bg-primary/10 backdrop-blur-sm text-primary border border-primary/20 hover:bg-primary/20 px-5 py-2.5 text-sm rounded-full shadow-lg transition-all duration-300"
+          >
+            {connectButtonLabel}
+          </Button>
+        </div>
+      )}
 
       {/* Image Indicators - Bottom Center */}
       <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-30 flex space-x-2">
