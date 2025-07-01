@@ -81,8 +81,10 @@ const ChatBot: React.FC = () => {
           <Button
             size="lg"
             className={cn(
-              'fixed bottom-6 right-6 z-40 rounded-full shadow-lg transition-all flex items-center space-x-2',
-              'bg-primary/10 backdrop-blur-sm text-primary border border-primary/20 hover:bg-primary/20 px-6 py-3'
+              'fixed bottom-6 right-6 z-40 rounded-full shadow-2xl transition-all flex items-center space-x-2',
+              'bg-white dark:bg-gray-900 text-gray-900 dark:text-white border-2 border-gray-200 dark:border-gray-700',
+              'hover:bg-gray-50 dark:hover:bg-gray-800 hover:shadow-xl hover:scale-105',
+              'backdrop-blur-sm px-6 py-3'
             )}
           >
             <MessageCircle className="h-5 w-5" />
