@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
 import Image from "next/image";
-import Link from 'next/link';
-import * as React from 'react';
+import Link from "next/link";
+import * as React from "react";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -47,40 +47,93 @@ const defaultHeaderConfig: HeaderConfig = {
   },
   navigationItems: [
     { href: "/", label: "Home" },
-    { 
-      href: "/about", 
+    {
+      href: "/about",
       label: "About Us",
       children: [
-        { href: "/about/who-we-are", label: "Who We Are", icon: Users, description: "Our mission, vision, and beliefs." },
-        { href: "/about/meet-the-team", label: "Meet the Team", icon: UserCheck, description: "Get to know our pastors and staff." },
-        { href: "/about/our-message", label: "Our Message", icon: BookOpen, description: "Explore the core of our teachings." },
-      ]
+        {
+          href: "/about/who-we-are",
+          label: "Who We Are",
+          icon: Users,
+          description: "Our mission, vision, and beliefs.",
+        },
+        {
+          href: "/about/meet-the-team",
+          label: "Meet the Team",
+          icon: UserCheck,
+          description: "Get to know our pastors and staff.",
+        },
+        {
+          href: "/about/our-message",
+          label: "Our Message",
+          icon: BookOpen,
+          description: "Explore the core of our teachings.",
+        },
+      ],
     },
-    { 
-      href: "/what-we-do", 
+    {
+      href: "/what-we-do",
       label: "What We Do",
       children: [
-        { href: "/what-we-do/events-outreaches", label: "Events & Outreaches", icon: Calendar, description: "Find upcoming church and community events." },
-        { href: "/what-we-do/healing-lifting-resources", label: "Healing Resources", icon: HeartPulse, description: "Support for your spiritual and emotional needs." },
-        { href: "/what-we-do/access-consultation-services", label: "Consultation Services", icon: Handshake, description: "Get guidance from our pastoral team." },
-        { href: "/what-we-do/blog", label: "Blog", icon: BookOpen, description: "Read our latest articles and insights." },
-      ]
+        {
+          href: "/what-we-do/events-outreaches",
+          label: "Events & Outreaches",
+          icon: Calendar,
+          description: "Find upcoming church and community events.",
+        },
+        {
+          href: "/what-we-do/healing-lifting-resources",
+          label: "Healing Resources",
+          icon: HeartPulse,
+          description: "Support for your spiritual and emotional needs.",
+        },
+        {
+          href: "/what-we-do/access-consultation-services",
+          label: "Consultation Services",
+          icon: Handshake,
+          description: "Get guidance from our pastoral team.",
+        },
+        {
+          href: "/what-we-do/blog",
+          label: "Blog",
+          icon: BookOpen,
+          description: "Read our latest articles and insights.",
+        },
+      ],
     },
-    { 
-      href: "/get-involved", 
+    {
+      href: "/get-involved",
       label: "Get Involved",
       children: [
-        { href: "/get-involved/volunteer-with-us", label: "Volunteer With Us", icon: HandHelping, description: "Use your gifts to serve the community." },
-        { href: "/get-involved/send-help", label: "Send Help (Help Code)", icon: HelpCircle, description: "Give or receive help from the church body." },
-        { href: "/get-involved/order-a-tract", label: "Order a Tract", icon: BookOpen, description: "Share your faith with gospel literature." },
-        { href: "/get-involved/find-a-church", label: "Find a Church", icon: Church, description: "Locate a like-minded church in another area." },
-      ]
+        {
+          href: "/get-involved/volunteer-with-us",
+          label: "Volunteer With Us",
+          icon: HandHelping,
+          description: "Use your gifts to serve the community.",
+        },
+        {
+          href: "/get-involved/send-help",
+          label: "Send Help (Help Code)",
+          icon: HelpCircle,
+          description: "Give or receive help from the church body.",
+        },
+        {
+          href: "/get-involved/order-a-tract",
+          label: "Order a Tract",
+          icon: BookOpen,
+          description: "Share your faith with gospel literature.",
+        },
+        {
+          href: "/get-involved/find-a-church",
+          label: "Find a Church",
+          icon: Church,
+          description: "Locate a like-minded church in another area.",
+        },
+      ],
     },
     { href: "/contact", label: "Contact" },
   ],
-  actionButtons: [
-    { label: "Donate", variant: "default", href: "/donate" },
-  ],
+  actionButtons: [{ label: "Donate", variant: "default", href: "/donate" }],
   mobileMenuTitle: "Christ Community",
   mobileMenuDescription: "Building faith, strengthening community",
 };
@@ -88,15 +141,18 @@ const defaultHeaderConfig: HeaderConfig = {
 const menuHighlights = {
   "About Us": {
     title: "Our Core Identity",
-    description: "Learn about our foundational beliefs and the people leading our church.",
+    description:
+      "Learn about our foundational beliefs and the people leading our church.",
   },
   "What We Do": {
     title: "Serving & Healing",
-    description: "See the various ways we minister to our congregation and community.",
+    description:
+      "See the various ways we minister to our congregation and community.",
   },
   "Get Involved": {
     title: "Join Our Cause",
-    description: "Find your place to serve and connect with the heart of our mission.",
+    description:
+      "Find your place to serve and connect with the heart of our mission.",
   },
 };
 
@@ -106,7 +162,13 @@ interface HeaderProps {
 
 const Header = ({ config }: HeaderProps) => {
   const headerConfig = { ...defaultHeaderConfig, ...config };
-  const { logo, navigationItems, actionButtons, mobileMenuTitle, mobileMenuDescription } = headerConfig;
+  const {
+    logo,
+    navigationItems,
+    actionButtons,
+    mobileMenuTitle,
+    mobileMenuDescription,
+  } = headerConfig;
 
   return (
     <header className="w-full bg-background/95 backdrop-blur-sm border-b border-border/20 sticky top-0 z-50">
@@ -130,7 +192,9 @@ const Header = ({ config }: HeaderProps) => {
                   <NavigationMenuItem key={item.label}>
                     {item.children ? (
                       <>
-                        <NavigationMenuTrigger className="text-base bg-transparent">{item.label}</NavigationMenuTrigger>
+                        <NavigationMenuTrigger className="text-base bg-transparent">
+                          {item.label}
+                        </NavigationMenuTrigger>
                         <NavigationMenuContent>
                           <div className="flex w-[600px] md:w-[700px] lg:w-[850px] shadow-lg">
                             <div className="relative overflow-hidden w-[300px] p-6 flex flex-col justify-center bg-gradient-to-b from-accent/60 via-background to-background rounded-l-md border-r border-border/20">
@@ -139,24 +203,30 @@ const Header = ({ config }: HeaderProps) => {
                               <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-secondary/5 -translate-x-1/2 -translate-y-1/2 rounded-full blur-md" />
                               <div className="relative z-10">
                                 <h3 className="text-xl font-bold text-foreground">
-                                  {menuHighlights[item.label as keyof typeof menuHighlights]?.title || item.label}
+                                  {menuHighlights[
+                                    item.label as keyof typeof menuHighlights
+                                  ]?.title || item.label}
                                 </h3>
                                 <p className="text-sm text-muted-foreground mt-2">
-                                  {menuHighlights[item.label as keyof typeof menuHighlights]?.description || "Explore this section to learn more."}
+                                  {menuHighlights[
+                                    item.label as keyof typeof menuHighlights
+                                  ]?.description ||
+                                    "Explore this section to learn more."}
                                 </p>
                               </div>
                             </div>
                             <ul className="grid flex-1 gap-3 p-4 md:grid-cols-2">
                               <ListItem
-                                  key={`${item.label}-overview`}
-                                  title={`${item.label} Overview`}
-                                  href={item.href}
-                                  icon={LayoutGrid}
-                                  liClassName="md:col-span-2"
-                                  className="bg-accent/50 border border-border/30"
-                                >
-                                  Get a complete overview of the {item.label.toLowerCase()} section.
-                                </ListItem>
+                                key={`${item.label}-overview`}
+                                title={`${item.label} Overview`}
+                                href={item.href}
+                                icon={LayoutGrid}
+                                liClassName="md:col-span-2"
+                                className="bg-accent/50 border border-border/30"
+                              >
+                                Get a complete overview of the{" "}
+                                {item.label.toLowerCase()} section.
+                              </ListItem>
                               {item.children.map((component) => (
                                 <ListItem
                                   key={component.label}
@@ -173,7 +243,12 @@ const Header = ({ config }: HeaderProps) => {
                       </>
                     ) : (
                       <Link href={item.href} legacyBehavior passHref>
-                        <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "text-base bg-transparent")}>
+                        <NavigationMenuLink
+                          className={cn(
+                            navigationMenuTriggerStyle(),
+                            "text-base bg-transparent"
+                          )}
+                        >
                           {item.label}
                         </NavigationMenuLink>
                       </Link>
@@ -187,13 +262,13 @@ const Header = ({ config }: HeaderProps) => {
           <div className="flex items-center space-x-3">
             <div className="hidden sm:flex items-center space-x-3">
               {actionButtons.map((button) => (
-                <Button 
-                  key={button.label} 
-                  asChild 
-                  size="lg" 
+                <Button
+                  key={button.label}
+                  asChild
+                  size="lg"
                   className="bg-tertiary text-tertiary-foreground hover:bg-tertiary/90 shadow-md hover:shadow-lg transition-all"
                 >
-                  <Link href={button.href || '#'} >{button.label}</Link>
+                  <Link href={button.href || "#"}>{button.label}</Link>
                 </Button>
               ))}
             </div>
@@ -216,41 +291,48 @@ const Header = ({ config }: HeaderProps) => {
                     />
                     <span className="text-foreground">{mobileMenuTitle}</span>
                   </SheetTitle>
-                  <SheetDescription>
-                    {mobileMenuDescription}
-                  </SheetDescription>
+                  <SheetDescription>{mobileMenuDescription}</SheetDescription>
                 </SheetHeader>
-                
+
                 <div className="flex flex-col space-y-1 mt-8">
                   {navigationItems.map((item) => (
                     <div key={item.label} className="flex flex-col space-y-1">
-                      <Link href={item.href} className="flex items-center justify-between py-3 px-4 text-foreground hover:text-tertiary hover:bg-accent rounded-md transition-all duration-200 font-medium border border-transparent">
+                      <Link
+                        href={item.href}
+                        className="flex items-center justify-between py-3 px-4 text-foreground hover:text-tertiary hover:bg-accent rounded-md transition-all duration-200 font-medium border border-transparent"
+                      >
                         <span>{item.label}</span>
                         {item.children && <ChevronDown className="h-4 w-4" />}
                       </Link>
                       {item.children && (
                         <div className="ml-4 flex flex-col space-y-1">
-                           {item.children.map(child => (
-                            <Link key={child.label} href={child.href} className="flex items-center py-2 px-3 text-sm text-muted-foreground hover:text-tertiary hover:bg-accent rounded-md transition-all duration-200">
-                               {child.icon && <child.icon className="w-4 h-4 mr-2" />}
-                               <span>{child.label}</span>
-                             </Link>
-                           ))}
+                          {item.children.map((child) => (
+                            <Link
+                              key={child.label}
+                              href={child.href}
+                              className="flex items-center py-2 px-3 text-sm text-muted-foreground hover:text-tertiary hover:bg-accent rounded-md transition-all duration-200"
+                            >
+                              {child.icon && (
+                                <child.icon className="w-4 h-4 mr-2" />
+                              )}
+                              <span>{child.label}</span>
+                            </Link>
+                          ))}
                         </div>
                       )}
                     </div>
                   ))}
                 </div>
-                
+
                 <div className="absolute bottom-6 left-6 right-6 flex flex-col space-y-3">
                   {actionButtons.map((button) => (
-                    <Button 
-                      key={button.label} 
-                      asChild 
+                    <Button
+                      key={button.label}
+                      asChild
                       className="w-full bg-tertiary text-tertiary-foreground hover:bg-tertiary/90"
                       size="lg"
                     >
-                      <Link href={button.href || '#'}>{button.label}</Link>
+                      <Link href={button.href || "#"}>{button.label}</Link>
                     </Button>
                   ))}
                 </div>
@@ -265,38 +347,48 @@ const Header = ({ config }: HeaderProps) => {
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a"> & { icon?: React.ComponentType<{ className?: string }>, liClassName?: string }
->(({ className, title, children, href, icon: Icon, liClassName, ...props }, ref) => {
-  return (
-    <li className={cn(liClassName)}>
-      <NavigationMenuLink asChild>
-        <Link
-          href={href || '#'}
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="flex items-start space-x-3">
-            {Icon && (
-              <div className="p-1.5 bg-tertiary/10 rounded-md mt-1 flex-shrink-0">
-                <Icon className="h-5 w-5 text-tertiary" />
-              </div>
+  React.ComponentPropsWithoutRef<"a"> & {
+    icon?: React.ComponentType<{ className?: string }>;
+    liClassName?: string;
+  }
+>(
+  (
+    { className, title, children, href, icon: Icon, liClassName, ...props },
+    ref
+  ) => {
+    return (
+      <li className={cn(liClassName)}>
+        <NavigationMenuLink asChild>
+          <Link
+            href={href || "#"}
+            ref={ref}
+            className={cn(
+              "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+              className
             )}
-            <div>
-              <div className="text-base font-medium text-foreground">{title}</div>
-              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                {children}
-              </p>
+            {...props}
+          >
+            <div className="flex items-start space-x-3">
+              {Icon && (
+                <div className="p-1.5 bg-tertiary/10 rounded-md mt-1 flex-shrink-0">
+                  <Icon className="h-5 w-5 text-tertiary" />
+                </div>
+              )}
+              <div>
+                <div className="text-base font-medium text-foreground">
+                  {title}
+                </div>
+                <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                  {children}
+                </p>
+              </div>
             </div>
-          </div>
-        </Link>
-      </NavigationMenuLink>
-    </li>
-  );
-});
+          </Link>
+        </NavigationMenuLink>
+      </li>
+    );
+  }
+);
 ListItem.displayName = "ListItem";
 
-export default Header; 
+export default Header;
