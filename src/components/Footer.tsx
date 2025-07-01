@@ -61,7 +61,7 @@ const defaultFooterConfig: FooterConfig = {
     { name: "Wednesday Bible Study", time: "7:00 PM" },
     { name: "Youth Group", time: "Friday 6:30 PM" },
   ],
-  copyrightText: "© 2024 Christ Community Church. All rights reserved.",
+  copyrightText: "©2025 Christ Community. All rights reserved.",
   legalLinks: [
     { href: "#", label: "Privacy Policy" },
     { href: "#", label: "Terms of Service" },
@@ -77,9 +77,18 @@ const Footer = ({ config }: FooterProps) => {
   const { churchInfo, quickLinks, contactInfo, serviceTimes, copyrightText, legalLinks } = footerConfig;
 
   return (
-    <footer className="bg-secondary text-primary border-t border-primary/10">
+    <footer className="relative bg-secondary text-primary">
+      {/* Top gradient line matching hero bottom line */}
+      <div className="absolute top-0 left-0 right-0">
+        <div className="h-1 bg-gradient-to-l from-tertiary/60 via-tertiary to-tertiary/60 shadow-lg"></div>
+        <div className="h-0.5 bg-gradient-to-l from-transparent via-tertiary/60 to-transparent blur-sm -mt-0.5"></div>
+      </div>
+
+      {/* Left to right gradient matching hero style */}
+      <div className="absolute inset-0 bg-gradient-to-r from-tertiary/30 via-secondary to-primary/10 pointer-events-none"></div>
+
       {/* Main Footer Content */}
-      <div className="container mx-auto px-6 lg:px-12 py-16">
+      <div className="relative container mx-auto px-6 lg:px-12 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           
           {/* Church Info Section */}
@@ -178,8 +187,9 @@ const Footer = ({ config }: FooterProps) => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-primary/10">
-        <div className="container mx-auto px-6 lg:px-12 py-6">
+      <div className="relative border-t border-primary/10">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-tertiary/5 to-transparent"></div>
+        <div className="relative container mx-auto px-6 lg:px-12 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-primary/60 text-sm">
               {copyrightText}

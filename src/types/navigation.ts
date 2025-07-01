@@ -1,7 +1,12 @@
+import React from 'react';
+
 export interface NavigationItem {
   href: string;
   label: string;
   isExternal?: boolean;
+  icon?: React.ComponentType<{ className?: string }>;
+  description?: string;
+  children?: NavigationItem[];
 }
 
 export interface ActionButton {

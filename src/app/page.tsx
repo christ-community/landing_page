@@ -1,25 +1,16 @@
 'use client';
 
-import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-accent/20 to-background">
-      {/* Header Component */}
-      <Header />
-      
-      {/* Hero Section */}
+    <>
       <HeroSection />
       
-      {/* Main Content Area */}
-      <main className="container mx-auto px-4 lg:px-8 py-12">
+      <div className="container mx-auto px-4 lg:px-8 py-12">
         {/* Additional content sections will be added here later */}
-      </main>
-
-      {/* Footer Component */}
-      <Footer />
-    </div>
+        <h2 className="text-2xl font-bold">Main Content Area</h2>
+      </div>
+    </>
   );
 }
