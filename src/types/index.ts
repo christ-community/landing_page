@@ -31,4 +31,7 @@ export type {
   ContentfulAsset,
   SEOData,
   PageConfig,
-} from './common'; 
+} from './common';
+
+// What We Do & Resources
+export type { MinistryActivity, HealingResource, ResourceFormat } from './whatWeDo'; 
