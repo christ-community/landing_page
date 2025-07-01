@@ -6,6 +6,7 @@ import HealingResourcesSection from '@/app/(home)/components/HealingResourcesSec
 import UpcomingEventsSection from '@/components/UpcomingEventsSection';
 import NewsletterSection from '@/components/NewsletterSection';
 import HelpSection from '@/components/HelpSection';
+import ChurchFinderSection from '@/components/ChurchFinderSection';
 
 export default function HomePage() {
   return (
@@ -16,6 +17,7 @@ export default function HomePage() {
       <UpcomingEventsSection />
       <HelpSection />
       <NewsletterSection />
+      <ChurchFinderSection />
     </>
   );
 } 

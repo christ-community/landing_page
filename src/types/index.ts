@@ -38,4 +38,5 @@ export type { MinistryActivity, HealingResource, ResourceFormat } from './whatWe
 // Newsletter
 export type { NewsletterConfig } from './newsletter';
 export type { HelpOption } from './help';
-export type { Event, EventsConfig, EventCategory } from './events'; 
+export type { Event, EventsConfig, EventCategory } from './events';
+export type { Church, ChurchFinderConfig, UserLocation, SearchFilters } from './church'; 
