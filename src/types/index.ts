@@ -36,4 +36,5 @@ export type {
 // What We Do & Resources
 export type { MinistryActivity, HealingResource, ResourceFormat } from './whatWeDo';
 // Newsletter
-export type { NewsletterConfig } from './newsletter'; 
+export type { NewsletterConfig } from './newsletter';
+export type { HelpOption } from './help'; 
