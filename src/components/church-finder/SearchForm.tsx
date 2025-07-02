@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
+import { Search, LocateFixed } from 'lucide-react';
 
 interface SearchFormProps {
   searchValue: string;
@@ -13,9 +13,10 @@ interface SearchFormProps {
   onSearchValueChange: (value: string) => void;
   onSearch: () => void;
   onKeyDown: (e: React.KeyboardEvent) => void;
+  onUseMyLocation: () => void;
 }
 
-export default function SearchForm({
+const SearchForm = forwardRef<HTMLInputElement, SearchFormProps>(({
   searchValue,
   isSearching,
   mapLoaded,
@@ -24,21 +25,34 @@ export default function SearchForm({
   searchButtonText,
   onSearchValueChange,
   onSearch,
-  onKeyDown
-}: SearchFormProps) {
+  onKeyDown,
+  onUseMyLocation
+}, ref) => {
   return (
     <div className="bg-white/80 dark:bg-black/20 backdrop-blur-md border border-border/30 rounded-2xl p-8 shadow-xl">
         <div className="flex flex-col lg:flex-row gap-4">
-          <div className="flex-1">
+          <div className="relative flex-1">
             <Input
+              ref={ref}
               type="text"
               placeholder={searchPlaceholder}
               value={searchValue}
               onChange={(e) => onSearchValueChange(e.target.value)}
               onKeyDown={onKeyDown}
-              className="h-12 text-lg"
+              className="h-12 text-lg pl-4 pr-12"
               disabled={isSearching || !mapLoaded}
             />
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-full"
+              onClick={onUseMyLocation}
+              disabled={isSearching || !mapLoaded}
+              aria-label="Use my location"
+              title="Find churches near me"
+            >
+              <LocateFixed className="h-5 w-5" />
+            </Button>
           </div>
           <div className="flex justify-center">
             <Button
@@ -75,4 +89,8 @@ export default function SearchForm({
         )}
     </div>
   );
-} 
+});
+
+SearchForm.displayName = 'SearchForm';
+
+export default SearchForm; 

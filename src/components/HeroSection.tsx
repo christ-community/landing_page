@@ -68,7 +68,7 @@ const HeroSection = ({ config }: HeroSectionProps) => {
               <img 
                 src={image.src} 
                 alt={image.alt}
-                className="w-full h-full object-cover transform scale-110 rotate-3"
+                className="w-full h-full object-cover"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   const parent = e.currentTarget.parentElement;

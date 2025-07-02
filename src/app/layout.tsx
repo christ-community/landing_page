@@ -40,6 +40,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground flex flex-col h-full`}
       >
+        <div className="h-1 bg-gradient-to-r from-tertiary/80 via-primary/80 to-tertiary/80" />
         <Header />
         <main className="flex-grow bg-gradient-to-br from-background via-accent/20 to-background">
           {children}

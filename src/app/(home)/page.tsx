@@ -7,17 +7,19 @@ import UpcomingEventsSection from '@/components/UpcomingEventsSection';
 import NewsletterSection from '@/components/NewsletterSection';
 import HelpSection from '@/components/HelpSection';
 import ChurchFinderSection from '@/components/ChurchFinderSection';
+import GiveToday from '@/components/GiveToday';
 
 export default function HomePage() {
   return (
     <>
       <HeroSection />
       <WhatWeDoSection />
-      <HealingResourcesSection />
+      <GiveToday />
       <UpcomingEventsSection />
-      <HelpSection />
       <NewsletterSection />
       <ChurchFinderSection />
+      <HealingResourcesSection />
+      <HelpSection />
     </>
   );
 } 

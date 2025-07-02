@@ -46,7 +46,14 @@ export default function ChurchMap({
         ]
       });
     }
-  }, [mapLoaded, mapCenter, defaultZoom]);
+  }, [mapLoaded, defaultZoom]);
+
+  // Pan map when center changes
+  useEffect(() => {
+    if (mapInstanceRef.current && mapCenter) {
+      mapInstanceRef.current.panTo(mapCenter);
+    }
+  }, [mapCenter]);
 
   // Update map markers
   useEffect(() => {
@@ -115,8 +122,8 @@ export default function ChurchMap({
       markersRef.current.push(marker);
     });
 
-    // Fit map to show all markers
-    if (markersRef.current.length > 0) {
+    // Fit map to show all markers only when there is no selected church
+    if (markersRef.current.length > 0 && !selectedChurch) {
       const bounds = new window.google.maps.LatLngBounds();
       markersRef.current.forEach(marker => bounds.extend(marker.getPosition()));
       mapInstanceRef.current.fitBounds(bounds);
@@ -129,7 +136,7 @@ export default function ChurchMap({
         window.google.maps.event.removeListener(listener);
       });
     }
-  }, [churches, userLocation, onChurchSelect]);
+  }, [churches, userLocation, onChurchSelect, selectedChurch]);
 
   return (
     <div className="bg-white/80 dark:bg-black/20 backdrop-blur-md border border-border/30 rounded-2xl p-6 shadow-xl">

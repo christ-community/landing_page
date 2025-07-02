@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Loader } from '@googlemaps/js-api-loader';
 import SearchForm from './church-finder/SearchForm';
 import ChurchList from './church-finder/ChurchList';
 import ChurchMap from './church-finder/ChurchMap';
@@ -83,9 +84,9 @@ const realChurches: Church[] = [
       sunday: '10:00 AM & 6:00 PM',
       other: ['Hillsong Young & Free Sunday 6:00 PM']
     },
-    pastor: 'Gary Clarke',
-    denomination: 'Pentecostal',
-    image: '/worship-conference.jpeg'
+    pastor: 'Greg Haslam',
+    denomination: 'Independent Evangelical',
+    image: '/Church-Conference.jpg'
   },
   {
     id: '4',
@@ -157,14 +158,77 @@ const realChurches: Church[] = [
     pastor: 'Greg Haslam',
     denomination: 'Independent Evangelical',
     image: '/Church-Conference.jpg'
+  },
+  {
+    id: '7',
+    name: 'Bethel Community Church',
+    address: {
+      street: '434 Corporation Rd',
+      city: 'Newport',
+      state: 'Gwent',
+      postcode: 'NP19 0GB',
+      country: 'UK'
+    },
+    coordinates: { lat: 51.5794, lng: -2.9782 },
+    contact: {
+      phone: '+44 1633 266477',
+      website: 'https://www.bethelnewport.co.uk'
+    },
+    services: {
+      sunday: '11:00 AM & 6:00 PM'
+    },
+    denomination: 'Pentecostal',
+    image: '/worship-conference.jpeg'
+  },
+  {
+    id: '8',
+    name: 'St. Mary\'s Church',
+    address: {
+      street: 'St Mary\'s Square',
+      city: 'Swansea',
+      state: 'West Glamorgan',
+      postcode: 'SA1 3LP',
+      country: 'UK'
+    },
+    coordinates: { lat: 51.6189, lng: -3.9437 },
+    contact: {
+      phone: '+44 1792 655489',
+      website: 'https://www.swanseastmary.org.uk'
+    },
+    services: {
+      sunday: '9:30 AM & 11:00 AM'
+    },
+    denomination: 'Church in Wales',
+    image: '/Church-Conference.jpg'
+  },
+  {
+    id: '9',
+    name: 'Mount Pleasant Baptist Church',
+    address: {
+      street: 'The Kingsway',
+      city: 'Swansea',
+      state: 'West Glamorgan',
+      postcode: 'SA1 5AZ',
+      country: 'UK'
+    },
+    coordinates: { lat: 51.6214, lng: -3.9472 },
+    contact: {
+      phone: '+44 1792 654930',
+      website: 'https://www.mountpleasantswansea.org.uk/'
+    },
+    services: {
+      sunday: '10:30 AM & 6:00 PM'
+    },
+    denomination: 'Baptist',
+    image: '/worship-conference.jpeg'
   }
 ];
 
 const defaultConfig: ChurchFinderConfig = {
   title: 'Find a Church Near You',
   subtitle: 'Discover churches in your local area',
-  description: 'Enter your postcode to find churches near you. Connect with a local congregation and join a community of faith.',
-  searchPlaceholder: 'Enter your postcode (e.g., SW1A 1AA)',
+  description: 'Enter your location to find churches near you. Connect with a local congregation and join a community of faith.',
+  searchPlaceholder: 'Enter postcode, town, or city (e.g., London)',
   searchButtonText: 'Find Churches',
   mapCenter: { lat: 51.5074, lng: -0.1278 }, // London center
   defaultZoom: 12,
@@ -189,19 +253,53 @@ const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: numbe
 };
 
 // Real geocoding using Google Maps API
-const geocodePostcode = async (postcode: string): Promise<{ lat: number; lng: number } | null> => {
+const geocodeLocation = async (location: string): Promise<{ lat: number; lng: number } | null> => {
   if (!window.google) {
-    throw new Error('Google Maps API not loaded');
+    // This function will likely not be called if loader is used properly,
+    // but it's a good fallback.
+    console.error('Google Maps API not loaded');
+    return null;
   }
 
+  return new Promise((resolve, reject) => {
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode(
+      { address: location, componentRestrictions: { country: 'GB' } },
+      (
+        results: google.maps.GeocoderResult[] | null,
+        status: google.maps.GeocoderStatus
+      ) => {
+        if (status === 'OK' && results && results[0]) {
+          const location = results[0].geometry.location;
+          resolve({ lat: location.lat(), lng: location.lng() });
+        } else {
+          console.error(`Geocode was not successful for the following reason: ${status}`);
+          reject(new Error('Location not found'));
+        }
+      }
+    );
+  });
+};
+
+const reverseGeocode = async (coords: { lat: number; lng: number }): Promise<string> => {
+  if (!window.google) {
+    console.error('Google Maps API not loaded');
+    return 'Current Location';
+  }
   return new Promise((resolve) => {
     const geocoder = new window.google.maps.Geocoder();
-    geocoder.geocode({ address: postcode }, (results: any, status: any) => {
+    geocoder.geocode({ location: coords }, (
+      results: google.maps.GeocoderResult[] | null,
+      status: google.maps.GeocoderStatus
+    ) => {
       if (status === 'OK' && results && results[0]) {
-        const location = results[0].geometry.location;
-        resolve({ lat: location.lat(), lng: location.lng() });
+        // Find a suitable address component, like postal town or locality
+        const town = results[0].address_components.find(
+          (c: google.maps.GeocoderAddressComponent) => c.types.includes('postal_town') || c.types.includes('locality')
+        );
+        resolve(town ? town.long_name : results[0].formatted_address);
       } else {
-        resolve(null);
+        resolve('Current Location');
       }
     });
   });
@@ -210,6 +308,8 @@ const geocodePostcode = async (postcode: string): Promise<{ lat: number; lng: nu
 export default function ChurchFinderSection({ config }: ChurchFinderSectionProps) {
   const finderConfig = { ...defaultConfig, ...config };
   const [searchValue, setSearchValue] = useState('');
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
 
   const [churches] = useState<Church[]>(realChurches);
   const [filteredChurches, setFilteredChurches] = useState<Church[]>([]);
@@ -219,48 +319,111 @@ export default function ChurchFinderSection({ config }: ChurchFinderSectionProps
   const [hasSearched, setHasSearched] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState<string | null>(null);
+  const [userLocationSource, setUserLocationSource] = useState<'geolocation' | 'search' | null>(null);
+  const [mapCenter, setMapCenter] = useState(finderConfig.mapCenter);
+  const mapContainerRef = useRef<HTMLDivElement>(null);
 
-
-
-  // Load Google Maps
+  // Load Google Maps and initialize Autocomplete
   useEffect(() => {
-    const loadGoogleMaps = () => {
-      if (window.google) {
-        setMapLoaded(true);
-        return;
+    const loader = new Loader({
+      apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
+      version: 'weekly',
+      libraries: ['places'],
+    });
+
+    loader.load().then(() => {
+      setMapLoaded(true);
+      if (searchInputRef.current) {
+        const autocomplete = new window.google.maps.places.Autocomplete(
+          searchInputRef.current,
+          {
+            types: ['(regions)'], // Search for cities, towns, postcodes
+            componentRestrictions: { country: 'gb' },
+            fields: ['geometry', 'name'],
+          }
+        );
+        autocompleteRef.current = autocomplete;
+        autocomplete.addListener('place_changed', handlePlaceSelect);
       }
+    }).catch(e => {
+      console.error('Failed to load Google Maps', e);
+      setSearchError('Failed to load Google Maps');
+    });
 
-      const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`;
-      script.async = true;
-      script.defer = true;
-      script.onload = () => setMapLoaded(true);
-      script.onerror = () => setSearchError('Failed to load Google Maps');
-      document.head.appendChild(script);
+    return () => {
+      // Clean up listeners
+      if (autocompleteRef.current) {
+        window.google.maps.event.clearInstanceListeners(autocompleteRef.current);
+      }
     };
-
-    loadGoogleMaps();
   }, []);
 
+  const handlePlaceSelect = async () => {
+    const place = autocompleteRef.current?.getPlace();
+    if (place && place.geometry && place.geometry.location) {
+      const location = place.geometry.location;
+      const coords = { lat: location.lat(), lng: location.lng() };
+      setSearchValue(place.name || '');
+      await handleSearch(coords, place.name, 'search');
+    }
+  };
+
+  const handleUseMyLocation = () => {
+    if (navigator.geolocation) {
+      setIsSearching(true);
+      setSearchError(null);
+      setLoadingMessage('Retrieving your location...');
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const coords = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          const locationName = await reverseGeocode(coords);
+          setSearchValue(locationName);
+          await handleSearch(coords, locationName, 'geolocation');
+        },
+        () => {
+          setSearchError('Unable to retrieve your location. Please enable location services in your browser.');
+          setIsSearching(false);
+          setLoadingMessage(null);
+        }
+      );
+    } else {
+      setSearchError('Geolocation is not supported by your browser.');
+    }
+  };
+
   // Search for churches
-  const handleSearch = async () => {
-    if (!searchValue.trim() || !mapLoaded) return;
+  const handleSearch = async (coords?: { lat: number; lng: number }, locationName?: string, source: 'search' | 'geolocation' = 'search') => {
+    if ((!searchValue.trim() && !coords) || !mapLoaded) {
+      setIsSearching(false);
+      return;
+    };
     
+    setLoadingMessage('Searching for churches...');
     setIsSearching(true);
     setSearchError(null);
     setHasSearched(true);
     
     try {
-      const coordinates = await geocodePostcode(searchValue);
-      
+      let coordinates = coords;
       if (!coordinates) {
-        throw new Error('Location not found');
+        const geocodedCoords = await geocodeLocation(searchValue);
+        if (geocodedCoords) {
+          coordinates = geocodedCoords;
+        } else {
+          throw new Error('Location not found');
+        }
       }
       
       setUserLocation({
-        postcode: searchValue,
+        postcode: locationName || searchValue,
         coordinates
       });
+      setUserLocationSource(source);
+      setMapCenter(coordinates);
 
       // Calculate distances and filter churches
       let churchesWithDistance = churches.map(church => ({
@@ -284,18 +447,31 @@ export default function ChurchFinderSection({ config }: ChurchFinderSectionProps
       setFilteredChurches(churchesWithDistance);
       
     } catch (error) {
-      setSearchError('Unable to find location. Please check your postcode and try again.');
+      setSearchError('Unable to find location. Please check your search term and try again.');
       setFilteredChurches([]);
     } finally {
       setIsSearching(false);
+      setLoadingMessage(null);
     }
   };
 
   // Handle directions
   const handleGetDirections = (church: Church) => {
     const destination = `${church.address.street}, ${church.address.city}, ${church.address.postcode}`;
-    const url = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
+    const origin = userLocation?.coordinates ? `${userLocation.coordinates.lat},${userLocation.coordinates.lng}` : '';
+    const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${encodeURIComponent(destination)}`;
     window.open(url, '_blank');
+  };
+
+  const handleChurchSelect = (church: Church | null) => {
+    setSelectedChurch(church);
+    if (church) {
+      setMapCenter(church.coordinates);
+      // On small screens, scroll to the map
+      if (window.innerWidth < 1024 && mapContainerRef.current) {
+        mapContainerRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   };
 
   return (
@@ -314,6 +490,7 @@ export default function ChurchFinderSection({ config }: ChurchFinderSectionProps
         {/* Search Form */}
         <div className="max-w-4xl mx-auto mb-16">
           <SearchForm
+          ref={searchInputRef}
           searchValue={searchValue}
           isSearching={isSearching}
           mapLoaded={mapLoaded}
@@ -321,8 +498,9 @@ export default function ChurchFinderSection({ config }: ChurchFinderSectionProps
           searchPlaceholder={finderConfig.searchPlaceholder}
           searchButtonText={finderConfig.searchButtonText}
           onSearchValueChange={setSearchValue}
-          onSearch={handleSearch}
+          onSearch={() => handleSearch()}
           onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+          onUseMyLocation={handleUseMyLocation}
         />
         </div>
 
@@ -342,31 +520,32 @@ export default function ChurchFinderSection({ config }: ChurchFinderSectionProps
                       selectedChurch={selectedChurch}
                       hasSearched={hasSearched}
                       isSearching={isSearching}
-                      onChurchSelect={setSelectedChurch}
+                      onChurchSelect={handleChurchSelect}
                       onGetDirections={handleGetDirections}
+                      userLocationSource={userLocationSource}
                     />
                   </div>
                 </div>
 
                 {/* Map - Right Side */}
-                <div className="lg:sticky lg:top-24 h-fit">
+                <div ref={mapContainerRef} className="lg:sticky lg:top-24 h-fit">
                   <ChurchMap
                     churches={filteredChurches}
                     userLocation={userLocation}
                     selectedChurch={selectedChurch}
-                    mapCenter={finderConfig.mapCenter}
+                    mapCenter={mapCenter}
                     defaultZoom={finderConfig.defaultZoom}
                     mapLoaded={mapLoaded}
-                    onChurchSelect={setSelectedChurch}
+                    onChurchSelect={handleChurchSelect}
                   />
                 </div>
               </div>
             ) : (
               <div className="text-center py-12">
                 <div className="bg-white/80 dark:bg-black/20 backdrop-blur-md border border-border/30 rounded-2xl p-8 shadow-xl">
-                  <h3 className="text-xl font-bold text-foreground mb-4">No Churches Found</h3>
+                  <h3 className="text-xl font-bold text-foreground mb-4">No Church Recommendations Found</h3>
                   <p className="text-muted-foreground">
-                    We couldn't find any churches matching your search criteria. Try searching with a different location.
+                    We couldn't find any recommended churches matching your search. Please try a different location.
                   </p>
                 </div>
               </div>
@@ -379,7 +558,7 @@ export default function ChurchFinderSection({ config }: ChurchFinderSectionProps
           <div className="max-w-4xl mx-auto mb-16">
             <div className="text-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4" />
-              <p className="text-lg text-muted-foreground">Searching for churches...</p>
+              <p className="text-lg text-muted-foreground">{loadingMessage}</p>
             </div>
           </div>
         )}
@@ -394,7 +573,7 @@ export default function ChurchFinderSection({ config }: ChurchFinderSectionProps
               mapCenter={finderConfig.mapCenter}
               defaultZoom={finderConfig.defaultZoom}
               mapLoaded={mapLoaded}
-              onChurchSelect={setSelectedChurch}
+              onChurchSelect={handleChurchSelect}
             />
           </div>
         )}

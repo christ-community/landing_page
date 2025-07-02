@@ -6,7 +6,7 @@ export interface MinistryActivity {
   icon: ComponentType<{ className?: string }>;
 }
 
-export type ResourceFormat = 'PDF' | 'Video' | 'Audio';
+export type ResourceFormat = 'PDF' | 'Video' | 'Audio' | 'Article';
 
 export interface HealingResource {
   title: string;
