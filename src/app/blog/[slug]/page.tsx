@@ -1,14 +1,14 @@
-'use client';
-
-import React from 'react';
+import 'server-only';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import readingTime from 'reading-time';
 import { posts } from '@/lib/posts';
 import { Badge } from '@/components/ui/badge';
 import PostCard from '../components/PostCard';
 import NewsletterSection from '@/components/NewsletterSection';
+import { BookOpen } from 'lucide-react';
 
 interface BlogPostPageProps {
   params: {
@@ -16,27 +16,32 @@ interface BlogPostPageProps {
   };
 }
 
-const BlogPostPage = ({ params }: BlogPostPageProps) => {
+const BlogPostPage = async ({ params }: BlogPostPageProps) => {
   const { slug } = params;
   const post = posts.find((p) => p.href === `/blog/${slug}`);
 
-  if (!post) {
+  if (!post || !post.content) {
     notFound();
   }
 
+  const stats = readingTime(post.content);
   const otherPosts = posts.filter((p) => p.id !== post.id).slice(0, 3);
 
   return (
     <div className="py-24">
       <div className="container mx-auto px-6 lg:px-12">
         <article>
-          <header className="max-w-4xl mx-auto text-center mb-12">
+          <header className="max-w-3xl mx-auto text-center mb-12">
             <Badge variant="secondary" className="mb-4">{post.category}</Badge>
             <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">{post.title}</h1>
-            <div className="text-muted-foreground">
+            <div className="text-muted-foreground flex items-center justify-center space-x-4">
               <span>By {post.author.name}</span>
-              <span className="mx-2">•</span>
+              <span className="text-sm">•</span>
               <span>{post.date}</span>
+              <span className="text-sm">•</span>
+              <span className="flex items-center">
+                <BookOpen className="w-4 h-4 mr-1.5" /> {stats.text}
+              </span>
             </div>
           </header>
 
@@ -46,13 +51,13 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
               alt={post.title}
               width={1200}
               height={675}
-              className="object-cover w-full h-auto rounded-2xl shadow-lg"
+              className="object-cover w-full h-auto rounded-2xl shadow-lg max-w-5xl mx-auto"
             />
           </div>
 
-          <div className="prose prose-xl dark:prose-invert mx-auto">
+          <div className="prose prose-xl dark:prose-invert mx-auto max-w-3xl">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {post.content}
+              {post.content}
             </ReactMarkdown>
           </div>
         </article>
