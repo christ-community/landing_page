@@ -48,12 +48,15 @@ export default function ChurchMap({
     }
   }, [mapLoaded, defaultZoom]);
 
-  // Pan map when center changes
+  // Pan map when center changes and zoom on selection
   useEffect(() => {
     if (mapInstanceRef.current && mapCenter) {
       mapInstanceRef.current.panTo(mapCenter);
+      if (selectedChurch) {
+        mapInstanceRef.current.setZoom(18); // Zoom in on the selected church
+      }
     }
-  }, [mapCenter]);
+  }, [mapCenter, selectedChurch]);
 
   // Update map markers
   useEffect(() => {

@@ -38,15 +38,15 @@ export default function RootLayout({
         {/* React Scan will help monitor component performance and re-renders */}
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground flex flex-col h-full`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground flex flex-col h-screen`}
       >
         <div className="h-1 bg-gradient-to-r from-tertiary/80 via-primary/80 to-tertiary/80" />
         <Header />
-        <main className="flex-grow bg-gradient-to-br from-background via-accent/20 to-background">
+        <main className="flex-grow bg-gradient-to-br from-background via-accent/20 to-background overflow-y-auto">
           {children}
+          <Footer />
+          <ChatBot />
         </main>
-        <Footer />
-        <ChatBot />
       </body>
     </html>
   );

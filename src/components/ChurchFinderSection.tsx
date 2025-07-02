@@ -163,16 +163,16 @@ const realChurches: Church[] = [
     id: '7',
     name: 'Bethel Community Church',
     address: {
-      street: '434 Corporation Rd',
+      street: '40 Stow Hill',
       city: 'Newport',
       state: 'Gwent',
-      postcode: 'NP19 0GB',
+      postcode: 'NP20 1JG',
       country: 'UK'
     },
-    coordinates: { lat: 51.5794, lng: -2.9782 },
+    coordinates: { lat: 51.587, lng: -2.993 },
     contact: {
-      phone: '+44 1633 266477',
-      website: 'https://www.bethelnewport.co.uk'
+      phone: '+44 1633 221908',
+      website: 'https://bethelnewport.co.uk'
     },
     services: {
       sunday: '11:00 AM & 6:00 PM'

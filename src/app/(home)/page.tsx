@@ -8,6 +8,7 @@ import NewsletterSection from '@/components/NewsletterSection';
 import HelpSection from '@/components/HelpSection';
 import ChurchFinderSection from '@/components/ChurchFinderSection';
 import GiveToday from '@/components/GiveToday';
+import BlogSection from "@/components/BlogSection";
 
 export default function HomePage() {
   return (
@@ -20,6 +21,7 @@ export default function HomePage() {
       <ChurchFinderSection />
       <HealingResourcesSection />
       <HelpSection />
+      <BlogSection />
     </>
   );
 } 
