@@ -93,12 +93,6 @@ const defaultHeaderConfig: HeaderConfig = {
           icon: Handshake,
           description: "Get guidance from our pastoral team.",
         },
-        {
-          href: "/what-we-do/blog",
-          label: "Blog",
-          icon: BookOpen,
-          description: "Read our latest articles and insights.",
-        },
       ],
     },
     {
@@ -131,6 +125,7 @@ const defaultHeaderConfig: HeaderConfig = {
         },
       ],
     },
+    { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
   ],
   actionButtons: [{ label: "Donate", variant: "default", href: "/donate" }],

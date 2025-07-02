@@ -29,7 +29,7 @@ export default function ChurchList({
       {churches.map((church) => {
         const churchWithDistance = {
           ...church,
-          distance: userLocationSource === 'geolocation' ? church.distance : undefined
+          distance: userLocationSource ? church.distance : undefined
         };
         
         return (

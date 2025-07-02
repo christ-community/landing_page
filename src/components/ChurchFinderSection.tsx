@@ -311,7 +311,7 @@ export default function ChurchFinderSection({ config }: ChurchFinderSectionProps
   const searchInputRef = useRef<HTMLInputElement>(null);
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
 
-  const [churches] = useState<Church[]>(realChurches);
+  const [churches, setChurches] = useState<Church[]>(realChurches);
   const [filteredChurches, setFilteredChurches] = useState<Church[]>([]);
   const [selectedChurch, setSelectedChurch] = useState<Church | null>(null);
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
@@ -323,6 +323,30 @@ export default function ChurchFinderSection({ config }: ChurchFinderSectionProps
   const [userLocationSource, setUserLocationSource] = useState<'geolocation' | 'search' | null>(null);
   const [mapCenter, setMapCenter] = useState(finderConfig.mapCenter);
   const mapContainerRef = useRef<HTMLDivElement>(null);
+
+  // Geocode church addresses on load
+  useEffect(() => {
+    if (mapLoaded) {
+      const geocodeChurches = async () => {
+        const geocodedChurches = await Promise.all(
+            realChurches.map(async (church) => {
+            try {
+              const address = `${church.address.street}, ${church.address.city}, ${church.address.postcode}`;
+              const coords = await geocodeLocation(address);
+              if (coords) {
+                return { ...church, coordinates: coords };
+              }
+            } catch (error) {
+              console.error(`Could not geocode address for ${church.name}:`, error);
+            }
+            return church; // return original church if geocoding fails
+          })
+        );
+        setChurches(geocodedChurches);
+      };
+      geocodeChurches();
+    }
+  }, [mapLoaded]);
 
   // Load Google Maps and initialize Autocomplete
   useEffect(() => {
