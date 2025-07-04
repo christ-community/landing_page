@@ -64,3 +64,5 @@ export * from './volunteer';
 export * from './tract';
 export * from './sendHelp';
 export * from './getInvolved';
+export * from './eventsOutreaches';
+export * from './consultation';
