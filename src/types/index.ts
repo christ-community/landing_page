@@ -66,3 +66,4 @@ export * from './sendHelp';
 export * from './getInvolved';
 export * from './eventsOutreaches';
 export * from './consultation';
+export * from './whatWeDoPage';
