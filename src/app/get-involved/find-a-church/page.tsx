@@ -40,7 +40,9 @@ export default function FindAChurchPage() {
       <FeaturedChurches />
       
       {/* Main Church Finder */}
-      <ChurchFinderSection config={churchFinderConfig} />
+      <div data-section="church-finder">
+        <ChurchFinderSection config={churchFinderConfig} />
+      </div>
       
       {/* Visitor Guide */}
       <ChurchVisitorGuide />

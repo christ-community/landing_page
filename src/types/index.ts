@@ -39,4 +39,13 @@ export type { MinistryActivity, HealingResource, ResourceFormat } from './whatWe
 export type { NewsletterConfig } from './newsletter';
 export type { HelpOption } from './help';
 export type { Event, EventsConfig, EventCategory } from './events';
-export type { Church, ChurchFinderConfig, UserLocation, SearchFilters } from './church'; 
+export type { Church, ChurchFinderConfig, UserLocation, SearchFilters } from './church';
+export type { 
+  VolunteerOpportunity, 
+  VolunteerHeroConfig, 
+  VolunteerProcess, 
+  VolunteerTestimonial, 
+  VolunteerImpactStat, 
+  VolunteerApplicationData, 
+  VolunteerPageConfig 
+} from './volunteer'; 

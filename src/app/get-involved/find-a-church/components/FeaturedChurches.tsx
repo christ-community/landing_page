@@ -96,22 +96,22 @@ export default function FeaturedChurches({
   churches = defaultFeaturedChurches
 }: FeaturedChurchesProps) {
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-50/50 to-blue-50/30 dark:from-slate-900/50 dark:to-blue-950/30">
-      <div className="container mx-auto px-6 lg:px-12">
+    <section className="py-20 bg-background">
+      <div className="container mx-auto px-4 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+        <div className="mb-12 grid lg:grid-cols-2 gap-8 items-center">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight text-foreground">
             {title}
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-muted-foreground max-w-xl">
             {subtitle}
           </p>
         </div>
 
         {/* Churches Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-12">
           {churches.map((church) => (
-            <Card key={church.id} className="group overflow-hidden hover:shadow-xl transition-all duration-300 bg-white/80 dark:bg-black/20 backdrop-blur-md border border-border/30">
+            <Card key={church.id} className="group overflow-hidden border border-border/10 bg-card transition-all duration-300 hover:border-tertiary/40 hover:shadow-lg rounded-xl">
               {/* Church Image */}
               <div className="relative h-48 overflow-hidden">
                 <Image
@@ -123,14 +123,14 @@ export default function FeaturedChurches({
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 
                 {/* Featured Badge */}
-                <Badge className="absolute top-4 left-4 bg-blue-600 text-white">
+                <Badge className="absolute top-4 left-4 bg-tertiary text-tertiary-foreground">
                   <Star className="w-3 h-3 mr-1" />
                   Featured
                 </Badge>
               </div>
 
               <CardHeader className="pb-3">
-                <h3 className="text-xl font-bold text-foreground group-hover:text-blue-600 transition-colors line-clamp-2">
+                <h3 className="text-xl font-bold text-foreground group-hover:text-tertiary transition-colors line-clamp-2">
                   {church.name}
                 </h3>
                 <div className="flex items-center space-x-2">
@@ -148,7 +148,7 @@ export default function FeaturedChurches({
               <CardContent className="space-y-4">
                 {/* Address */}
                 <div className="flex items-start space-x-2">
-                  <MapPin className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                  <MapPin className="w-4 h-4 text-tertiary mt-0.5 flex-shrink-0" />
                   <span className="text-sm text-muted-foreground line-clamp-2">
                     {church.address.street}, {church.address.city}
                   </span>
@@ -157,7 +157,7 @@ export default function FeaturedChurches({
                 {/* Service Times */}
                 {church.services.sunday && (
                   <div className="flex items-start space-x-2">
-                    <Clock className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <Clock className="w-4 h-4 text-tertiary mt-0.5 flex-shrink-0" />
                     <span className="text-sm text-muted-foreground">
                       Sunday: {church.services.sunday}
                     </span>
@@ -183,7 +183,7 @@ export default function FeaturedChurches({
                     )}
                   </div>
                   
-                  <Button size="sm" variant="outline" className="text-xs">
+                  <Button size="sm" variant="outline" className="text-xs border-border/20">
                     <Users className="w-3 h-3 mr-1" />
                     Learn More
                   </Button>
@@ -199,15 +199,13 @@ export default function FeaturedChurches({
             Ready to find churches in your area?
           </p>
           <Button 
-            size="lg" 
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8"
             onClick={() => {
               const finderSection = document.querySelector('[data-section="church-finder"]');
               finderSection?.scrollIntoView({ behavior: 'smooth' });
             }}
+            className="bg-tertiary hover:bg-tertiary/90 text-tertiary-foreground px-8"
           >
-            Search Near You
-            <MapPin className="w-5 h-5 ml-2" />
+            Start Your Search
           </Button>
         </div>
       </div>
