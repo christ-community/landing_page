@@ -1,7 +1,8 @@
+import type { ReactElement } from 'react';
+
 export interface HelpOption {
   label: string;
-  icon: React.ReactNode;
+  icon: ReactElement;
   image: string;
   href: string;
-  ctaLabel?: string;
 } 

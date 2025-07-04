@@ -37,7 +37,7 @@ export type {
 export type { MinistryActivity, HealingResource, ResourceFormat } from './whatWeDo';
 // Newsletter
 export type { NewsletterConfig } from './newsletter';
-export type { HelpOption } from './help';
+export type { SupportOption } from './sendHelp';
 export type { Event, EventsConfig, EventCategory } from './events';
 export type { Church, ChurchFinderConfig, UserLocation, SearchFilters } from './church';
 export type { 
@@ -48,4 +48,19 @@ export type {
   VolunteerImpactStat, 
   VolunteerApplicationData, 
   VolunteerPageConfig 
-} from './volunteer'; 
+} from './volunteer';
+
+export * from './blog';
+export * from './church';
+export * from './common';
+export * from './events';
+export * from './footer';
+export * from './help';
+export * from './hero';
+export * from './navigation';
+export * from './newsletter';
+export * from './whatWeDo';
+export * from './volunteer';
+export * from './tract';
+export * from './sendHelp';
+export * from './getInvolved';
