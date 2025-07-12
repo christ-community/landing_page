@@ -8,8 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MapPin, Calendar, Search, Tag, Users } from 'lucide-react';
-import type { EventItem, EventCategory } from '@/types';
+import { MapPin, Calendar, Search, Users } from 'lucide-react';
+import type { EventItem } from '@/types';
 
 interface EventListProps {
   events: EventItem[];

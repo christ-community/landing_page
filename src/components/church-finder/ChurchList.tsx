@@ -1,7 +1,6 @@
 import React from 'react';
 import ChurchCard from './ChurchCard';
 import type { Church } from '@/types';
-import { Button } from '@/components/ui/button';
 
 interface ChurchListProps {
   churches: Church[];

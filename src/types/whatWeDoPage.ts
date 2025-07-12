@@ -1,4 +1,4 @@
-import type { LucideIcon } from 'lucide-react';
+
 
 export interface ActivityCardItem {
   title: string;

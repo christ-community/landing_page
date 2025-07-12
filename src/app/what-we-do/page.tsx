@@ -2,12 +2,7 @@ import { Metadata } from 'next';
 import WhatWeDoHero from "./components/WhatWeDoHero";
 import ActivityGrid from "./components/ActivityGrid";
 import type { WhatWeDoPageConfig, VolunteerTestimonial } from "@/types";
-import { 
-    BookOpen, 
-    CalendarCheck2, 
-    Handshake, 
-    HeartHandshake 
-} from "lucide-react";
+
 import NewsletterSection from "@/components/NewsletterSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 

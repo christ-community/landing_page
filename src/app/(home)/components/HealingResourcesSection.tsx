@@ -5,7 +5,7 @@ import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+
 import type { HealingResource } from '@/types';
 
 const resources: HealingResource[] = [
@@ -113,7 +113,7 @@ export default function HealingResourcesSection() {
 
                 <div className="overflow-hidden" ref={emblaRef}>
                     <div className="flex -ml-4">
-                        {resources.map(({ title, image, format, description, tags, href }, index) => (
+                        {resources.map(({ title, image, format, description }, index) => (
                             <div key={index} className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.33%] pl-4">
                                 <div className="relative block h-96 overflow-hidden rounded-xl group cursor-pointer shadow-lg">
                                     <Image

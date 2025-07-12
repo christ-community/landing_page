@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 import OrderTractHero from './components/OrderTractHero';
 import TractCatalog from './components/TractCatalog';
 import HowItWorks from './components/HowItWorks';
@@ -18,7 +19,9 @@ export default function OrderATractPage() {
             <TractCatalog />
             <HowItWorks />
             <div id="order-form" className="scroll-mt-20">
-                <OrderForm />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <OrderForm />
+                </Suspense>
             </div>
             <NewsletterSection config={{
                 title: 'Get Updates on New Tracts & Resources',

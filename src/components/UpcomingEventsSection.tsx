@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Calendar, Clock, MapPin, Users, ArrowRight } from 'lucide-react';
-import type { Event, EventsConfig, EventCategory } from '@/types';
+import type { EventsConfig, EventCategory } from '@/types';
 
 const defaultEventsConfig: EventsConfig = {
   title: "Join Us for Amazing Events!",
