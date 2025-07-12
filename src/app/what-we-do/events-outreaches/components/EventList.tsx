@@ -15,7 +15,7 @@ interface EventListProps {
   events: EventItem[];
 }
 
-const categories: EventCategory[] = ['Community', 'Conference', 'Outreach', 'Webinar', 'Workshop'];
+const categories = ['Community', 'Conference', 'Outreach', 'Webinar', 'Workshop'];
 
 function EventCard({ event }: { event: EventItem }) {
   return (
@@ -50,7 +50,7 @@ function EventCard({ event }: { event: EventItem }) {
 
 export default function EventList({ events }: EventListProps) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState<EventCategory | 'all'>('all');
+  const [categoryFilter, setCategoryFilter] = useState<string>('all');
 
   const filteredEvents = events.filter(event => {
     return (
@@ -82,7 +82,7 @@ export default function EventList({ events }: EventListProps) {
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-2 block">Category</label>
-                  <Select value={categoryFilter} onValueChange={(val) => setCategoryFilter(val as any)}>
+                  <Select value={categoryFilter} onValueChange={(val) => setCategoryFilter(val)}>
                       <SelectTrigger>
                           <SelectValue placeholder="All Categories"/>
                       </SelectTrigger>

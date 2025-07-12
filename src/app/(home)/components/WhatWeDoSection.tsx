@@ -65,7 +65,7 @@ export default function WhatWeDoSection() {
                 "group relative overflow-hidden border border-border/10 bg-card p-8 transition-all duration-300 hover:border-tertiary/40 hover:shadow-lg rounded-xl"
               )}
             >
-              <Icon className="h-10 w-10 text-tertiary mb-6" />
+              {Icon && <Icon className="h-10 w-10 text-tertiary mb-6" />}
               <h3 className="text-xl font-semibold mb-4 text-foreground">
                 {title}
               </h3>

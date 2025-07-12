@@ -10,28 +10,44 @@ import type { HealingResource } from '@/types';
 
 const resources: HealingResource[] = [
   {
+    id: '1',
     title: 'Peace in the Storm',
-    imageSrc: '/worship-conference.jpeg',
-    format: 'PDF',
+    image: '/worship-conference.jpeg',
+    format: 'Guide',
     description: 'A devotional guide to finding God\'s peace amid life\'s hardest moments.',
+    tags: ['devotional', 'peace', 'comfort'],
+    href: '/resources/peace-in-the-storm',
+    isFeatured: true,
   },
   {
+    id: '2',
     title: 'Healing Scriptures',
-    imageSrc: '/Church-Conference.jpg',
-    format: 'Audio',
+    image: '/Church-Conference.jpg',
+    format: 'Podcast',
     description: 'Soak in curated Bible verses read aloud to strengthen your faith for healing.',
+    tags: ['scripture', 'healing', 'faith'],
+    href: '/resources/healing-scriptures',
+    isFeatured: true,
   },
   {
+    id: '3',
     title: 'Restoration Series',
-    imageSrc: '/worship-conference.jpeg',
+    image: '/worship-conference.jpeg',
     format: 'Video',
     description: 'Teaching series focused on emotional and spiritual restoration through Christ.',
+    tags: ['restoration', 'teaching', 'healing'],
+    href: '/resources/restoration-series',
+    isFeatured: false,
   },
   {
+    id: '4',
     title: 'Finding Joy',
-    imageSrc: '/Church-Conference.jpg',
+    image: '/Church-Conference.jpg',
     format: 'Article',
     description: 'An encouraging article on cultivating joy even in difficult seasons.',
+    tags: ['joy', 'encouragement', 'article'],
+    href: '/resources/finding-joy',
+    isFeatured: false,
   },
 ];
 
@@ -97,11 +113,11 @@ export default function HealingResourcesSection() {
 
                 <div className="overflow-hidden" ref={emblaRef}>
                     <div className="flex -ml-4">
-                        {resources.map(({ title, imageSrc, format, description }, index) => (
+                        {resources.map(({ title, image, format, description, tags, href }, index) => (
                             <div key={index} className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.33%] pl-4">
                                 <div className="relative block h-96 overflow-hidden rounded-xl group cursor-pointer shadow-lg">
                                     <Image
-                                        src={imageSrc}
+                                        src={image}
                                         alt={title}
                                         fill
                                         className="object-cover transition-transform duration-500 group-hover:scale-110"

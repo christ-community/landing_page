@@ -3,7 +3,8 @@ import type { ComponentType } from 'react';
 export interface MinistryActivity {
   title: string;
   description: string;
-  image: string;
+  image?: string;
+  icon?: ComponentType<{ className?: string }>;
 }
 
 export type ResourceFormat = 'Article' | 'Video' | 'Podcast' | 'Guide';
