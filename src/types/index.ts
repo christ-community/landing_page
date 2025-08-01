@@ -67,3 +67,5 @@ export * from './getInvolved';
 export * from './eventsOutreaches';
 export * from './consultation';
 export * from './whatWeDoPage';
+export * from './contact';
+export * from './donation';

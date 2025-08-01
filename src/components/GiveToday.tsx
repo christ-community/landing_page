@@ -1,10 +1,12 @@
+'use client';
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { Heart } from 'lucide-react';
+import { Heart, Loader2, CreditCard } from 'lucide-react';
+import getStripe from '@/lib/stripe';
 
-const presetAmounts = [25, 50, 100, 250];
+const presetAmounts = [5, 10, 25, 50, 100, 250];
 const currencies = [
   { value: 'GBP', label: '£' },
   { value: 'USD', label: '$' },
@@ -18,6 +20,7 @@ const GiveToday = () => {
   const [currency, setCurrency] = useState('GBP');
   const [frequency, setFrequency] = useState<Frequency>('monthly');
   const [isDedicated, setIsDedicated] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const [selectedPreset, setSelectedPreset] = useState<number | null>(50);
 
@@ -36,6 +39,46 @@ const GiveToday = () => {
 
   const currentCurrency = currencies.find(c => c.value === currency) || currencies[0];
   const displayAmount = amount || 0;
+
+  const handleDonate = async () => {
+    if (!displayAmount || Number(displayAmount) <= 0) return;
+
+    setIsProcessing(true);
+
+    try {
+      const response = await fetch('/api/create-payment-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount: Number(displayAmount),
+          currency: currency,
+          frequency: frequency,
+          isDedicated: isDedicated,
+          dedicationMessage: isDedicated ? 'Dedicated donation' : undefined,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create payment session');
+      }
+
+      const { url, sessionId } = await response.json();
+
+      if (url) {
+        // Redirect to Stripe Checkout
+        window.location.href = url;
+      } else {
+        console.error('No checkout URL received');
+      }
+    } catch (error) {
+      console.error('Payment processing error:', error);
+      alert('There was an error processing your donation. Please try again.');
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   return (
     <section className="relative py-24 bg-gradient-to-br from-blue-50/30 via-sky-50/30 to-blue-100/40 dark:from-blue-950/30 dark:via-sky-950/20 dark:to-blue-900/30 overflow-hidden">
@@ -141,10 +184,21 @@ const GiveToday = () => {
 
             <Button 
               size="lg"
+              onClick={handleDonate}
               className="w-full h-14 text-lg font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all"
-              disabled={!displayAmount || Number(displayAmount) <= 0}
+              disabled={!displayAmount || Number(displayAmount) <= 0 || isProcessing}
             >
-              Donate {currentCurrency.label}{displayAmount} {frequency === 'monthly' ? 'Monthly' : ''}
+              {isProcessing ? (
+                <>
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                <>
+                  <CreditCard className="mr-2 h-5 w-5" />
+                  Donate {currentCurrency.label}{displayAmount} {frequency === 'monthly' ? 'Monthly' : ''}
+                </>
+              )}
             </Button>
           </div>
         </div>

@@ -1,13 +1,19 @@
 import { Metadata } from 'next';
+import ContactHero from '@/app/contact/components/ContactHero';
+import ContactForm from '@/app/contact/components/ContactForm';
+import ContactInfo from '@/app/contact/components/ContactInfo';
 
 export const metadata: Metadata = {
   title: 'Contact Us | Christ Community',
+  description: 'Get in touch with Christ Community. We\'d love to hear from you and explore how we can serve together.',
 };
 
 export default function ContactPage() {
   return (
-    <div className="container mx-auto px-4 py-20 text-center">
-      <h1 className="text-4xl font-bold">This is the Contact page</h1>
-    </div>
+    <>
+      <ContactHero />
+      <ContactInfo />
+      <ContactForm />
+    </>
   );
 } 

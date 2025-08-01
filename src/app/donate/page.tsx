@@ -1,13 +1,15 @@
 import { Metadata } from 'next';
+import GiveToday from '@/components/GiveToday';
 
 export const metadata: Metadata = {
   title: 'Donate | Christ Community',
+  description: 'Support our ministry and make a difference in our community through your generous giving.',
 };
 
 export default function DonatePage() {
   return (
-    <div className="container mx-auto px-4 py-20 text-center">
-      <h1 className="text-4xl font-bold">This is the Donate page</h1>
-    </div>
+    <>
+      <GiveToday />
+    </>
   );
 } 
