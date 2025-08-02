@@ -4,6 +4,7 @@ import VolunteerOpportunities from './components/VolunteerOpportunities';
 import VolunteerProcess from './components/VolunteerProcess';
 import VolunteerImpact from './components/VolunteerImpact';
 import NewsletterSection from '@/components/NewsletterSection';
+import { getPageHero, getVolunteerOpportunities, processAsset } from '../../../../lib/contentful-api';
 
 export const metadata: Metadata = {
   title: 'Volunteer With Us | Christ Community',
@@ -20,14 +21,28 @@ const volunteerNewsletterConfig = {
   buttonLabel: 'Join Our Community',
 };
 
-export default function VolunteerWithUsPage() {
+export default async function VolunteerWithUsPage() {
+  const [pageHero, volunteerOpportunities] = await Promise.all([
+    getPageHero('volunteer'),
+    getVolunteerOpportunities()
+  ]);
+
+  // Create config from pageHero if available
+  const heroConfig = pageHero ? {
+    title: pageHero.title,
+    subtitle: pageHero.subtitle,
+    description: pageHero.description,
+    ctaText: pageHero.ctaText,
+    backgroundImage: processAsset(pageHero.backgroundImage)
+  } : undefined;
+
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <VolunteerHero />
+      <VolunteerHero config={heroConfig} />
       
       {/* Volunteer Opportunities */}
-      <VolunteerOpportunities />
+      <VolunteerOpportunities opportunities={volunteerOpportunities.map((opp: any) => ({ ...opp, id: opp.sys?.id || Math.random().toString() }))} />
       
       {/* How to Get Started */}
       <VolunteerProcess />

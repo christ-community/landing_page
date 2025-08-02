@@ -11,17 +11,8 @@ import { Eye, FileText, Languages, Search, Star, Download, ShoppingCart } from '
 import type { Tract } from '@/types';
 import { useRouter } from 'next/navigation';
 
-// Dummy Data
-const allTracts: Tract[] = [
-  { id: '1', title: "The Four Spiritual Laws", description: "A classic and effective presentation of the gospel message.", coverImage: "/Church-Conference.jpg", tags: ["Foundation", "Classic"], samplePages: [], pricePer100: 15.00, isPopular: true, language: "English" },
-  { id: '2', title: "More Than a Carpenter", description: "Explores the claims of Jesus Christ and their validity.", coverImage: "/worship-conference.jpeg", tags: ["Apologetics", "Youth"], samplePages: [], pricePer100: 18.00, isPopular: true, language: "English" },
-  { id: '3', title: "The Case for Christ", description: "A journalist's investigation into the evidence for Jesus.", coverImage: "/Church-Conference.jpg", tags: ["Apologetics", "Skeptics"], samplePages: [], pricePer100: 20.00, isPopular: false, language: "English" },
-  { id: '4', title: "God's Love Story", description: "A simple, narrative-driven tract about God's love.", coverImage: "/worship-conference.jpeg", tags: ["Story", "Children"], samplePages: [], pricePer100: 12.00, isPopular: false, language: "English" },
-  { id: '5', title: "Las Cuatro Leyes Espirituales", description: "A classic and effective presentation of the gospel message.", coverImage: "/Church-Conference.jpg", tags: ["Foundation", "Classic"], samplePages: [], pricePer100: 15.00, isPopular: false, language: "Spanish" },
-  { id: '6', title: "Finding Hope", description: "A tract designed for those going through difficult times.", coverImage: "/worship-conference.jpeg", tags: ["Hope", "Outreach"], samplePages: [], pricePer100: 16.00, isPopular: true, language: "English" },
-];
 
-export default function TractCatalog() {
+export default function TractCatalog({ tracts }: { tracts: Tract[] }) {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState('');
   const [languageFilter, setLanguageFilter] = useState('all');
@@ -29,7 +20,7 @@ export default function TractCatalog() {
 
   const tags = ['all', 'Foundation', 'Classic', 'Apologetics', 'Youth', 'Skeptics', 'Story', 'Children', 'Hope', 'Outreach'];
 
-  const filteredTracts = allTracts.filter(tract => {
+  const filteredTracts = tracts.filter(tract => {
     return (
       (tract.title.toLowerCase().includes(searchTerm.toLowerCase()) || tract.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
       (languageFilter === 'all' || tract.language === languageFilter) &&

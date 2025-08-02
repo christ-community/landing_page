@@ -5,6 +5,7 @@ import ImpactSection from './components/ImpactSection';
 import SendHelpForm from './components/SendHelpForm';
 import NewsletterSection from '@/components/NewsletterSection';
 import type { SupportOption } from '@/types';
+import { getHelpImpact, getPageHero } from '../../../../lib/contentful-api';
 
 const helpOptionsConfig: SupportOption[] = [
   {
@@ -42,7 +43,12 @@ export const metadata: Metadata = {
     keywords: 'send help, support ministry, donate, Christian charity, missionary support',
 };
 
-export default function SendHelpPage() {
+export default async function SendHelpPage() {
+    const [helpImpact, pageHero] = await Promise.all([
+        getHelpImpact(),
+        getPageHero('send-help')
+    ]);
+
     return (
         <main className="min-h-screen">
             <SendHelpHero />

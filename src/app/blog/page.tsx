@@ -1,28 +1,16 @@
-'use client';
-
-import React, { useState, useMemo } from 'react';
-import { posts } from '@/lib/posts';
+import React from 'react';
 import FilterBar from './components/FilterBar';
 import PostCard from './components/PostCard';
 import EmptyState from '@/components/ui/EmptyState';
 import NewsletterSection from '@/components/NewsletterSection';
 import { BookOpenCheck } from 'lucide-react';
+import { getBlogPosts, getCategories } from '../../../lib/contentful-api';
 
-const BlogPage = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
-
-  const filteredPosts = useMemo(() => {
-    return posts
-      .filter((post) =>
-        selectedCategory === 'All' ? true : post.category === selectedCategory
-      )
-      .filter((post) =>
-        post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.author.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-  }, [searchTerm, selectedCategory]);
+const BlogPage = async () => {
+  const [blogPosts, categories] = await Promise.all([
+    getBlogPosts(),
+    getCategories()
+  ]);
 
   return (
     <div className="py-24">
@@ -36,16 +24,9 @@ const BlogPage = () => {
           </p>
         </header>
 
-        <FilterBar
-          searchTerm={searchTerm}
-          onSearchTermChange={setSearchTerm}
-          selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
-        />
-
-        {filteredPosts.length > 0 ? (
+        {blogPosts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {filteredPosts.map((post) => (
+            {blogPosts.map((post: any) => (
               <PostCard key={post.id} post={post} />
             ))}
           </div>

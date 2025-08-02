@@ -1,5 +1,4 @@
 import { createClient } from 'contentful'
-import type { Entry, Asset } from 'contentful'
 import * as dotenv from 'dotenv'
 import * as path from 'path'
 
@@ -8,7 +7,7 @@ if (typeof window === 'undefined') {
   dotenv.config({ path: path.resolve(process.cwd(), '.env.local') })
 }
 
-const client = createClient({
+export const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID!,
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
 })
@@ -19,4 +18,6 @@ export const previewClient = createClient({
   host: 'preview.contentful.com',
 })
 
-export default client
+export function getClient(preview: boolean = false) {
+  return preview ? previewClient : client
+}

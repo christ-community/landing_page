@@ -2,57 +2,11 @@ import { Metadata } from 'next';
 import WhatWeDoHero from "./components/WhatWeDoHero";
 import ActivityGrid from "./components/ActivityGrid";
 import type { WhatWeDoPageConfig } from "@/types";
-// Local testimonial interface for hardcoded data
-interface LocalTestimonial {
-  name: string
-  role: string
-  quote: string
-  image?: string
-  volunteeredSince?: string
-  favoriteActivity?: string
-  isActive: boolean
-  order: number
-  isHighlighted: boolean
-}
-
 import NewsletterSection from "@/components/NewsletterSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import { getMinistryActivities, getDifferentiators, getTestimonials } from '../../../lib/contentful-api';
 
-const testimonials: LocalTestimonial[] = [
-    {
-        name: "Pastor John S.",
-        role: "Lead Pastor, Grace Fellowship",
-        quote: "The consultation services were a game-changer for our small church. We now have a clear vision and the tools to actually achieve it.",
-        image: "/worship-conference.jpeg",
-        volunteeredSince: "2023",
-        favoriteActivity: "Leadership Consultation",
-        isActive: true,
-        order: 1,
-        isHighlighted: true
-    },
-    {
-        name: "Sarah L.",
-        role: "Conference Attendee",
-        quote: "After attending the youth conference, my faith feels more alive than ever. The speakers were inspiring, and the community I found was so welcoming.",
-        image: "/Church-Conference.jpg",
-        volunteeredSince: "2024",
-        favoriteActivity: "Youth Conference",
-        isActive: true,
-        order: 2,
-        isHighlighted: true
-    },
-    {
-        name: "David M.",
-        role: "Resource User",
-        quote: "The resources on healing have been a balm to my soul during a very difficult season. Thank you for providing such practical and hope-filled content.",
-        image: "/worship-conference.jpeg",
-        volunteeredSince: "2024",
-        favoriteActivity: "Healing Resources",
-        isActive: true,
-        order: 3,
-        isHighlighted: true
-    }
-];
+// Testimonials now loaded from Contentful
 
 const pageConfig: Omit<WhatWeDoPageConfig, 'activities.items.icon'> = {
     hero: {
@@ -101,15 +55,34 @@ export const metadata: Metadata = {
     description: "Discover our core ministries, including events, consultation services, healing resources, and our blog. Learn how we are serving the community and building the kingdom.",
 };
 
-export default function WhatWeDoPage() {
+export default async function WhatWeDoPage() {
+    const [ministryActivities, differentiators, testimonials] = await Promise.all([
+        getMinistryActivities(),
+        getDifferentiators(),
+        getTestimonials()
+    ]);
+
+    // Use Contentful activities if available, otherwise fall back to hardcoded
+    const activitiesConfig = ministryActivities.length > 0 ? {
+        title: "Our Core Ministries",
+        subtitle: "Each of our ministries is designed to meet specific needs within the church and the broader community.",
+        items: ministryActivities.map(activity => ({
+            title: activity.title,
+            description: activity.description,
+            href: activity.ctaUrl || `#${activity.title.toLowerCase().replace(/\s+/g, '-')}`,
+            icon: activity.icon || "Heart",
+            ctaText: activity.ctaText || "Learn More"
+        }))
+    } : pageConfig.activities;
+
     return (
         <main>
             <WhatWeDoHero {...pageConfig.hero} />
-            <ActivityGrid {...pageConfig.activities} />
+            <ActivityGrid {...activitiesConfig} />
             <TestimonialsSection 
                 title="Stories of Transformation"
                 subtitle="Hear from those who have been blessed by our ministries."
-                testimonials={testimonials as any}
+                testimonials={testimonials}
             />
             <NewsletterSection />
         </main>

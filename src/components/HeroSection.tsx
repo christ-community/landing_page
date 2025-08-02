@@ -4,6 +4,7 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import type { HeroConfig } from "@/types";
+import type { IPageContent } from "../../types/contentful";
 
 // Default configuration - this will later come from Contentful
 const defaultHeroConfig: HeroConfig = {
@@ -31,10 +32,23 @@ const defaultHeroConfig: HeroConfig = {
 
 interface HeroSectionProps {
   config?: Partial<HeroConfig>;
+  pageContent?: IPageContent;
 }
 
-const HeroSection = ({ config }: HeroSectionProps) => {
-  const heroConfig = { ...defaultHeroConfig, ...config };
+const HeroSection = ({ config, pageContent }: HeroSectionProps) => {
+  // Use Contentful data if available, otherwise fall back to default config
+  const heroConfig = pageContent ? {
+    content: {
+      title: pageContent.title,
+      subtitle: pageContent.subtitle,
+      description: pageContent.description,
+      buttons: defaultHeroConfig.content.buttons // Keep default buttons for now
+    },
+    images: defaultHeroConfig.images, // Keep default images for now
+    autoChangeInterval: defaultHeroConfig.autoChangeInterval,
+    connectButtonLabel: defaultHeroConfig.connectButtonLabel
+  } : { ...defaultHeroConfig, ...config };
+  
   const { content, images, autoChangeInterval, connectButtonLabel } = heroConfig;
   
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

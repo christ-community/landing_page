@@ -13,58 +13,36 @@ import {
   Star
 } from 'lucide-react';
 import Link from 'next/link';
+import type { ICoreValue, ICommunityStat, IDifferentiator, IMissionVision } from '../../../../types/contentful';
+import { processAsset } from '../../../../lib/contentful-api';
 
-const values = [
-  {
-    icon: Heart,
-    title: "Love & Compassion",
-    description: "We believe in showing Christ's love through our actions and serving others with genuine compassion.",
-    color: "text-red-500"
-  },
-  {
-    icon: Users,
-    title: "Community",
-    description: "Building authentic relationships and supporting one another on our spiritual journeys.",
-    color: "text-blue-500"
-  },
-  {
-    icon: Globe,
-    title: "Global Impact",
-    description: "Reaching beyond our local community to share hope and resources worldwide.",
-    color: "text-green-500"
-  },
-  {
-    icon: BookOpen,
-    title: "Biblical Truth",
-    description: "Grounding everything we do in the unchanging truth of God's Word.",
-    color: "text-purple-500"
+interface AboutOverviewProps {
+  coreValues: ICoreValue[]
+  communityStats: ICommunityStat[]
+  differentiators: IDifferentiator[]
+  missionVision: IMissionVision[]
+}
+
+// Icon mapping utility
+const getIconComponent = (iconName?: string) => {
+  switch (iconName) {
+    case 'heart': return Heart;
+    case 'book-open': return BookOpen;
+    case 'users': return Users;
+    case 'hand-heart': return Handshake;
+    case 'shield-check': return Star;
+    case 'globe': return Globe;
+    case 'lightbulb': return Star;
+    case 'calendar': return Calendar;
+    case 'clock': return Calendar;
+    case 'home': return Heart;
+    default: return Heart;
   }
-];
+};
 
-const stats = [
-  {
-    number: "15+",
-    label: "Years of Ministry",
-    description: "Serving our community"
-  },
-  {
-    number: "500+",
-    label: "Community Members",
-    description: "Growing together in faith"
-  },
-  {
-    number: "25+",
-    label: "Ministries",
-    description: "Ways to get involved"
-  },
-  {
-    number: "12",
-    label: "Countries Reached",
-    description: "Through missions work"
-  }
-];
-
-export default function AboutOverview() {
+export default function AboutOverview({ coreValues, communityStats, differentiators, missionVision }: AboutOverviewProps) {
+  // Get mission for the intro text
+  const mission = missionVision.find(item => item.type === 'mission')
   return (
     <section className="py-24 bg-background" data-section="about-overview">
       <div className="container mx-auto px-6 lg:px-12">
@@ -74,18 +52,16 @@ export default function AboutOverview() {
             Our Story & Mission
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Christ Community began with a simple vision: to create a place where people could encounter 
-            God's love, grow in their faith, and make a meaningful difference in the world. Today, we're 
-            a thriving community of believers committed to living out the Gospel in practical, life-changing ways.
+            {mission?.content || "Christ Community began with a simple vision: to create a place where people could encounter God's love, grow in their faith, and make a meaningful difference in the world. Today, we're a thriving community of believers committed to living out the Gospel in practical, life-changing ways."}
           </p>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
-          {stats.map((stat, index) => (
+          {communityStats.map((stat, index) => (
             <Card key={index} className="text-center border-2 border-border/10 hover:border-primary/30 transition-all duration-300">
               <CardContent className="p-6">
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.number}</div>
+                <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.value}</div>
                 <div className="text-lg font-semibold text-foreground mb-1">{stat.label}</div>
                 <div className="text-sm text-muted-foreground">{stat.description}</div>
               </CardContent>
@@ -103,13 +79,16 @@ export default function AboutOverview() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((value, index) => {
-              const Icon = value.icon;
+            {coreValues.map((value, index) => {
+              const Icon = getIconComponent(value.icon);
+              const colors = ['text-red-500', 'text-blue-500', 'text-green-500', 'text-purple-500', 'text-orange-500'];
+              const color = colors[index % colors.length];
+              
               return (
                 <Card key={index} className="border-2 border-border/10 hover:border-primary/30 hover:shadow-lg transition-all duration-300 group">
                   <CardHeader className="text-center pb-4">
                     <div className={`inline-flex p-4 rounded-full bg-muted/50 mb-4 group-hover:scale-110 transition-transform`}>
-                      <Icon className={`w-8 h-8 ${value.color}`} />
+                      <Icon className={`w-8 h-8 ${color}`} />
                     </div>
                     <CardTitle className="text-xl font-semibold">{value.title}</CardTitle>
                   </CardHeader>
@@ -117,6 +96,11 @@ export default function AboutOverview() {
                     <p className="text-sm text-muted-foreground text-center leading-relaxed">
                       {value.description}
                     </p>
+                    {value.scriptureReference && (
+                      <p className="text-xs text-primary text-center mt-2 font-medium">
+                        {value.scriptureReference}
+                      </p>
+                    )}
                   </CardContent>
                 </Card>
               );
@@ -130,34 +114,19 @@ export default function AboutOverview() {
             <div>
               <h3 className="text-3xl font-bold text-foreground mb-6">What Makes Us Different</h3>
               <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <Star className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-1">Authentic Community</h4>
-                    <p className="text-sm text-muted-foreground">Real relationships, genuine care, and transparent leadership.</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Star className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-1">Practical Faith</h4>
-                    <p className="text-sm text-muted-foreground">We believe faith should impact every area of life in meaningful ways.</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Star className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-1">Inclusive Welcome</h4>
-                    <p className="text-sm text-muted-foreground">Everyone is welcome, regardless of background or where they are in their journey.</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Star className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-1">Global Vision</h4>
-                    <p className="text-sm text-muted-foreground">Local roots with a heart for worldwide impact and missions.</p>
-                  </div>
-                </div>
+                {differentiators.map((diff, index) => {
+                  const Icon = getIconComponent(diff.icon);
+                  
+                  return (
+                    <div key={index} className="flex items-start gap-3">
+                      <Icon className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
+                      <div>
+                        <h4 className="font-semibold text-foreground mb-1">{diff.title}</h4>
+                        <p className="text-sm text-muted-foreground">{diff.description}</p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
             

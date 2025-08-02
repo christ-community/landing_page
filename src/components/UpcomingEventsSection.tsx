@@ -1,9 +1,12 @@
+'use client';
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Calendar, Clock, MapPin, Users, ArrowRight } from 'lucide-react';
-import type { EventsConfig, EventCategory } from '@/types';
+import type { IEvent } from '../../types/contentful';
+import { processAsset } from '@/lib/contentful-utils';
 
-const defaultEventsConfig: EventsConfig = {
+const defaultEventsConfig = {
   title: "Join Us for Amazing Events!",
   subtitle: "Experience community, growth, and spiritual transformation",
   description: "You can have confidence in your experience. Our church offers fully-engaging, transformative events along with community support, fellowship and spiritual growth opportunities. What do you have to lose?",
@@ -61,7 +64,7 @@ const defaultEventsConfig: EventsConfig = {
   ]
 };
 
-const eventCategories: EventCategory[] = [
+const eventCategories = [
   { id: 'worship', name: 'Worship Services', icon: <Calendar className="w-5 h-5" />, color: 'bg-orange-500' },
   { id: 'outreach', name: 'Community Outreach', icon: <Users className="w-5 h-5" />, color: 'bg-purple-500' },
   { id: 'conference', name: 'Special Events', icon: <MapPin className="w-5 h-5" />, color: 'bg-green-500' },
@@ -69,7 +72,7 @@ const eventCategories: EventCategory[] = [
 ];
 
 interface UpcomingEventsSectionProps {
-  config?: Partial<EventsConfig>;
+  config?: Partial<any>;
 }
 
 export default function UpcomingEventsSection({ config }: UpcomingEventsSectionProps) {

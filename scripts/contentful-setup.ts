@@ -12,8 +12,6 @@
  */
 
 import { createClient } from 'contentful-management'
-import { createContentTypes } from './completeContentfulModels'
-import { createAllContentEntries } from './completeContentMigration'
 import * as dotenv from 'dotenv'
 import * as path from 'path'
 
@@ -79,13 +77,8 @@ class ContentfulSetup {
     }
 
     console.log('🚀 Creating content types...')
-    try {
-      await createContentTypes()
-      console.log('✅ Content types created successfully')
-    } catch (error) {
-      console.error('❌ Failed to create content types:', error)
-      throw error
-    }
+    console.log('ℹ️  Please run: npm run contentful:create-types')
+    console.log('✅ Content types setup instructions provided')
   }
 
   async migrateContent(options: SetupOptions) {
@@ -95,13 +88,8 @@ class ContentfulSetup {
     }
 
     console.log('🚀 Migrating content...')
-    try {
-      await createAllContentEntries()
-      console.log('✅ Content migrated successfully')
-    } catch (error) {
-      console.error('❌ Failed to migrate content:', error)
-      throw error
-    }
+    console.log('ℹ️  Please run: npm run contentful:populate-basic && npm run contentful:populate-remaining')
+    console.log('✅ Content migration instructions provided')
   }
 
   async setupWebhooks(options: SetupOptions) {

@@ -7,15 +7,20 @@ import HelpSection from '@/components/HelpSection';
 import ChurchFinderSection from '@/components/ChurchFinderSection';
 import GiveToday from '@/components/GiveToday';
 import TestimonialsSection from '@/components/TestimonialsSection';
-import { getHighlightedTestimonials } from '../../../lib/contentful-api';
+import { getHighlightedTestimonials, getMinistryActivities, getPageContent, getUpcomingEvents } from '../../../lib/contentful-api';
 
 export default async function HomePage() {
-  const testimonials = await getHighlightedTestimonials();
+  const [testimonials, ministryActivities, heroContent, upcomingEvents] = await Promise.all([
+    getHighlightedTestimonials(),
+    getMinistryActivities(),
+    getPageContent('home'),
+    getUpcomingEvents()
+  ]);
 
   return (
     <>
-      <HeroSection />
-      <WhatWeDoSection />
+      <HeroSection pageContent={heroContent || undefined} />
+      <WhatWeDoSection activities={ministryActivities} />
       <GiveToday />
       <TestimonialsSection testimonials={testimonials} />
       <UpcomingEventsSection />

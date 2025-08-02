@@ -3,6 +3,8 @@ import { Calendar } from 'lucide-react';
 import EventsHero from './components/EventsHero';
 import EventList from './components/EventList';
 import type { EventsPageConfig, EventItem } from '@/types';
+import { getPageHero, getUpcomingEvents } from '../../../../lib/contentful-api';
+import { processAsset } from '../../../../lib/contentful-api';
 
 // Dummy Data
 const dummyEvents: EventItem[] = [
@@ -72,11 +74,52 @@ export const metadata: Metadata = {
     keywords: 'church events, Christian conference, outreach, community service, webinar, workshop',
 };
 
-export default function EventsAndOutreachesPage() {
+export default async function EventsAndOutreachesPage() {
+    const [pageHero, contentfulEvents] = await Promise.all([
+        getPageHero('events-outreaches'),
+        getUpcomingEvents()
+    ]);
+
+    // Use Contentful hero data if available, otherwise fall back to hardcoded config
+    const heroConfig = pageHero ? {
+        title: pageHero.title,
+        subtitle: pageHero.subtitle || pageConfig.hero.subtitle,
+        primaryCta: { text: pageHero.ctaText || pageConfig.hero.primaryCta.text, href: pageHero.ctaUrl || pageConfig.hero.primaryCta.href },
+        secondaryCta: pageConfig.hero.secondaryCta,
+        mainImage: processAsset(pageHero.backgroundImage) || pageConfig.hero.mainImage,
+        previewImage: pageConfig.hero.previewImage,
+        previewLabel: pageConfig.hero.previewLabel
+    } : pageConfig.hero;
+
+    // Use Contentful events if available, otherwise fall back to dummy data
+    const events = contentfulEvents.length > 0 ? contentfulEvents.map((event: any) => ({
+        id: event.sys?.id || Math.random().toString(),
+        title: event.title,
+        category: event.category?.fields?.name || 'Event',
+        description: event.description || '',
+        image: processAsset(event.featuredImage) || '/Church-Conference.jpg',
+        date: { 
+            startDate: new Date(event.startDate || event.date).toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            }), 
+            time: new Date(event.startDate || event.date).toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit' 
+            })
+        },
+        location: event.location ? 
+          (typeof event.location === 'object' ? event.location : { venue: event.location, address: '', city: '', country: '' }) 
+          : 'Online',
+        isFeatured: event.isFeatured || false,
+        tags: event.tags || []
+    })) : pageConfig.events;
+
     return (
         <main>
             <EventsHero 
-                {...pageConfig.hero}
+                {...heroConfig}
                 brandIconNode={
                     <div className="flex items-center gap-3 mb-6 bg-white/5 p-2 rounded-lg">
                         <Calendar className="w-7 h-7" />
@@ -84,7 +127,7 @@ export default function EventsAndOutreachesPage() {
                     </div>
                 }
             />
-            <EventList events={pageConfig.events} />
+            <EventList events={events} />
         </main>
     );
 } 

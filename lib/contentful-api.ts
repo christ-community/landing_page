@@ -1,4 +1,4 @@
-import client, { previewClient } from './contentful'
+import { client, previewClient, getClient } from './contentful-server'
 import type { Entry, Asset } from 'contentful'
 import type {
   IPageContent,
@@ -18,6 +18,14 @@ import type {
   IResource,
   INewsletter,
   IFAQ,
+  ICoreBelief,
+  IMissionVision,
+  ICoreValue,
+  ITimelineEvent,
+  ICommunityStat,
+  IDifferentiator,
+  IHelpImpact,
+  IPageHero,
   ContentfulEntry
 } from '../types/contentful'
 
@@ -30,10 +38,6 @@ interface ApiOptions {
 }
 
 // Helper function to get the appropriate client
-function getClient(preview = false) {
-  return preview ? previewClient : client
-}
-
 // Helper function to process asset
 export function processAsset(asset?: Asset): string | undefined {
   if (!asset || !asset.fields) return undefined
@@ -548,6 +552,182 @@ export async function getFAQsByCategory(categoryId: string, options: ApiOptions 
     return entries.items.map(item => processEntry<IFAQ>(item))
   } catch (error) {
     console.error('Error fetching FAQs by category:', error)
+    return []
+  }
+}
+
+// Core Beliefs API
+export async function getCoreBeliefs(options: ApiOptions = {}): Promise<ICoreBelief[]> {
+  try {
+    const entries = await getClient(options.preview).getEntries({
+      content_type: 'coreBelief',
+      'fields.isActive': true,
+      order: 'fields.order',
+      limit: options.limit || 100,
+      skip: options.skip || 0
+    } as any)
+
+    return entries.items.map(item => processEntry<ICoreBelief>(item))
+  } catch (error) {
+    console.error('Error fetching core beliefs:', error)
+    return []
+  }
+}
+
+// Mission & Vision API
+export async function getMissionVision(options: ApiOptions = {}): Promise<IMissionVision[]> {
+  try {
+    const entries = await getClient(options.preview).getEntries({
+      content_type: 'missionVision',
+      'fields.isActive': true,
+      limit: options.limit || 100,
+      skip: options.skip || 0
+    } as any)
+
+    return entries.items.map(item => processEntry<IMissionVision>(item))
+  } catch (error) {
+    console.error('Error fetching mission & vision:', error)
+    return []
+  }
+}
+
+export async function getMissionVisionByType(type: string, options: ApiOptions = {}): Promise<IMissionVision | null> {
+  try {
+    const entries = await getClient(options.preview).getEntries({
+      content_type: 'missionVision',
+      'fields.isActive': true,
+      'fields.type': type,
+      limit: 1
+    } as any)
+
+    if (entries.items.length === 0) return null
+    return processEntry<IMissionVision>(entries.items[0])
+  } catch (error) {
+    console.error(`Error fetching ${type}:`, error)
+    return null
+  }
+}
+
+// Core Values API
+export async function getCoreValues(options: ApiOptions = {}): Promise<ICoreValue[]> {
+  try {
+    const entries = await getClient(options.preview).getEntries({
+      content_type: 'coreValue',
+      'fields.isActive': true,
+      order: 'fields.order',
+      limit: options.limit || 100,
+      skip: options.skip || 0
+    } as any)
+
+    return entries.items.map(item => processEntry<ICoreValue>(item))
+  } catch (error) {
+    console.error('Error fetching core values:', error)
+    return []
+  }
+}
+
+// Timeline Events API
+export async function getTimelineEvents(options: ApiOptions = {}): Promise<ITimelineEvent[]> {
+  try {
+    const entries = await getClient(options.preview).getEntries({
+      content_type: 'timelineEvent',
+      'fields.isActive': true,
+      order: 'fields.order',
+      limit: options.limit || 100,
+      skip: options.skip || 0
+    } as any)
+
+    return entries.items.map(item => processEntry<ITimelineEvent>(item))
+  } catch (error) {
+    console.error('Error fetching timeline events:', error)
+    return []
+  }
+}
+
+// Community Stats API
+export async function getCommunityStats(options: ApiOptions = {}): Promise<ICommunityStat[]> {
+  try {
+    const entries = await getClient(options.preview).getEntries({
+      content_type: 'communityStat',
+      'fields.isActive': true,
+      order: 'fields.order',
+      limit: options.limit || 100,
+      skip: options.skip || 0
+    } as any)
+
+    return entries.items.map(item => processEntry<ICommunityStat>(item))
+  } catch (error) {
+    console.error('Error fetching community stats:', error)
+    return []
+  }
+}
+
+// Differentiators API
+export async function getDifferentiators(options: ApiOptions = {}): Promise<IDifferentiator[]> {
+  try {
+    const entries = await getClient(options.preview).getEntries({
+      content_type: 'differentiator',
+      'fields.isActive': true,
+      order: 'fields.order',
+      limit: options.limit || 100,
+      skip: options.skip || 0
+    } as any)
+
+    return entries.items.map(item => processEntry<IDifferentiator>(item))
+  } catch (error) {
+    console.error('Error fetching differentiators:', error)
+    return []
+  }
+}
+
+// Help Impact API
+export async function getHelpImpact(options: ApiOptions = {}): Promise<IHelpImpact[]> {
+  try {
+    const entries = await getClient(options.preview).getEntries({
+      content_type: 'helpImpact',
+      'fields.isActive': true,
+      order: 'fields.order',
+      limit: options.limit || 100,
+      skip: options.skip || 0
+    } as any)
+
+    return entries.items.map(item => processEntry<IHelpImpact>(item))
+  } catch (error) {
+    console.error('Error fetching help impact:', error)
+    return []
+  }
+}
+
+// Page Hero API
+export async function getPageHero(pageName: string, options: ApiOptions = {}): Promise<IPageHero | null> {
+  try {
+    const entries = await getClient(options.preview).getEntries({
+      content_type: 'pageHero',
+      'fields.isActive': true,
+      'fields.pageName': pageName,
+      limit: 1
+    } as any)
+
+    if (entries.items.length === 0) return null
+    return processEntry<IPageHero>(entries.items[0])
+  } catch (error) {
+    console.error(`Error fetching page hero for ${pageName}:`, error)
+    return null
+  }
+}
+
+export async function getAllPageHeroes(options: ApiOptions = {}): Promise<IPageHero[]> {
+  try {
+    const entries = await getClient(options.preview).getEntries({
+      content_type: 'pageHero',
+      'fields.isActive': true,
+      limit: options.limit || 100,
+      skip: options.skip || 0
+    } as any)
+
+    return entries.items.map(item => processEntry<IPageHero>(item))
+  } catch (error) {
+    console.error('Error fetching page heroes:', error)
     return []
   }
 }

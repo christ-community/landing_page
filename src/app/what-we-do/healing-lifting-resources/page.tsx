@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import HealingResourcesHero from "./components/HealingResourcesHero";
 import ResourceList from "./components/ResourceList";
 import type { HealingResourcesPageConfig } from "@/types";
+import { getPageHero, getResources } from '../../../../lib/contentful-api';
+import { processAsset } from '../../../../lib/contentful-api';
 
 const pageConfig: HealingResourcesPageConfig = {
     hero: {
@@ -53,11 +55,33 @@ export const metadata: Metadata = {
     description: "Find articles, videos, podcasts, and guides on topics like mental health, forgiveness, prayer, and navigating grief. Your journey to healing starts here.",
 };
 
-export default function HealingAndLiftingResourcesPage() {
+export default async function HealingAndLiftingResourcesPage() {
+    const [pageHero, contentfulResources] = await Promise.all([
+        getPageHero('healing-resources'),
+        getResources()
+    ]);
+
+    // Use Contentful hero data if available, otherwise fall back to hardcoded config
+    const heroConfig = pageHero ? {
+        title: pageHero.title,
+        subtitle: pageHero.subtitle || pageConfig.hero.subtitle
+    } : pageConfig.hero;
+
+    // Use Contentful resources if available, otherwise fall back to dummy data
+    const resources = contentfulResources.length > 0 ? contentfulResources.map((resource: any) => ({
+        id: resource.sys?.id || Math.random().toString(),
+        title: resource.title,
+        description: resource.description,
+        image: processAsset(resource.image) || '/Church-Conference.jpg',
+        format: resource.format as 'Article' | 'Video' | 'Podcast' | 'Guide',
+        tags: resource.tags || [],
+        href: resource.href || (resource.file ? processAsset(resource.file) : '#') || '#'
+    })) : pageConfig.resources;
+
     return (
         <main>
-            <HealingResourcesHero {...pageConfig.hero} />
-            <ResourceList resources={pageConfig.resources} />
+            <HealingResourcesHero {...heroConfig} />
+            <ResourceList resources={resources} />
         </main>
     )
 } 

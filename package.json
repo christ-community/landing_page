@@ -9,11 +9,13 @@
     "lint": "next lint",
     "contentful:cleanup": "tsx scripts/cleanup-contentful.ts",
     "contentful:setup": "tsx scripts/contentful-setup.ts",
-    "contentful:create-models": "tsx scripts/completeContentfulModels.ts",
-    "contentful:migrate": "tsx scripts/completeContentMigration.ts",
-    "contentful:deploy": "tsx scripts/contentful-deploy.ts",
-    "contentful:validate": "tsx scripts/contentful-deploy.ts validate master",
-    "contentful:test": "tsx scripts/test-api.ts"
+    "contentful:test": "tsx scripts/test-api.ts",
+    "contentful:test-new": "tsx scripts/testNewContentTypes.ts",
+    "contentful:check-all": "tsx scripts/checkAllContentEntries.ts",
+    "contentful:create-types": "tsx scripts/completeContentTypes.ts",
+    "contentful:populate-basic": "tsx scripts/allContentMigration.ts",
+    "contentful:populate-remaining": "tsx scripts/completeRemainingContent.ts",
+    "contentful:full-check": "tsx scripts/checkAllContentEntries.ts"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.10",

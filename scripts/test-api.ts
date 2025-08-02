@@ -30,7 +30,9 @@ import {
   getResources,
   getCategories,
   getFAQs,
-  getNewsletterConfig
+  getNewsletterConfig,
+  getBlogPosts,
+  getFeaturedBlogPosts
 } from '../lib/contentful-api'
 
 async function testAPI() {
@@ -73,6 +75,15 @@ async function testAPI() {
     const allPages = await getAllPageContent()
     console.log(`✅ Page Content: Home page - ${homeContent?.title || 'Not found'}`)
     console.log(`✅ All Pages: Found ${allPages.length} pages`)
+    
+    // Test Blog Posts
+    console.log('\n📝 Testing Blog Posts...')
+    const blogPosts = await getBlogPosts()
+    const featuredPosts = await getFeaturedBlogPosts()
+    console.log(`✅ Blog Posts: Found ${blogPosts.length} total, ${featuredPosts.length} featured`)
+    blogPosts.forEach(post => {
+      console.log(`   - ${post.title} (${post.publishDate})`)
+    })
     
     // Test Volunteer Opportunities
     console.log('\n🤝 Testing Volunteer Opportunities...')
@@ -148,6 +159,7 @@ async function testAPI() {
     console.log(`   - Testimonials: ${testimonials.length} entries`)
     console.log(`   - Ministry Activities: ${activities.length} entries`)
     console.log(`   - Page Content: ${allPages.length} entries`)
+    console.log(`   - Blog Posts: ${blogPosts.length} entries`)
     console.log(`   - Volunteer Opportunities: ${volunteers.length} entries`)
     console.log(`   - Involvement Options: ${involvement.length} entries`)
     console.log(`   - Events: ${events.length} entries`)

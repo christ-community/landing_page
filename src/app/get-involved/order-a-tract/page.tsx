@@ -5,6 +5,8 @@ import TractCatalog from './components/TractCatalog';
 import HowItWorks from './components/HowItWorks';
 import OrderForm from './components/OrderForm';
 import NewsletterSection from '@/components/NewsletterSection';
+import { getTracts } from '../../../../lib/contentful-api';
+import { Tract } from '@/types';
 
 export const metadata: Metadata = {
     title: 'Order Gospel Tracts | Christ Community',
@@ -12,11 +14,14 @@ export const metadata: Metadata = {
     keywords: 'order tracts, gospel tracts, evangelism resources, share faith',
 };
 
-export default function OrderATractPage() {
+export default async function OrderATractPage() {
+    const tracts = await getTracts();
+    console.log('tracts, ', tracts);
+    
     return (
         <main>
             <OrderTractHero />
-            <TractCatalog />
+            <TractCatalog tracts={tracts as unknown as Tract[]} />
             <HowItWorks />
             <div id="order-form" className="scroll-mt-20">
                 <Suspense fallback={<div>Loading...</div>}>

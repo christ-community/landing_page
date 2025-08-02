@@ -4,6 +4,7 @@ import FeaturedChurches from './components/FeaturedChurches';
 import ChurchFinderSection from '@/components/ChurchFinderSection';
 import ChurchVisitorGuide from './components/ChurchVisitorGuide';
 import NewsletterSection from '@/components/NewsletterSection';
+import { getPageHero, getChurches } from '../../../../lib/contentful-api';
 
 // Custom configuration for the church finder on this page
 const churchFinderConfig = {
@@ -30,14 +31,23 @@ export const metadata: Metadata = {
   keywords: 'church finder, churches near me, find church, spiritual community, worship, faith',
 };
 
-export default function FindAChurchPage() {
+export default async function FindAChurchPage() {
+  const [pageHero, churches] = await Promise.all([
+    getPageHero('find-church'),
+    getChurches()
+  ]);
+
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <ChurchFinderHero />
+      <ChurchFinderHero 
+        title={pageHero?.title}
+        subtitle={pageHero?.subtitle}
+        description={pageHero?.description}
+      />
       
       {/* Featured Churches */}
-      <FeaturedChurches />
+      <FeaturedChurches churches={churches.map((church: any) => ({ ...church, id: church.sys?.id || Math.random().toString() }))} />
       
       {/* Main Church Finder */}
       <div data-section="church-finder">

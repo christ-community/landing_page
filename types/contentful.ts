@@ -50,6 +50,7 @@ export interface IEvent {
   title: string
   description: string
   date: string
+  startDate: string
   time?: string
   location?: string
   category?: Entry<IEventCategorySkeleton>
@@ -60,6 +61,8 @@ export interface IEvent {
   recurringPattern?: string
   isActive: boolean
   attendees?: number
+  isFeatured?: boolean
+  tags?: string[]
 }
 
 export interface IMinistryActivity {
@@ -243,6 +246,85 @@ export interface INewsletter {
   isActive: boolean
 }
 
+// New content types interfaces
+export interface ICoreBelief {
+  title: string
+  subtitle?: string
+  description?: string
+  scriptureReference?: string
+  icon?: string
+  order?: number
+  isActive?: boolean
+}
+
+export interface IMissionVision {
+  type: 'mission' | 'vision' | 'purpose' | 'calling'
+  title: string
+  content: string
+  scriptureReference?: string
+  icon?: string
+  isActive?: boolean
+}
+
+export interface ICoreValue {
+  title: string
+  description: string
+  scriptureReference?: string
+  icon?: string
+  order?: number
+  isActive?: boolean
+}
+
+export interface ITimelineEvent {
+  year: string
+  title: string
+  description: string
+  image?: Asset
+  category?: 'founding' | 'growth' | 'milestone' | 'ministry' | 'community' | 'outreach'
+  order?: number
+  isActive?: boolean
+}
+
+export interface ICommunityStat {
+  label: string
+  value: string
+  description?: string
+  icon?: string
+  color?: string
+  order?: number
+  isActive?: boolean
+}
+
+export interface IDifferentiator {
+  title: string
+  description: string
+  icon?: string
+  image?: Asset
+  order?: number
+  isActive?: boolean
+}
+
+export interface IHelpImpact {
+  title: string
+  description: string
+  percentage?: number
+  icon?: string
+  color?: string
+  order?: number
+  isActive?: boolean
+}
+
+export interface IPageHero {
+  pageName: string
+  title: string
+  subtitle?: string
+  description?: string
+  backgroundImage?: Asset
+  ctaText?: string
+  ctaUrl?: string
+  isActive?: boolean
+}
+
 export interface IFAQ {
   question: string
   answer: any // Rich text
@@ -346,4 +428,45 @@ export interface INewsletterSkeleton extends EntrySkeletonType {
 export interface IFAQSkeleton extends EntrySkeletonType {
   contentTypeId: 'faq'
   fields: IFAQ
+}
+
+// New content types skeletons
+export interface ICoreBeliefSkeleton extends EntrySkeletonType {
+  contentTypeId: 'coreBelief'
+  fields: ICoreBelief
+}
+
+export interface IMissionVisionSkeleton extends EntrySkeletonType {
+  contentTypeId: 'missionVision'
+  fields: IMissionVision
+}
+
+export interface ICoreValueSkeleton extends EntrySkeletonType {
+  contentTypeId: 'coreValue'
+  fields: ICoreValue
+}
+
+export interface ITimelineEventSkeleton extends EntrySkeletonType {
+  contentTypeId: 'timelineEvent'
+  fields: ITimelineEvent
+}
+
+export interface ICommunityStatSkeleton extends EntrySkeletonType {
+  contentTypeId: 'communityStat'
+  fields: ICommunityStat
+}
+
+export interface IDifferentiatorSkeleton extends EntrySkeletonType {
+  contentTypeId: 'differentiator'
+  fields: IDifferentiator
+}
+
+export interface IHelpImpactSkeleton extends EntrySkeletonType {
+  contentTypeId: 'helpImpact'
+  fields: IHelpImpact
+}
+
+export interface IPageHeroSkeleton extends EntrySkeletonType {
+  contentTypeId: 'pageHero'
+  fields: IPageHero
 }

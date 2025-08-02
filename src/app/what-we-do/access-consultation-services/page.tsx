@@ -44,7 +44,19 @@ export const metadata: Metadata = {
     keywords: 'church consultation, ministry consulting, leadership development, church growth, digital ministry',
 };
 
-export default function AccessConsultationServicesPage() {
+export default async function AccessConsultationServicesPage() {
+    // const [pageHero, testimonials] = await Promise.all([
+    //     getPageHero('consultation'),
+    //     getTestimonials()
+    // ]);
+
+    // Use Contentful hero if available, otherwise fall back to config
+    // const heroConfig = pageHero ? {
+    //     title: pageHero.title,
+    //     subtitle: pageHero.subtitle || pageConfig.hero.subtitle,
+    //     image: pageConfig.hero.image
+    // } : pageConfig.hero;
+
     const simpleOfferings = pageConfig.services.offerings.map(({ id, title }) => ({ id, title }));
     return (
         <main>

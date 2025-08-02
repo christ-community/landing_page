@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -13,90 +14,12 @@ import {
   Handshake,
   Star
 } from 'lucide-react';
+import type { ITeamMember } from '../../../../../types/contentful';
+import { processAsset } from '@/lib/contentful-utils';
 
-interface TeamMember {
-  name: string;
-  role: string;
-  department: string;
-  bio: string;
-  specialties: string[];
-  yearsOfService: number;
-  education?: string;
-  email?: string;
-  phone?: string;
-  image?: string;
-  favoriteVerse?: string;
+interface TeamMembersProps {
+  teamMembers: ITeamMember[];
 }
-
-const teamMembers: TeamMember[] = [
-  {
-    name: "Pastor Michael Johnson",
-    role: "Senior Pastor",
-    department: "Leadership",
-    bio: "Pastor Michael has been leading Christ Community for over 10 years with a heart for expository teaching and pastoral care. He is passionate about seeing people grow in their relationship with Christ and building authentic community.",
-    specialties: ["Expository Preaching", "Pastoral Care", "Leadership Development"],
-    yearsOfService: 10,
-    education: "M.Div from Westminster Seminary",
-    email: "pastor.michael@christcommunity.org",
-    phone: "(555) 123-4567",
-    favoriteVerse: "Ephesians 4:11-13"
-  },
-  {
-    name: "Sarah Williams",
-    role: "Associate Pastor",
-    department: "Ministry",
-    bio: "Pastor Sarah oversees our community outreach programs and women's ministry. Her passion for social justice and community engagement has helped expand our ministry impact throughout the city.",
-    specialties: ["Community Outreach", "Women's Ministry", "Social Justice"],
-    yearsOfService: 7,
-    education: "M.A. in Ministry Leadership",
-    email: "pastor.sarah@christcommunity.org",
-    favoriteVerse: "Micah 6:8"
-  },
-  {
-    name: "David Chen",
-    role: "Youth Pastor",
-    department: "Youth & Family",
-    bio: "David brings energy and creativity to our youth ministry, helping young people navigate faith in today's world. He's known for his innovative teaching methods and genuine care for each student.",
-    specialties: ["Youth Ministry", "Student Discipleship", "Creative Teaching"],
-    yearsOfService: 5,
-    education: "B.A. in Youth Ministry",
-    email: "david@christcommunity.org",
-    favoriteVerse: "1 Timothy 4:12"
-  },
-  {
-    name: "Maria Rodriguez",
-    role: "Worship Director",
-    department: "Creative Arts",
-    bio: "Maria leads our worship team with a heart for creating meaningful worship experiences. Her musical background and theological training help bridge the gap between artistry and worship.",
-    specialties: ["Worship Leading", "Music Ministry", "Creative Arts"],
-    yearsOfService: 6,
-    education: "B.M. in Music Ministry",
-    email: "maria@christcommunity.org",
-    favoriteVerse: "Psalm 150:6"
-  },
-  {
-    name: "James Thompson",
-    role: "Family Pastor",
-    department: "Family Ministry",
-    bio: "James focuses on strengthening families and supporting parents in raising their children with biblical values. He coordinates our children's programs and family events.",
-    specialties: ["Children's Ministry", "Family Counseling", "Parent Support"],
-    yearsOfService: 8,
-    education: "M.A. in Family Ministry",
-    email: "james@christcommunity.org",
-    favoriteVerse: "Deuteronomy 6:6-7"
-  },
-  {
-    name: "Lisa Park",
-    role: "Missions Coordinator",
-    department: "Global Outreach",
-    bio: "Lisa coordinates our global missions efforts and short-term mission trips. Her heart for the nations has helped our church develop partnerships with ministries around the world.",
-    specialties: ["Global Missions", "Cross-Cultural Ministry", "Partnership Development"],
-    yearsOfService: 4,
-    education: "B.A. in Intercultural Studies",
-    email: "lisa@christcommunity.org",
-    favoriteVerse: "Matthew 28:19-20"
-  }
-];
 
 const getDepartmentColor = (department: string) => {
   const colorMap: { [key: string]: string } = {
@@ -110,7 +33,7 @@ const getDepartmentColor = (department: string) => {
   return colorMap[department] || 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-300';
 };
 
-export default function TeamMembers() {
+export default function TeamMembers({ teamMembers }: TeamMembersProps) {
   return (
     <section className="py-24 bg-background">
       <div className="container mx-auto px-6 lg:px-12">
@@ -128,14 +51,26 @@ export default function TeamMembers() {
           {teamMembers.map((member, index) => (
             <Card key={index} className="border-2 border-border/10 hover:border-primary/30 hover:shadow-lg transition-all duration-300 group">
               <CardHeader className="text-center pb-4">
-                <div className="w-24 h-24 mx-auto bg-gradient-to-br from-primary/20 to-tertiary/20 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <Users className="w-12 h-12 text-primary" />
+                <div className="w-24 h-24 mx-auto bg-gradient-to-br from-primary/20 to-tertiary/20 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform overflow-hidden">
+                  {member.profileImage ? (
+                    <Image
+                      src={processAsset(member.profileImage) || '/Church-Conference.jpg'}
+                      alt={member.name}
+                      width={96}
+                      height={96}
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  ) : (
+                    <Users className="w-12 h-12 text-primary" />
+                  )}
                 </div>
                 <h3 className="text-xl font-bold text-foreground">{member.name}</h3>
                 <p className="text-lg font-medium text-primary">{member.role}</p>
-                <Badge className={`mt-2 ${getDepartmentColor(member.department)}`}>
-                  {member.department}
-                </Badge>
+                {member.department && (
+                  <Badge className={`mt-2 ${getDepartmentColor(member.department)}`}>
+                    {member.department}
+                  </Badge>
+                )}
               </CardHeader>
               
               <CardContent className="space-y-4">
@@ -144,12 +79,14 @@ export default function TeamMembers() {
                 </p>
 
                 <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">
-                      {member.yearsOfService} years of service
-                    </span>
-                  </div>
+                  {member.yearsOfService && (
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-sm text-muted-foreground">
+                        {member.yearsOfService} years of service
+                      </span>
+                    </div>
+                  )}
                   
                   {member.education && (
                     <div className="flex items-center gap-2">
@@ -170,16 +107,18 @@ export default function TeamMembers() {
                   )}
                 </div>
 
-                <div className="space-y-2">
-                  <h4 className="text-sm font-semibold text-foreground">Specialties:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {member.specialties.map((specialty, idx) => (
-                      <Badge key={idx} variant="secondary" className="text-xs">
-                        {specialty}
-                      </Badge>
-                    ))}
+                {member.specialties && member.specialties.length > 0 && (
+                  <div className="space-y-2">
+                    <h4 className="text-sm font-semibold text-foreground">Specialties:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {member.specialties.map((specialty, idx) => (
+                        <Badge key={idx} variant="secondary" className="text-xs">
+                          {specialty}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {(member.email || member.phone) && (
                   <div className="pt-4 border-t space-y-2">
