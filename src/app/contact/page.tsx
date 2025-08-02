@@ -15,7 +15,7 @@ export default async function ContactPage() {
   return (
     <>
       <ContactHero />
-      <ContactInfo />
+      <ContactInfo faqs={faqs} />
       <ContactForm />
     </>
   );

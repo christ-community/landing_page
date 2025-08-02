@@ -16,6 +16,7 @@ import {
   Quote
 } from 'lucide-react';
 import Link from 'next/link';
+import type { ITimelineEvent, ICommunityStat } from '../../../../../types/contentful';
 
 const timeline = [
   {
@@ -96,7 +97,14 @@ const demographics = [
   { label: "Singles", percentage: 5, color: "bg-orange-500" }
 ];
 
-export default function OurStory() {
+interface OurStoryProps {
+  timelineEvents?: ITimelineEvent[];
+  communityStats?: ICommunityStat[];
+}
+
+export default function OurStory({ timelineEvents, communityStats }: OurStoryProps) {
+  console.log('timelineEvents, ', timelineEvents);
+  console.log('communityStats, ', communityStats);
   return (
     <section className="py-24 bg-background">
       <div className="container mx-auto px-6 lg:px-12">
@@ -119,8 +127,8 @@ export default function OurStory() {
             <div className="absolute left-4 md:left-1/2 md:-translate-x-0.5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-rose-300 to-pink-300"></div>
             
             <div className="space-y-12">
-              {timeline.map((item, index) => {
-                const Icon = item.icon;
+              {timelineEvents?.map((item, index) => {
+                const Icon =  Lightbulb;
                 const isEven = index % 2 === 0;
                 
                 return (
@@ -141,7 +149,7 @@ export default function OurStory() {
                             </Badge>
                           </div>
                           <CardTitle className="text-xl">{item.title}</CardTitle>
-                          <p className="text-sm font-medium text-rose-600">{item.milestone}</p>
+                        
                         </CardHeader>
                         <CardContent>
                           <p className="text-sm text-muted-foreground leading-relaxed">

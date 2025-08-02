@@ -17,8 +17,8 @@ export default async function WhoWeArePage() {
 
   return (
     <>
-      <WhoHero />
-      <OurStory />
+      <WhoHero missionVision={missionVision} />
+      <OurStory timelineEvents={timelineEvents} communityStats={communityStats} />
     </>
   );
 } 

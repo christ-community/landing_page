@@ -73,9 +73,10 @@ const eventCategories = [
 
 interface UpcomingEventsSectionProps {
   config?: Partial<any>;
+  events?: IEvent[];
 }
 
-export default function UpcomingEventsSection({ config }: UpcomingEventsSectionProps) {
+export default function UpcomingEventsSection({ config, events }: UpcomingEventsSectionProps) {
   const eventsConfig = { ...defaultEventsConfig, ...config };
   const { title, subtitle, description, ctaText, ctaUrl } = eventsConfig;
 

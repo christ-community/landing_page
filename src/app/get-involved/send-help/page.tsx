@@ -51,13 +51,13 @@ export default async function SendHelpPage() {
 
     return (
         <main className="min-h-screen">
-            <SendHelpHero />
+            <SendHelpHero pageHero={pageHero} />
             <HelpOptions 
               title="Ways You Can Help"
               subtitle="Choose the way of giving that best suits you. Every contribution makes a difference."
               options={helpOptionsConfig} 
             />
-            <ImpactSection />
+            <ImpactSection helpImpact={helpImpact} />
             <SendHelpForm />
             <NewsletterSection config={{
                 title: 'Stay Updated on Our Impact',

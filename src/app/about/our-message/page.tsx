@@ -17,8 +17,8 @@ export default async function OurMessagePage() {
 
   return (
     <>
-      <MessageHero  />
-      <CoreBeliefs />
+      <MessageHero mission={mission} />
+      <CoreBeliefs coreBeliefs={coreBeliefs} />
     </>
   );
 } 

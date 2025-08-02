@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Handshake, Heart, Map, BookOpen } from 'lucide-react';
 import type { InvolvementOption } from '@/types';
+import type { IInvolvementOption } from '../../../../types/contentful';
 
 const defaultOptions: InvolvementOption[] = [
   {
@@ -41,9 +42,10 @@ const defaultOptions: InvolvementOption[] = [
 
 interface InvolvementOptionsProps {
   options?: InvolvementOption[];
+  involvementOptions?: IInvolvementOption[];
 }
 
-export default function InvolvementOptions({ options = defaultOptions }: InvolvementOptionsProps) {
+export default function InvolvementOptions({ options = defaultOptions, involvementOptions }: InvolvementOptionsProps) {
   return (
     <section className="py-24 bg-background" data-section="involvement-options">
       <div className="container mx-auto px-6 lg:px-12">

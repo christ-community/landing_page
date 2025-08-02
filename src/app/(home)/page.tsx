@@ -23,7 +23,7 @@ export default async function HomePage() {
       <WhatWeDoSection activities={ministryActivities} />
       <GiveToday />
       <TestimonialsSection testimonials={testimonials} />
-      <UpcomingEventsSection />
+      <UpcomingEventsSection events={upcomingEvents} />
       <NewsletterSection />
       <ChurchFinderSection />
       <HealingResourcesSection />

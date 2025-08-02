@@ -5,9 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Heart, Handshake, Gift, ArrowRight } from 'lucide-react';
 import type { SendHelpPageConfig } from '@/types';
+import type { IPageHero } from '../../../../../types/contentful';
 
 interface SendHelpHeroProps {
   config?: Partial<SendHelpPageConfig['hero']>;
+  pageHero?: IPageHero | null;
 }
 
 const defaultConfig: SendHelpPageConfig['hero'] = {
@@ -16,7 +18,7 @@ const defaultConfig: SendHelpPageConfig['hero'] = {
   backgroundImage: "/worship-conference.jpeg",
 };
 
-export default function SendHelpHero({ config }: SendHelpHeroProps) {
+export default function SendHelpHero({ config, pageHero }: SendHelpHeroProps) {
   const heroConfig = { ...defaultConfig, ...config };
   const { title, subtitle, backgroundImage } = heroConfig;
 

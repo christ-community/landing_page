@@ -4,12 +4,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { BookOpen, Heart, Cross, Scroll, MessageCircle, Lightbulb } from 'lucide-react';
 import Link from 'next/link';
+import type { IMissionVision } from '../../../../../types/contentful';
 
 interface MessageHeroProps {
   config?: {
     title?: string;
     subtitle?: string;
   };
+  mission?: IMissionVision | null;
 }
 
 const defaultConfig = {
@@ -35,7 +37,7 @@ const pillars = [
   }
 ];
 
-export default function MessageHero({ config }: MessageHeroProps) {
+export default function MessageHero({ config, mission }: MessageHeroProps) {
   const heroConfig = { ...defaultConfig, ...config };
   const { title, subtitle } = heroConfig;
 

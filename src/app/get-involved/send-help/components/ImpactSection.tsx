@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import type { ImpactStory } from '@/types';
+import type { IHelpImpact } from '../../../../../types/contentful';
 
 const defaultStories: ImpactStory[] = [
   {
@@ -25,9 +26,11 @@ const defaultStories: ImpactStory[] = [
 
 interface ImpactSectionProps {
   stories?: ImpactStory[];
+  helpImpact?: IHelpImpact[];
 }
 
-export default function ImpactSection({ stories = defaultStories }: ImpactSectionProps) {
+export default function ImpactSection({ stories = defaultStories, helpImpact }: ImpactSectionProps) {
+  console.log('helpImpact, ', helpImpact);
   return (
     <section className="py-24 bg-muted/30">
       <div className="container mx-auto px-6 lg:px-12">

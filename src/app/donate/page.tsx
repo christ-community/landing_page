@@ -15,7 +15,7 @@ export default async function DonatePage() {
 
   return (
     <>
-      <GiveToday />
+      <GiveToday helpImpact={helpImpact} communityStats={communityStats} />
     </>
   );
 } 

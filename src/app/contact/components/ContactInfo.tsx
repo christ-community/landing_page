@@ -12,12 +12,14 @@ import {
   Calendar,
   Users
 } from 'lucide-react';
+import type { IFAQ } from '../../../../types/contentful';
 
 interface ContactInfoProps {
   config?: {
     title?: string;
     subtitle?: string;
   };
+  faqs?: IFAQ[];
 }
 
 const defaultConfig = {
@@ -85,8 +87,10 @@ const serviceInfo = [
   }
 ];
 
-export default function ContactInfo({ config }: ContactInfoProps) {
+export default function ContactInfo({ config, faqs }: ContactInfoProps) {
   const infoConfig = { ...defaultConfig, ...config };
+
+  console.log('faqs, ', faqs);
 
   const getColorClasses = (color: string) => {
     const colorMap = {

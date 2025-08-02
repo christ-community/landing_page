@@ -2,12 +2,17 @@
 
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Waves } from 'lucide-react';
+import type { IPageHero } from '../../../../types/contentful';
 
 const Shape = ({ className }: { className?: string }) => (
   <div className={`absolute rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob ${className}`} />
 );
 
-export default function GetInvolvedHero() {
+interface GetInvolvedHeroProps {
+  pageHero?: IPageHero | null;
+}
+
+export default function GetInvolvedHero({ pageHero }: GetInvolvedHeroProps) {
   const handleScrollDown = () => {
     const nextSection = document.querySelector('[data-section="involvement-options"]');
     if (nextSection) {

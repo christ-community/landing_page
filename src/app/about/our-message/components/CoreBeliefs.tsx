@@ -15,6 +15,7 @@ import {
   Quote
 } from 'lucide-react';
 import Link from 'next/link';
+import type { ICoreBelief } from '../../../../../types/contentful';
 
 interface Belief {
   title: string;
@@ -103,7 +104,23 @@ const statementOfFaith = [
   }
 ];
 
-export default function CoreBeliefs() {
+interface CoreBeliefsProps {
+  coreBeliefs?: ICoreBelief[];
+}
+
+export default function CoreBeliefs({ coreBeliefs: contentfulBeliefs }: CoreBeliefsProps) {
+  // Use Contentful beliefs if available, otherwise use hardcoded ones
+  const beliefsToUse = contentfulBeliefs && contentfulBeliefs.length > 0 
+    ? contentfulBeliefs.map(belief => ({
+        title: belief.title,
+        icon: BookOpen, // Default icon, could be mapped based on belief type
+        description: belief.description,
+        scripture: belief.scriptureReference || '',
+        details: belief.description,
+        color: 'text-blue-500' // Default color
+      }))
+    : coreBeliefs;
+
   return (
     <section className="py-24 bg-background">
       <div className="container mx-auto px-6 lg:px-12">
@@ -120,7 +137,7 @@ export default function CoreBeliefs() {
 
         {/* Core Beliefs Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {coreBeliefs.map((belief, index) => {
+          {beliefsToUse.map((belief, index) => {
             const Icon = belief.icon;
             return (
               <Card key={index} className="border-2 border-border/10 hover:border-primary/30 hover:shadow-lg transition-all duration-300 group h-full">

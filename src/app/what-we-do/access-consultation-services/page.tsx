@@ -5,6 +5,7 @@ import ConsultationProcess from './components/ConsultationProcess';
 import ConsultationBooking from './components/ConsultationBooking';
 import type { ConsultationPageConfig } from '@/types';
 import { HeartHandshake, Megaphone, Presentation, HandCoins, PenSquare, Calendar, Video, Lightbulb } from 'lucide-react';
+import { getPageHero, getTestimonials } from '../../../../lib/contentful-api';
 
 const pageConfig: ConsultationPageConfig = {
     hero: {
@@ -45,22 +46,22 @@ export const metadata: Metadata = {
 };
 
 export default async function AccessConsultationServicesPage() {
-    // const [pageHero, testimonials] = await Promise.all([
-    //     getPageHero('consultation'),
-    //     getTestimonials()
-    // ]);
+    const [pageHero, testimonials] = await Promise.all([
+        getPageHero('consultation'),
+        getTestimonials()
+    ]);
 
     // Use Contentful hero if available, otherwise fall back to config
-    // const heroConfig = pageHero ? {
-    //     title: pageHero.title,
-    //     subtitle: pageHero.subtitle || pageConfig.hero.subtitle,
-    //     image: pageConfig.hero.image
-    // } : pageConfig.hero;
+    const heroConfig = pageHero ? {
+        title: pageHero.title,
+        subtitle: pageHero.subtitle || pageConfig.hero.subtitle,
+        image: pageConfig.hero.image
+    } : pageConfig.hero;
 
     const simpleOfferings = pageConfig.services.offerings.map(({ id, title }) => ({ id, title }));
     return (
         <main>
-            <ConsultationHero {...pageConfig.hero} />
+            <ConsultationHero {...heroConfig} />
             <ServiceOfferings {...pageConfig.services} />
             <ConsultationProcess {...pageConfig.process} />
             <ConsultationBooking title={pageConfig.booking.title} subtitle={pageConfig.booking.subtitle} offerings={simpleOfferings} />

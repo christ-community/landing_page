@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Users, Heart, Calendar, MapPin, Clock, ArrowRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
+import type { IMissionVision } from '../../../../../types/contentful';
 import { useState, useEffect } from 'react';
 
 interface WhoHeroProps {
@@ -11,6 +12,7 @@ interface WhoHeroProps {
     title?: string;
     subtitle?: string;
   };
+  missionVision?: IMissionVision[];
 }
 
 const defaultConfig = {
@@ -27,7 +29,7 @@ const journeyMilestones = [
   { year: "2024", event: "500+ Members", emoji: "⭐" }
 ];
 
-export default function WhoHero({ config }: WhoHeroProps) {
+export default function WhoHero({ config, missionVision }: WhoHeroProps) {
   const heroConfig = { ...defaultConfig, ...config };
   const { title, subtitle } = heroConfig;
   const [currentMilestone, setCurrentMilestone] = useState(0);

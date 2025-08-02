@@ -22,9 +22,9 @@ export default async function GetInvolvedPage() {
 
   return (
     <main>
-      <GetInvolvedHero />
+      <GetInvolvedHero pageHero={pageHero} />
       <WhyInvolvementMatters />
-      <InvolvementOptions />
+      <InvolvementOptions involvementOptions={involvementOptions} />
       <TestimonialsSection 
         title="Voices of Our Community"
         subtitle="See what others are saying about their experience being part of the mission."
