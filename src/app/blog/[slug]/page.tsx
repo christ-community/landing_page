@@ -11,13 +11,13 @@ import NewsletterSection from '@/components/NewsletterSection';
 import { BookOpen } from 'lucide-react';
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 const BlogPostPage = async ({ params }: BlogPostPageProps) => {
-  const { slug } = params;
+  const { slug } = await params;
   const post = posts.find((p) => p.href === `/blog/${slug}`);
 
   if (!post || !post.content) {

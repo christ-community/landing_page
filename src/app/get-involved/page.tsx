@@ -3,35 +3,52 @@ import GetInvolvedHero from './components/GetInvolvedHero';
 import InvolvementOptions from './components/InvolvementOptions';
 import WhyInvolvementMatters from './components/WhyInvolvementMatters';
 import TestimonialsSection from '@/components/TestimonialsSection';
-import type { VolunteerTestimonial } from '@/types';
+// Local testimonial interface for hardcoded data
+interface LocalTestimonial {
+  name: string
+  role: string
+  quote: string
+  image?: string
+  volunteeredSince?: string
+  favoriteActivity?: string
+  isActive: boolean
+  order: number
+  isHighlighted: boolean
+}
 
-const testimonials: VolunteerTestimonial[] = [
+const testimonials: LocalTestimonial[] = [
   {
-    id: '1',
     name: "Sarah L.",
     role: "Volunteer",
     quote: "Volunteering has been an incredibly rewarding experience. It's about connecting with people and seeing the tangible impact of our collective efforts. I've grown so much in my faith.",
     image: "/worship-conference.jpeg",
     volunteeredSince: '2 years',
-    favoriteActivity: 'Community Events'
+    favoriteActivity: 'Community Events',
+    isActive: true,
+    order: 1,
+    isHighlighted: true
   },
   {
-    id: '2',
     name: "Michael B.",
     role: "Church Partner",
     quote: "Partnering with this ministry has allowed our church to extend its reach far beyond our local community. The resources and support have been invaluable.",
     image: "/Church-Conference.jpg",
     volunteeredSince: '3 years',
-    favoriteActivity: 'Missionary Support'
+    favoriteActivity: 'Missionary Support',
+    isActive: true,
+    order: 2,
+    isHighlighted: true
   },
   {
-    id: '3',
     name: "Emily R.",
     role: "Tract Recipient",
     quote: "I received a tract during a very difficult time in my life. The simple message of hope it contained was a light in the darkness and started me on my journey to faith.",
     image: "/worship-conference.jpeg",
     volunteeredSince: '1 year',
-    favoriteActivity: 'Sharing Hope'
+    favoriteActivity: 'Sharing Hope',
+    isActive: true,
+    order: 3,
+    isHighlighted: true
   },
 ];
 
@@ -50,7 +67,7 @@ export default function GetInvolvedPage() {
       <TestimonialsSection 
         title="Voices of Our Community"
         subtitle="See what others are saying about their experience being part of the mission."
-        testimonials={testimonials}
+        testimonials={testimonials as any}
       />
     </main>
   );

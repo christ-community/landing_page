@@ -10,7 +10,7 @@ import type { ChurchFinderConfig, Church, UserLocation } from '@/types';
 // Google Maps integration
 declare global {
   interface Window {
-    google: any;
+    google: typeof google;
   }
 }
 

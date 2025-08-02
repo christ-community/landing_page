@@ -1,38 +1,56 @@
 import { Metadata } from 'next';
 import WhatWeDoHero from "./components/WhatWeDoHero";
 import ActivityGrid from "./components/ActivityGrid";
-import type { WhatWeDoPageConfig, VolunteerTestimonial } from "@/types";
+import type { WhatWeDoPageConfig } from "@/types";
+// Local testimonial interface for hardcoded data
+interface LocalTestimonial {
+  name: string
+  role: string
+  quote: string
+  image?: string
+  volunteeredSince?: string
+  favoriteActivity?: string
+  isActive: boolean
+  order: number
+  isHighlighted: boolean
+}
 
 import NewsletterSection from "@/components/NewsletterSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 
-const testimonials: VolunteerTestimonial[] = [
+const testimonials: LocalTestimonial[] = [
     {
-        id: "1",
         name: "Pastor John S.",
         role: "Lead Pastor, Grace Fellowship",
         quote: "The consultation services were a game-changer for our small church. We now have a clear vision and the tools to actually achieve it.",
         image: "/worship-conference.jpeg",
         volunteeredSince: "2023",
-        favoriteActivity: "Leadership Consultation"
+        favoriteActivity: "Leadership Consultation",
+        isActive: true,
+        order: 1,
+        isHighlighted: true
     },
     {
-        id: "2",
         name: "Sarah L.",
         role: "Conference Attendee",
         quote: "After attending the youth conference, my faith feels more alive than ever. The speakers were inspiring, and the community I found was so welcoming.",
         image: "/Church-Conference.jpg",
         volunteeredSince: "2024",
-        favoriteActivity: "Youth Conference"
+        favoriteActivity: "Youth Conference",
+        isActive: true,
+        order: 2,
+        isHighlighted: true
     },
     {
-        id: "3",
         name: "David M.",
         role: "Resource User",
         quote: "The resources on healing have been a balm to my soul during a very difficult season. Thank you for providing such practical and hope-filled content.",
         image: "/worship-conference.jpeg",
         volunteeredSince: "2024",
-        favoriteActivity: "Healing Resources"
+        favoriteActivity: "Healing Resources",
+        isActive: true,
+        order: 3,
+        isHighlighted: true
     }
 ];
 
@@ -91,7 +109,7 @@ export default function WhatWeDoPage() {
             <TestimonialsSection 
                 title="Stories of Transformation"
                 subtitle="Hear from those who have been blessed by our ministries."
-                testimonials={testimonials}
+                testimonials={testimonials as any}
             />
             <NewsletterSection />
         </main>
