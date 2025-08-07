@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Search, ArrowRight, BookOpen, Video, Mic, FileText, Library } from 'lucide-react';
+import { Search, ArrowRight, BookOpen, Video as VideoIcon, Mic, FileText, Library } from 'lucide-react';
 import type { HealingResource, ResourceFormat } from '@/types';
 
 interface ResourceListProps {
@@ -18,7 +18,7 @@ interface ResourceListProps {
 const formats: ResourceFormat[] = ['Article', 'Video', 'Podcast', 'Guide'];
 const formatIcons = {
     Article: BookOpen,
-    Video: Video,
+    Video: VideoIcon,
     Podcast: Mic,
     Guide: FileText
 };

@@ -2,8 +2,9 @@ import { Metadata } from 'next';
 import HealingResourcesHero from "./components/HealingResourcesHero";
 import ResourceList from "./components/ResourceList";
 import type { HealingResourcesPageConfig } from "@/types";
-import { getPageHero, getResources } from '../../../../lib/contentful-api';
-import { processAsset } from '../../../../lib/contentful-api';
+// Temporarily disabled Contentful API imports for deployment
+// import { getPageHero, getResources } from '../../../../lib/contentful-api';
+// import { processAsset } from '../../../../lib/contentful-api';
 
 const pageConfig: HealingResourcesPageConfig = {
     hero: {
@@ -56,32 +57,13 @@ export const metadata: Metadata = {
 };
 
 export default async function HealingAndLiftingResourcesPage() {
-    const [pageHero, contentfulResources] = await Promise.all([
-        getPageHero('healing-resources'),
-        getResources()
-    ]);
-
-    // Use Contentful hero data if available, otherwise fall back to hardcoded config
-    const heroConfig = pageHero ? {
-        title: pageHero.title,
-        subtitle: pageHero.subtitle || pageConfig.hero.subtitle
-    } : pageConfig.hero;
-
-    // Use Contentful resources if available, otherwise fall back to dummy data
-    const resources = contentfulResources.length > 0 ? contentfulResources.map((resource: any) => ({
-        id: resource.sys?.id || Math.random().toString(),
-        title: resource.title,
-        description: resource.description,
-        image: processAsset(resource.image) || '/Church-Conference.jpg',
-        format: resource.format as 'Article' | 'Video' | 'Podcast' | 'Guide',
-        tags: resource.tags || [],
-        href: resource.href || (resource.file ? processAsset(resource.file) : '#') || '#'
-    })) : pageConfig.resources;
-
+    // Temporarily using static config only for deployment stability
+    // TODO: Re-enable Contentful integration after investigating the undefined component issue
+    
     return (
         <main>
-            <HealingResourcesHero {...heroConfig} />
-            <ResourceList resources={resources} />
+            <HealingResourcesHero {...pageConfig.hero} />
+            <ResourceList resources={pageConfig.resources} />
         </main>
-    )
+    );
 } 
