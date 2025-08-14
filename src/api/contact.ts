@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import nodemailer from 'nodemailer';
+import * as nodemailer from 'nodemailer';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') return res.status(405).json({ message: 'Method not allowed' });
@@ -11,9 +11,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
+    
+
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
+      host: process.env.MAIL_HOST,
+      port: process.env.NODE_ENV === 'production' ? Number(process.env.MAIL_PORT_PROD) : Number(process.env.MAIL_PORT_DEV),
       secure: true,
       auth: {
         user: process.env.MAIL_USER,
@@ -23,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     await transporter.sendMail({
       from: `"${name}" <${email}>`,
-      to: 'rothisconsult@gmail.com',
+      to: process.env.MAIL_TO,
       subject: subject,
       text: message,
     });
