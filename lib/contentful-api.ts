@@ -37,7 +37,11 @@ interface ApiOptions {
   order?: string
 }
 
-// Helper function to get the appropriate client
+// Helper function to get the appropriate client with caching
+function getClientWithCache(preview: boolean = false) {
+  return getClient(preview)
+}
+
 // Helper function to process asset
 export function processAsset(asset?: Asset): string | undefined {
   if (!asset || !asset.fields) return undefined
@@ -52,10 +56,11 @@ function processEntry<T>(entry: Entry<any>): T {
 // Page Content API
 export async function getPageContent(slug: string, options: ApiOptions = {}): Promise<IPageContent | null> {
   try {
-    const entries = await getClient(options.preview).getEntries({
+    const entries = await getClientWithCache(options.preview).getEntries({
       content_type: 'pageContent',
       'fields.slug': slug,
-      limit: 1
+      limit: 1,
+      ...(options.preview ? {} : { next: { tags: ['pageContent', `pageContent-${slug}`] } })
     } as any)
 
     if (entries.items.length === 0) return null
@@ -68,10 +73,11 @@ export async function getPageContent(slug: string, options: ApiOptions = {}): Pr
 
 export async function getAllPageContent(options: ApiOptions = {}): Promise<IPageContent[]> {
   try {
-    const entries = await getClient(options.preview).getEntries({
+    const entries = await getClientWithCache(options.preview).getEntries({
       content_type: 'pageContent',
       limit: options.limit || 100,
-      skip: options.skip || 0
+      skip: options.skip || 0,
+      ...(options.preview ? {} : { next: { tags: ['pageContent'] } })
     } as any)
 
     return entries.items.map(item => processEntry<IPageContent>(item))
@@ -84,11 +90,12 @@ export async function getAllPageContent(options: ApiOptions = {}): Promise<IPage
 // Team Members API
 export async function getTeamMembers(options: ApiOptions = {}): Promise<ITeamMember[]> {
   try {
-    const entries = await getClient(options.preview).getEntries({
+    const entries = await getClientWithCache(options.preview).getEntries({
       content_type: 'teamMember',
       'fields.isActive': true,
       limit: options.limit || 100,
-      skip: options.skip || 0
+      skip: options.skip || 0,
+      ...(options.preview ? {} : { next: { tags: ['teamMember'] } })
     } as any)
 
     return entries.items.map(item => processEntry<ITeamMember>(item))
@@ -111,11 +118,12 @@ export async function getTeamMember(id: string, options: ApiOptions = {}): Promi
 // Blog Posts API
 export async function getBlogPosts(options: ApiOptions = {}): Promise<IBlogPost[]> {
   try {
-    const entries = await getClient(options.preview).getEntries({
+    const entries = await getClientWithCache(options.preview).getEntries({
       content_type: 'blogPost',
       'fields.isPublished': true,
       limit: options.limit || 10,
-      skip: options.skip || 0
+      skip: options.skip || 0,
+      ...(options.preview ? {} : { next: { tags: ['blogPost'] } })
     } as any)
 
     return entries.items.map(item => processEntry<IBlogPost>(item))
@@ -161,11 +169,12 @@ export async function getFeaturedBlogPosts(options: ApiOptions = {}): Promise<IB
 // Events API
 export async function getEvents(options: ApiOptions = {}): Promise<IEvent[]> {
   try {
-    const entries = await getClient(options.preview).getEntries({
+    const entries = await getClientWithCache(options.preview).getEntries({
       content_type: 'event',
       'fields.isActive': true,
       limit: options.limit || 10,
-      skip: options.skip || 0
+      skip: options.skip || 0,
+      ...(options.preview ? {} : { next: { tags: ['event'] } })
     } as any)
 
     return entries.items.map(item => processEntry<IEvent>(item))
@@ -178,11 +187,12 @@ export async function getEvents(options: ApiOptions = {}): Promise<IEvent[]> {
 export async function getUpcomingEvents(options: ApiOptions = {}): Promise<IEvent[]> {
   try {
     const now = new Date().toISOString()
-    const entries = await getClient(options.preview).getEntries({
+    const entries = await getClientWithCache(options.preview).getEntries({
       content_type: 'event',
       'fields.isActive': true,
       'fields.date[gte]': now,
-      limit: options.limit || 5
+      limit: options.limit || 5,
+      ...(options.preview ? {} : { next: { tags: ['event'] } })
     } as any)
 
     return entries.items.map(item => processEntry<IEvent>(item))
@@ -228,11 +238,12 @@ export async function getTestimonials(options: ApiOptions = {}): Promise<ITestim
 
 export async function getHighlightedTestimonials(options: ApiOptions = {}): Promise<ITestimonial[]> {
   try {
-    const entries = await getClient(options.preview).getEntries({
+    const entries = await getClientWithCache(options.preview).getEntries({
       content_type: 'testimonial',
       'fields.isActive': true,
       'fields.isHighlighted': true,
-      limit: options.limit || 3
+      limit: options.limit || 3,
+      ...(options.preview ? {} : { next: { tags: ['testimonial'] } })
     } as any)
 
     return entries.items.map(item => processEntry<ITestimonial>(item))

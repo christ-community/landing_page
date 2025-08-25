@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "next build && npm run postbuild",
+    "postbuild": "npm run webhook:setup || echo 'Webhook setup failed - check environment variables'",
     "start": "next start",
     "lint": "next lint",
     "contentful:cleanup": "tsx scripts/cleanup-contentful.ts",
@@ -15,7 +16,9 @@
     "contentful:create-types": "tsx scripts/completeContentTypes.ts",
     "contentful:populate-basic": "tsx scripts/allContentMigration.ts",
     "contentful:populate-remaining": "tsx scripts/completeRemainingContent.ts",
-    "contentful:full-check": "tsx scripts/checkAllContentEntries.ts"
+    "contentful:full-check": "tsx scripts/checkAllContentEntries.ts",
+    "webhook:setup": "tsx scripts/setup-webhook.ts",
+    "webhook:test": "node scripts/test-webhook.js"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.10",

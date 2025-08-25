@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Handshake, Heart, Map, BookOpen } from 'lucide-react';
+import { ArrowRight, Handshake, Heart, Map, BookOpen, Gift } from 'lucide-react';
 import type { InvolvementOption } from '@/types';
 import type { IInvolvementOption } from '../../../../types/contentful';
 
@@ -21,6 +21,14 @@ const defaultOptions: InvolvementOption[] = [
     icon: Handshake,
     bgColor: "bg-orange-100 dark:bg-orange-950/30",
     textColor: "text-orange-600 dark:text-orange-400"
+  },
+  {
+    title: "Get a Free Bible",
+    description: "Request your complimentary Bible and begin your spiritual journey today.",
+    href: "/get-involved/get-a-free-bible",
+    icon: Gift,
+    bgColor: "bg-blue-100 dark:bg-blue-950/30",
+    textColor: "text-blue-600 dark:text-blue-400"
   },
   {
     title: "Order a Tract",
@@ -49,7 +57,7 @@ export default function InvolvementOptions({ options = defaultOptions, involveme
   return (
     <section className="py-24 bg-background" data-section="involvement-options">
       <div className="container mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
           {options.map((option) => (
             <Card key={option.title} className="group relative flex flex-col justify-between p-8 overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border border-transparent hover:border-primary/20">
               <div className={`absolute -top-10 -right-10 w-32 h-32 rounded-full transition-transform duration-500 group-hover:scale-[8] ${option.bgColor}`}></div>

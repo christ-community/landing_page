@@ -275,8 +275,8 @@ const Header = ({ config }: HeaderProps) => {
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-                <SheetHeader>
+              <SheetContent side="right" className="w-[300px] sm:w-[400px] flex flex-col">
+                <SheetHeader className="flex-shrink-0">
                   <SheetTitle className="flex items-center space-x-3">
                     <Image
                       src={logo.src}
@@ -289,47 +289,51 @@ const Header = ({ config }: HeaderProps) => {
                   <SheetDescription>{mobileMenuDescription}</SheetDescription>
                 </SheetHeader>
 
-                <div className="flex flex-col space-y-1 mt-8">
-                  {navigationItems.map((item) => (
-                    <div key={item.label} className="flex flex-col space-y-1">
-                      <Link
-                        href={item.href}
-                        className="flex items-center justify-between py-3 px-4 text-foreground hover:text-tertiary hover:bg-accent rounded-md transition-all duration-200 font-medium border border-transparent"
-                      >
-                        <span>{item.label}</span>
-                        {item.children && <ChevronDown className="h-4 w-4" />}
-                      </Link>
-                      {item.children && (
-                        <div className="ml-4 flex flex-col space-y-1">
-                          {item.children.map((child) => (
-                            <Link
-                              key={child.label}
-                              href={child.href}
-                              className="flex items-center py-2 px-3 text-sm text-muted-foreground hover:text-tertiary hover:bg-accent rounded-md transition-all duration-200"
-                            >
-                              {child.icon && (
-                                <child.icon className="w-4 h-4 mr-2" />
-                              )}
-                              <span>{child.label}</span>
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                <div className="flex-1 overflow-y-auto py-4">
+                  <div className="flex flex-col space-y-1">
+                    {navigationItems.map((item) => (
+                      <div key={item.label} className="flex flex-col space-y-1">
+                        <Link
+                          href={item.href}
+                          className="flex items-center justify-between py-3 px-4 text-foreground hover:text-tertiary hover:bg-accent rounded-md transition-all duration-200 font-medium border border-transparent"
+                        >
+                          <span>{item.label}</span>
+                          {item.children && <ChevronDown className="h-4 w-4" />}
+                        </Link>
+                        {item.children && (
+                          <div className="ml-4 flex flex-col space-y-1">
+                            {item.children.map((child) => (
+                              <Link
+                                key={child.label}
+                                href={child.href}
+                                className="flex items-center py-2 px-3 text-sm text-muted-foreground hover:text-tertiary hover:bg-accent rounded-md transition-all duration-200"
+                              >
+                                {child.icon && (
+                                  <child.icon className="w-4 h-4 mr-2" />
+                                )}
+                                <span>{child.label}</span>
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="absolute bottom-6 left-6 right-6 flex flex-col space-y-3">
-                  {actionButtons.map((button) => (
-                    <Button
-                      key={button.label}
-                      asChild
-                      className="w-full bg-tertiary text-tertiary-foreground hover:bg-tertiary/90"
-                      size="lg"
-                    >
-                      <Link href={button.href || "#"}>{button.label}</Link>
-                    </Button>
-                  ))}
+                <div className="flex-shrink-0 border-t pt-4">
+                  <div className="flex flex-col space-y-3">
+                    {actionButtons.map((button) => (
+                      <Button
+                        key={button.label}
+                        asChild
+                        className="w-full bg-tertiary text-tertiary-foreground hover:bg-tertiary/90"
+                        size="lg"
+                      >
+                        <Link href={button.href || "#"}>{button.label}</Link>
+                      </Button>
+                    ))}
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>
