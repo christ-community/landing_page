@@ -18,6 +18,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Christ Community",
   description: "Welcome to Christ Community Church",
+  icons: {
+    icon: "/Logo .PNG",
+    shortcut: "/Logo .PNG",
+    apple: "/Logo .PNG",
+  },
 };
 
 export default function RootLayout({

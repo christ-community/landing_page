@@ -348,7 +348,7 @@ export class ChatService {
  * Default configuration for the chat service
  */
 export const defaultChatConfig: ChatConfig = {
-  apiBaseUrl: 'https://ccg-9beb62086b99.herokuapp.com',
+  apiBaseUrl: process.env.NEXT_PUBLIC_CHAT_API_BASE_URL || 'https://p01--ccg-api--jpcbk2mdwdkc.code.run',
   maxMessages: 100,
   retryAttempts: 3,
   retryDelay: 1000,
