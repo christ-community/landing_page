@@ -49,7 +49,7 @@ export default async function RootLayout({
             src="//unpkg.com/react-scan/dist/auto.global.js"
           />
         )}
-        {process.env.NODE_ENV === 'production' && (
+        {['production', 'staging'].includes(process.env.NODE_ENV || '') && (
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{
