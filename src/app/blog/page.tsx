@@ -4,12 +4,13 @@ import PostCard from './components/PostCard';
 import EmptyState from '@/components/ui/EmptyState';
 import NewsletterSection from '@/components/NewsletterSection';
 import { BookOpenCheck } from 'lucide-react';
-import { getBlogPosts, getCategories } from '../../../lib/contentful-api';
+import { getBlogPosts, getCategories, getPageHero } from '../../../lib/contentful-api';
 
 const BlogPage = async () => {
-  const [blogPosts, categories] = await Promise.all([
+  const [blogPosts, categories, pageHero] = await Promise.all([
     getBlogPosts(),
-    getCategories()
+    getCategories(),
+    getPageHero('blog')
   ]);
 
   return (
@@ -17,10 +18,10 @@ const BlogPage = async () => {
       <div className="container mx-auto px-6 lg:px-12">
         <header className="text-center mb-16">
           <h1 className="text-5xl font-bold text-foreground mb-4">
-            Insights & Resources
+            {pageHero?.title || "Insights & Resources"}
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Explore our latest articles, case studies, and resources to help your church thrive.
+            {pageHero?.subtitle || "Explore our latest articles, case studies, and resources to help your church thrive."}
           </p>
         </header>
 

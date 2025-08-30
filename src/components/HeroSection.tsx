@@ -4,7 +4,7 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import type { HeroConfig } from "@/types";
-import type { IPageContent } from "../../types/contentful";
+import type { IPageContent, IPageHero } from "../../types/contentful";
 
 // Default configuration - this will later come from Contentful
 const defaultHeroConfig: HeroConfig = {
@@ -33,18 +33,35 @@ const defaultHeroConfig: HeroConfig = {
 interface HeroSectionProps {
   config?: Partial<HeroConfig>;
   pageContent?: IPageContent;
+  pageHero?: IPageHero;
 }
 
-const HeroSection = ({ config, pageContent }: HeroSectionProps) => {
-  // Use Contentful data if available, otherwise fall back to default config
-  const heroConfig = pageContent ? {
+const HeroSection = ({ config, pageContent, pageHero }: HeroSectionProps) => {
+  // Use pageHero first, then pageContent, finally config or default
+  const heroConfig = pageHero ? {
+    content: {
+      title: pageHero.title,
+      subtitle: pageHero.subtitle,
+      description: pageHero.description || defaultHeroConfig.content.description,
+      buttons: defaultHeroConfig.content.buttons // Keep default buttons for now
+    },
+    images: (pageHero as any).processedBackgroundImage ? [
+      {
+        src: (pageHero as any).processedBackgroundImage,
+        alt: pageHero.title
+      },
+      ...defaultHeroConfig.images.slice(1)
+    ] : defaultHeroConfig.images,
+    autoChangeInterval: defaultHeroConfig.autoChangeInterval,
+    connectButtonLabel: defaultHeroConfig.connectButtonLabel
+  } : pageContent ? {
     content: {
       title: pageContent.title,
       subtitle: pageContent.subtitle,
       description: pageContent.description,
-      buttons: defaultHeroConfig.content.buttons // Keep default buttons for now
+      buttons: defaultHeroConfig.content.buttons
     },
-    images: defaultHeroConfig.images, // Keep default images for now
+    images: defaultHeroConfig.images,
     autoChangeInterval: defaultHeroConfig.autoChangeInterval,
     connectButtonLabel: defaultHeroConfig.connectButtonLabel
   } : { ...defaultHeroConfig, ...config };

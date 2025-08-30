@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
+import HeaderFixed from "@/components/HeaderFixed";
 import Footer from "@/components/Footer";
 import { ChatIntegration } from "@/components/chat";
+import { getFooter } from "../../lib/contentful-api";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,11 +26,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Try to get footer data, but don't let it block page rendering
+  let footerData = null;
+  try {
+    footerData = await getFooter();
+  } catch (error) {
+    // Silently fail and use default footer
+    console.log('Using default footer configuration');
+  }
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -42,18 +52,17 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon" />
-        {/* React Scan will help monitor component performance and re-renders in development */}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
         <div className="h-1 bg-gradient-to-r from-tertiary/80 via-primary/80 to-tertiary/80" />
-        <Header />
+        <HeaderFixed />
         <main className="bg-gradient-to-br from-background via-accent/20 to-background">
           {children}
-          <Footer />
           <ChatIntegration />
         </main>
+        <Footer contentfulData={footerData || undefined} />
       </body>
     </html>
   );

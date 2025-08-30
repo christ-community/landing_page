@@ -1,35 +1,108 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
-import { Eye, FileText, Languages, Search, Star, Download, ShoppingCart } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog';
+import { Eye, FileText, Languages, Search, Star, Download, ShoppingCart, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Tract } from '@/types';
+import type { ITract } from '../../../../../types/contentful';
 import { useRouter } from 'next/navigation';
 
 
-export default function TractCatalog({ tracts }: { tracts: Tract[] }) {
+interface TractCatalogProps {
+  tracts?: Tract[];
+  contentfulTracts?: ITract[];
+}
+
+export default function TractCatalog({ tracts = [], contentfulTracts = [] }: TractCatalogProps) {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState('');
   const [languageFilter, setLanguageFilter] = useState('all');
   const [tagFilter, setTagFilter] = useState('all');
+  const [previewTract, setPreviewTract] = useState<any>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const tags = ['all', 'Foundation', 'Classic', 'Apologetics', 'Youth', 'Skeptics', 'Story', 'Children', 'Hope', 'Outreach'];
 
-  const filteredTracts = tracts.filter(tract => {
-    return (
-      (tract.title.toLowerCase().includes(searchTerm.toLowerCase()) || tract.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
-      (languageFilter === 'all' || tract.language === languageFilter) &&
-      (tagFilter === 'all' || tract.tags.includes(tagFilter))
-    );
-  });
+  // Convert Contentful tracts to local format for display
+  const allTracts = React.useMemo(() => [
+    ...tracts,
+    ...contentfulTracts.map(tract => ({
+      id: (tract as any).sys?.id || Math.random().toString(),
+      title: tract.title,
+      description: tract.description,
+      coverImage: (tract as any).processedCoverImage || '/Church-Conference.jpg',
+      tags: tract.tags || [],
+      samplePages: (tract as any).processedSamplePages || [],
+      pricePer100: tract.pricePer100,
+      isPopular: tract.isPopular,
+      language: tract.language
+    }))
+  ], [tracts, contentfulTracts]);
+
+  const filteredTracts = React.useMemo(() => {
+    return allTracts.filter(tract => {
+      return (
+        (tract.title.toLowerCase().includes(searchTerm.toLowerCase()) || tract.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
+        (languageFilter === 'all' || tract.language === languageFilter) &&
+        (tagFilter === 'all' || tract.tags.includes(tagFilter))
+      );
+    });
+  }, [allTracts, searchTerm, languageFilter, tagFilter]);
 
   const handleSelectTract = (tractId: string) => {
     router.push(`/get-involved/order-a-tract?selectedTractId=${tractId}#order-form`);
+  };
+
+  const handlePreview = (tract: any) => {
+    console.log('Preview clicked for tract:', tract.title);
+    console.log('Sample pages:', tract.samplePages);
+    setPreviewTract(tract);
+    setCurrentImageIndex(0);
+  };
+
+  const handleDownload = async (tract: any) => {
+    console.log('Download clicked for tract:', tract.title);
+    console.log('Sample pages:', tract.samplePages);
+    
+    // Get all images (cover + sample pages)
+    const allImages = [tract.coverImage, ...(tract.samplePages || [])].filter(Boolean);
+    
+    if (allImages.length === 0) {
+      alert('No images available for download');
+      return;
+    }
+
+    // Download all images
+    for (let i = 0; i < allImages.length; i++) {
+      const imageUrl = allImages[i];
+      if (imageUrl) {
+        try {
+          const response = await fetch(imageUrl);
+          const blob = await response.blob();
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `${tract.title}-${i === 0 ? 'cover' : `page-${i}`}.${blob.type.split('/')[1] || 'jpg'}`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(url);
+          
+          // Small delay between downloads to avoid overwhelming the browser
+          if (i < allImages.length - 1) {
+            await new Promise(resolve => setTimeout(resolve, 500));
+          }
+        } catch (error) {
+          console.error(`Failed to download image ${i + 1}:`, error);
+        }
+      }
+    }
   };
 
   return (
@@ -127,11 +200,11 @@ export default function TractCatalog({ tracts }: { tracts: Tract[] }) {
                   Request This Tract
                 </Button>
                 <div className="flex gap-2">
-                    <Button variant="outline" className="flex-1">
+                    <Button variant="outline" className="flex-1" onClick={() => handlePreview(tract)}>
                       <Eye className="w-4 h-4 mr-2" />
                       Preview
                     </Button>
-                    <Button variant="secondary" className="flex-1">
+                    <Button variant="secondary" className="flex-1" onClick={() => handleDownload(tract)}>
                         <Download className="w-4 h-4 mr-2" />
                         Download
                     </Button>
@@ -151,6 +224,109 @@ export default function TractCatalog({ tracts }: { tracts: Tract[] }) {
           </div>
         )}
       </div>
+
+      {/* Custom Full-Screen Tract Preview */}
+      {previewTract && (
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center">
+          {/* Close button at top right */}
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="absolute top-4 right-4 z-10 bg-white/90 hover:bg-white shadow-md rounded-full w-10 h-10"
+            onClick={() => setPreviewTract(null)}
+          >
+            <X className="h-5 w-5" />
+          </Button>
+          
+          {/* Main content container */}
+          <div className="w-[75vw] h-[80vh] bg-white rounded-lg shadow-2xl relative overflow-hidden">
+            {/* Header */}
+            <div className="p-6 pb-2 bg-white border-b">
+              <h2 className="text-2xl font-bold pr-12">{previewTract.title}</h2>
+              <p className="text-muted-foreground">{previewTract.description}</p>
+            </div>
+            
+            {/* Tract content area */}
+            <div className="flex-1 relative bg-gray-100 flex items-center justify-center overflow-hidden" style={{ width: '100%', height: 'calc(100% - 140px)' }}>
+              <div className="bg-transparent rounded-lg shadow-xl p-4 max-w-[80%] max-h-[80%] flex items-center justify-center relative">
+                {(() => {
+                  const allImages = [...(previewTract.samplePages || [])].filter(Boolean);
+                  if (allImages.length === 0) {
+                    return (
+                      <div className="text-center p-8">
+                        <FileText className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
+                        <p className="text-muted-foreground">No images available for preview</p>
+                      </div>
+                    );
+                  }
+                  
+                  return (
+                    <>
+                      <img
+                        src={allImages[currentImageIndex]}
+                        alt={`${previewTract.title} - Page ${currentImageIndex + 1}`}
+                        className="max-w-full max-h-[70vh] object-contain"
+                      />
+                      
+                      {allImages.length > 1 && (
+                        <>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white shadow-md w-8 h-8"
+                            onClick={() => setCurrentImageIndex(prev => prev === 0 ? allImages.length - 1 : prev - 1)}
+                            disabled={allImages.length <= 1}
+                          >
+                            <ChevronLeft className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white shadow-md w-8 h-8"
+                            onClick={() => setCurrentImageIndex(prev => prev === allImages.length - 1 ? 0 : prev + 1)}
+                            disabled={allImages.length <= 1}
+                          >
+                            <ChevronRight className="h-4 w-4" />
+                          </Button>
+                        </>
+                      )}
+                    </>
+                  );
+                })()}
+              </div>
+            </div>
+            
+            {/* Footer */}
+            <div className="p-6 border-t bg-gray-100 relative min-h-[80px] z-10">
+              {(() => {
+                const allImages = [...(previewTract.samplePages || [])].filter(Boolean);
+                return (
+                  <>
+                    {allImages.length > 1 && (
+                      <div className="flex items-center justify-center gap-4 mb-4">
+                        <span className="text-sm text-muted-foreground">
+                          {currentImageIndex + 1} of {allImages.length}
+                        </span>
+                        <div className="flex gap-1">
+                          {allImages.map((_, index) => (
+                            <button
+                              key={index}
+                              className={`w-2 h-2 rounded-full transition-colors ${
+                                index === currentImageIndex ? 'bg-primary' : 'bg-muted-foreground/30'
+                              }`}
+                              onClick={() => setCurrentImageIndex(index)}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 } 

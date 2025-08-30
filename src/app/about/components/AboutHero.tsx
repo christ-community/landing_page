@@ -5,12 +5,14 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Heart, Users, BookOpen, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import type { IPageHero } from '../../../../types/contentful';
 
 interface AboutHeroProps {
   config?: {
     title?: string;
     subtitle?: string;
   };
+  pageHero?: IPageHero | null;
 }
 
 const defaultConfig = {
@@ -25,8 +27,12 @@ const stats = [
   { number: "12", label: "Countries Reached", icon: "🌍" }
 ];
 
-export default function AboutHero({ config }: AboutHeroProps) {
-  const heroConfig = { ...defaultConfig, ...config };
+export default function AboutHero({ config, pageHero }: AboutHeroProps) {
+  // Use Contentful data if available, otherwise fall back to config or default
+  const heroConfig = pageHero ? {
+    title: pageHero.title,
+    subtitle: pageHero.subtitle
+  } : { ...defaultConfig, ...config };
   const { title, subtitle } = heroConfig;
   const [currentStat, setCurrentStat] = useState(0);
 

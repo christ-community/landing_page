@@ -26,6 +26,7 @@ import type {
   IDifferentiator,
   IHelpImpact,
   IPageHero,
+  IFooter,
   ContentfulEntry
 } from '../types/contentful'
 
@@ -59,8 +60,7 @@ export async function getPageContent(slug: string, options: ApiOptions = {}): Pr
     const entries = await getClientWithCache(options.preview).getEntries({
       content_type: 'pageContent',
       'fields.slug': slug,
-      limit: 1,
-      ...(options.preview ? {} : { next: { tags: ['pageContent', `pageContent-${slug}`] } })
+      limit: 1
     } as any)
 
     if (entries.items.length === 0) return null
@@ -76,8 +76,7 @@ export async function getAllPageContent(options: ApiOptions = {}): Promise<IPage
     const entries = await getClientWithCache(options.preview).getEntries({
       content_type: 'pageContent',
       limit: options.limit || 100,
-      skip: options.skip || 0,
-      ...(options.preview ? {} : { next: { tags: ['pageContent'] } })
+      skip: options.skip || 0
     } as any)
 
     return entries.items.map(item => processEntry<IPageContent>(item))
@@ -94,8 +93,7 @@ export async function getTeamMembers(options: ApiOptions = {}): Promise<ITeamMem
       content_type: 'teamMember',
       'fields.isActive': true,
       limit: options.limit || 100,
-      skip: options.skip || 0,
-      ...(options.preview ? {} : { next: { tags: ['teamMember'] } })
+      skip: options.skip || 0
     } as any)
 
     return entries.items.map(item => processEntry<ITeamMember>(item))
@@ -122,8 +120,7 @@ export async function getBlogPosts(options: ApiOptions = {}): Promise<IBlogPost[
       content_type: 'blogPost',
       'fields.isPublished': true,
       limit: options.limit || 10,
-      skip: options.skip || 0,
-      ...(options.preview ? {} : { next: { tags: ['blogPost'] } })
+      skip: options.skip || 0
     } as any)
 
     return entries.items.map(item => processEntry<IBlogPost>(item))
@@ -173,8 +170,7 @@ export async function getEvents(options: ApiOptions = {}): Promise<IEvent[]> {
       content_type: 'event',
       'fields.isActive': true,
       limit: options.limit || 10,
-      skip: options.skip || 0,
-      ...(options.preview ? {} : { next: { tags: ['event'] } })
+      skip: options.skip || 0
     } as any)
 
     return entries.items.map(item => processEntry<IEvent>(item))
@@ -191,8 +187,7 @@ export async function getUpcomingEvents(options: ApiOptions = {}): Promise<IEven
       content_type: 'event',
       'fields.isActive': true,
       'fields.date[gte]': now,
-      limit: options.limit || 5,
-      ...(options.preview ? {} : { next: { tags: ['event'] } })
+      limit: options.limit || 5
     } as any)
 
     return entries.items.map(item => processEntry<IEvent>(item))
@@ -242,8 +237,7 @@ export async function getHighlightedTestimonials(options: ApiOptions = {}): Prom
       content_type: 'testimonial',
       'fields.isActive': true,
       'fields.isHighlighted': true,
-      limit: options.limit || 3,
-      ...(options.preview ? {} : { next: { tags: ['testimonial'] } })
+      limit: options.limit || 3
     } as any)
 
     return entries.items.map(item => processEntry<ITestimonial>(item))
@@ -740,6 +734,23 @@ export async function getAllPageHeroes(options: ApiOptions = {}): Promise<IPageH
   } catch (error) {
     console.error('Error fetching page heroes:', error)
     return []
+  }
+}
+
+// Footer API
+export async function getFooter(options: ApiOptions = {}): Promise<IFooter | null> {
+  try {
+    const entries = await getClientWithCache(options.preview).getEntries({
+      content_type: 'footer',
+      'fields.isActive': true,
+      limit: 1
+    } as any)
+
+    if (entries.items.length === 0) return null
+    return processEntry<IFooter>(entries.items[0])
+  } catch (error) {
+    // Silently handle missing footer content type - will use default footer
+    return null
   }
 }
 

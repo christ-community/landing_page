@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
     // your project has TypeScript errors.
     ignoreBuildErrors: true,
   },
+  images: {
+    domains: [
+      'images.ctfassets.net', // Contentful images
+      'assets.ctfassets.net', // Contentful assets
+    ],
+  },
 };
 
 export default nextConfig;

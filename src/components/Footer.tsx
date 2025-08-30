@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import type { FooterConfig } from "@/types";
+import type { IFooter } from "../../types/contentful";
 import MailingList from "./MailingList";
 
 // Default configuration - this will later come from Contentful
@@ -41,11 +42,11 @@ const defaultFooterConfig: FooterConfig = {
     ]
   },
   quickLinks: [
-    { href: "#", label: "About Us" },
-    { href: "#", label: "Services" },
-    { href: "#", label: "Ministries" },
-    { href: "#", label: "Events" },
-    { href: "#", label: "Sermons" },
+    { href: "/about", label: "About Us" },
+    { href: "/what-we-do", label: "What We Do" },
+    { href: "/get-involved", label: "Get Involved" },
+    { href: "/get-involved/order-a-tract", label: "Order Tracts" },
+    { href: "/contact", label: "Contact" },
   ],
   contactInfo: {
     address: {
@@ -64,18 +65,31 @@ const defaultFooterConfig: FooterConfig = {
   ],
   copyrightText: "©2025 Christ Community. All rights reserved.",
   legalLinks: [
-    { href: "#", label: "Privacy Policy" },
-    { href: "#", label: "Terms of Service" },
+    { href: "/privacy", label: "Privacy Policy" },
+    { href: "/terms", label: "Terms of Service" },
   ]
 };
 
 interface FooterProps {
   config?: Partial<FooterConfig>;
+  contentfulData?: IFooter;
 }
 
-const Footer = ({ config }: FooterProps) => {
-  const footerConfig = { ...defaultFooterConfig, ...config };
-  const { churchInfo, quickLinks, contactInfo, serviceTimes, copyrightText, legalLinks } = footerConfig;
+const Footer = ({ config, contentfulData }: FooterProps) => {
+  // Use Contentful data if available, otherwise fall back to config or default
+  const footerData = contentfulData ? {
+    ...contentfulData,
+    churchInfo: {
+      ...contentfulData.churchInfo,
+      socialMediaLinks: contentfulData.churchInfo.socialMediaLinks.map(link => ({
+        ...link,
+        icon: defaultFooterConfig.churchInfo.socialMediaLinks.find(
+          defaultLink => defaultLink.platform === link.platform
+        )?.icon || defaultFooterConfig.churchInfo.socialMediaLinks[0].icon
+      }))
+    }
+  } : { ...defaultFooterConfig, ...config };
+  const { churchInfo, quickLinks, contactInfo, serviceTimes, copyrightText, legalLinks } = footerData;
 
   return (
     <footer className="bg-secondary text-primary">

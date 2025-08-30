@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import GiveToday from '@/components/GiveToday';
-import { getHelpImpact, getCommunityStats } from '../../../lib/contentful-api';
+import { getHelpImpact, getCommunityStats, getPageHero } from '../../../lib/contentful-api';
 
 export const metadata: Metadata = {
   title: 'Donate | Christ Community',
@@ -8,14 +8,15 @@ export const metadata: Metadata = {
 };
 
 export default async function DonatePage() {
-  const [helpImpact, communityStats] = await Promise.all([
+  const [helpImpact, communityStats, pageHero] = await Promise.all([
     getHelpImpact(),
-    getCommunityStats()
+    getCommunityStats(),
+    getPageHero('donate')
   ]);
 
   return (
     <>
-      <GiveToday helpImpact={helpImpact} communityStats={communityStats} />
+      <GiveToday helpImpact={helpImpact} communityStats={communityStats} pageHero={pageHero} />
     </>
   );
 } 

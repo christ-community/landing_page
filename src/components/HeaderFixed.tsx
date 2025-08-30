@@ -1,18 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import * as React from "react";
-import { Button } from "@/components/ui/button";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
+import { useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -136,18 +125,15 @@ const defaultHeaderConfig: HeaderConfig = {
 const menuHighlights = {
   "About Us": {
     title: "Our Core Identity",
-    description:
-      "Learn about our foundational beliefs and the people leading our church.",
+    description: "Learn about our foundational beliefs and the people leading our church.",
   },
   "What We Do": {
     title: "Serving & Healing",
-    description:
-      "See the various ways we minister to our congregation and community.",
+    description: "See the various ways we minister to our congregation and community.",
   },
   "Get Involved": {
     title: "Join Our Cause",
-    description:
-      "Find your place to serve and connect with the heart of our mission.",
+    description: "Find your place to serve and connect with the heart of our mission.",
   },
 };
 
@@ -155,7 +141,8 @@ interface HeaderProps {
   config?: Partial<HeaderConfig>;
 }
 
-const Header = ({ config }: HeaderProps) => {
+const HeaderFixed = ({ config }: HeaderProps) => {
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const headerConfig = { ...defaultHeaderConfig, ...config };
   const {
     logo,
@@ -164,8 +151,6 @@ const Header = ({ config }: HeaderProps) => {
     mobileMenuTitle,
     mobileMenuDescription,
   } = headerConfig;
-
-  const [openDropdown, setOpenDropdown] = React.useState<string | null>(null);
 
   const handleMouseEnter = (label: string) => {
     setOpenDropdown(label);
@@ -189,81 +174,84 @@ const Header = ({ config }: HeaderProps) => {
             />
           </a>
 
+          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1">
-            <NavigationMenu>
-              <NavigationMenuList>
-                {navigationItems.map((item) => (
-                  <NavigationMenuItem key={item.label}>
-                    {item.children ? (
-                      <>
-                        <NavigationMenuTrigger className="text-base bg-transparent">
-                          {item.label}
-                        </NavigationMenuTrigger>
-                        {openDropdown === item.label && (
-                          <NavigationMenuContent onMouseEnter={() => handleMouseEnter(item.label)} onMouseLeave={handleMouseLeave}>
-                            <div className="flex w-[600px] md:w-[700px] lg:w-[850px] shadow-lg" style={{ marginLeft: '-50%' }}>
-                              <div className="relative overflow-hidden w-[300px] p-6 flex flex-col justify-center bg-gradient-to-b from-accent/60 via-background to-background rounded-l-md border-r border-border/20">
-                                <div className="absolute top-0 left-0 w-40 h-40 bg-tertiary/10 rounded-full -translate-x-1/3 -translate-y-1/3 blur-sm" />
-                                <div className="absolute bottom-0 right-0 w-56 h-56 bg-primary/10 rounded-full translate-x-1/4 translate-y-1/4 blur-sm" />
-                                <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-secondary/5 -translate-x-1/2 -translate-y-1/2 rounded-full blur-md" />
-                                <div className="relative z-10">
-                                  <h3 className="text-xl font-bold text-foreground">
-                                    {menuHighlights[
-                                      item.label as keyof typeof menuHighlights
-                                    ]?.title || item.label}
-                                  </h3>
-                                  <p className="text-sm text-muted-foreground mt-2">
-                                    {menuHighlights[
-                                      item.label as keyof typeof menuHighlights
-                                    ]?.description ||
-                                      "Explore this section to learn more."}
-                                  </p>
+            {navigationItems.map((item) => (
+              <div
+                key={item.label}
+                className="relative"
+                onMouseEnter={() => item.children && setOpenDropdown(item.label)}
+                onMouseLeave={() => setOpenDropdown(null)}
+              >
+                {item.children ? (
+                  <>
+                    <button className="flex items-center space-x-1 px-4 py-2 text-base bg-transparent hover:bg-accent rounded-md transition-colors">
+                      <span>{item.label}</span>
+                      <ChevronDown className="h-4 w-4" />
+                    </button>
+                    {openDropdown === item.label && (
+                      <div 
+                        className="absolute top-full left-1/2 transform -translate-x-1/2 mt-1 bg-white border border-border/20 rounded-xl shadow-xl overflow-hidden z-50 min-w-[800px]"
+                        onMouseEnter={() => handleMouseEnter(item.label)}
+                        onMouseLeave={handleMouseLeave}
+                      >
+                        <div className="flex">
+                          <div className="w-[300px] p-6 bg-gradient-to-b from-accent/60 via-background to-background border-r border-border/20">
+                            <h3 className="text-xl font-bold text-foreground">
+                              {menuHighlights[item.label as keyof typeof menuHighlights]?.title || item.label}
+                            </h3>
+                            <p className="text-sm text-muted-foreground mt-2">
+                              {menuHighlights[item.label as keyof typeof menuHighlights]?.description ||
+                                "Explore this section to learn more."}
+                            </p>
+                          </div>
+                          <div className="flex-1 p-4">
+                            <div className="grid gap-3 md:grid-cols-2">
+                              <a
+                                href={item.href}
+                                className="flex items-center p-3 rounded-md hover:bg-accent transition-colors bg-accent/50 border border-border/30 md:col-span-2"
+                              >
+                                <div className="p-1.5 bg-tertiary/10 rounded-md mr-3">
+                                  <LayoutGrid className="h-5 w-5 text-tertiary" />
                                 </div>
-                              </div>
-                              <ul className="grid flex-1 gap-3 p-4 md:grid-cols-2">
-                                <ListItem
-                                  key={`${item.label}-overview`}
-                                  title={`${item.label} Overview`}
-                                  href={item.href}
-                                  icon={LayoutGrid}
-                                  liClassName="md:col-span-2"
-                                  className="bg-accent/50 border border-border/30"
+                                <div>
+                                  <div className="font-medium">{item.label} Overview</div>
+                                  <div className="text-sm text-muted-foreground">
+                                    Get a complete overview of the {item.label.toLowerCase()} section.
+                                  </div>
+                                </div>
+                              </a>
+                              {item.children.map((child) => (
+                                <a
+                                  key={child.label}
+                                  href={child.href}
+                                  className="flex items-center p-3 rounded-md hover:bg-accent transition-colors"
                                 >
-                                  Get a complete overview of the{" "}
-                                  {item.label.toLowerCase()} section.
-                                </ListItem>
-                                {item.children.map((component) => (
-                                  <ListItem
-                                    key={component.label}
-                                    title={component.label}
-                                    href={component.href}
-                                    icon={component.icon}
-                                  >
-                                    {component.description}
-                                  </ListItem>
-                                ))}
-                              </ul>
+                                  <div className="p-1.5 bg-tertiary/10 rounded-md mr-3">
+                                    {child.icon && <child.icon className="h-5 w-5 text-tertiary" />}
+                                  </div>
+                                  <div>
+                                    <div className="font-medium">{child.label}</div>
+                                    <div className="text-sm text-muted-foreground">{child.description}</div>
+                                  </div>
+                                </a>
+                              ))}
                             </div>
-                          </NavigationMenuContent>
-                        )}
-                      </>
-                    ) : (
-                      <NavigationMenuLink asChild>
-                        <a
-                          href={item.href}
-                          className={cn(
-                            navigationMenuTriggerStyle(),
-                            "text-base bg-transparent"
-                          )}
-                        >
-                          {item.label}
-                        </a>
-                      </NavigationMenuLink>
+                          </div>
+                        </div>
+                      </div>
                     )}
-                  </NavigationMenuItem>
-                ))}
-              </NavigationMenuList>
-            </NavigationMenu>
+                  </>
+                ) : (
+                  <a
+                    href={item.href}
+                    className="px-4 py-2 text-base bg-transparent hover:bg-accent rounded-md transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                )}
+              </div>
+            ))}
           </nav>
 
           <div className="flex items-center space-x-3">
@@ -279,22 +267,18 @@ const Header = ({ config }: HeaderProps) => {
               ))}
             </div>
 
+            {/* Mobile Menu */}
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="lg:hidden">
+                <button className="lg:hidden p-2 rounded-md hover:bg-accent">
                   <Menu className="h-6 w-6 text-foreground" />
                   <span className="sr-only">Toggle menu</span>
-                </Button>
+                </button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] sm:w-[400px] flex flex-col">
                 <SheetHeader className="flex-shrink-0">
                   <SheetTitle className="flex items-center space-x-3">
-                    <img
-                      src={logo.src}
-                      alt={logo.alt}
-                      width={40}
-                      height={40}
-                    />
+                    <img src={logo.src} alt={logo.alt} width={40} height={40} />
                     <span className="text-foreground">{mobileMenuTitle}</span>
                   </SheetTitle>
                   <SheetDescription>{mobileMenuDescription}</SheetDescription>
@@ -319,9 +303,7 @@ const Header = ({ config }: HeaderProps) => {
                                 href={child.href}
                                 className="flex items-center py-2 px-3 text-sm text-muted-foreground hover:text-tertiary hover:bg-accent rounded-md transition-all duration-200"
                               >
-                                {child.icon && (
-                                  <child.icon className="w-4 h-4 mr-2" />
-                                )}
+                                {child.icon && <child.icon className="w-4 h-4 mr-2" />}
                                 <span>{child.label}</span>
                               </a>
                             ))}
@@ -354,50 +336,4 @@ const Header = ({ config }: HeaderProps) => {
   );
 };
 
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a"> & {
-    icon?: React.ComponentType<{ className?: string }>;
-    liClassName?: string;
-  }
->(
-  (
-    { className, title, children, href, icon: Icon, liClassName, ...props },
-    ref
-  ) => {
-    return (
-      <li className={cn(liClassName)}>
-        <NavigationMenuLink asChild>
-          <a
-            href={href || "#"}
-            ref={ref}
-            className={cn(
-              "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-              className
-            )}
-            {...props}
-          >
-            <div className="flex items-start space-x-3">
-              {Icon && (
-                <div className="p-1.5 bg-tertiary/10 rounded-md mt-1 flex-shrink-0">
-                  <Icon className="h-5 w-5 text-tertiary" />
-                </div>
-              )}
-              <div>
-                <div className="text-base font-medium text-foreground">
-                  {title}
-                </div>
-                <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                  {children}
-                </p>
-              </div>
-            </div>
-          </a>
-        </NavigationMenuLink>
-      </li>
-    );
-  }
-);
-ListItem.displayName = "ListItem";
-
-export default Header;
+export default HeaderFixed;

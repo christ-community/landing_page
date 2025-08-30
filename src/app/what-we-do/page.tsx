@@ -4,7 +4,7 @@ import ActivityGrid from "./components/ActivityGrid";
 import type { WhatWeDoPageConfig } from "@/types";
 import NewsletterSection from "@/components/NewsletterSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import { getMinistryActivities, getDifferentiators, getTestimonials } from '../../../lib/contentful-api';
+import { getMinistryActivities, getDifferentiators, getTestimonials, getPageHero } from '../../../lib/contentful-api';
 
 // Testimonials now loaded from Contentful
 
@@ -56,10 +56,11 @@ export const metadata: Metadata = {
 };
 
 export default async function WhatWeDoPage() {
-    const [ministryActivities, differentiators, testimonials] = await Promise.all([
+    const [ministryActivities, differentiators, testimonials, pageHero] = await Promise.all([
         getMinistryActivities(),
         getDifferentiators(),
-        getTestimonials()
+        getTestimonials(),
+        getPageHero('what-we-do')
     ]);
 
     // Use Contentful activities if available, otherwise fall back to hardcoded
@@ -75,9 +76,16 @@ export default async function WhatWeDoPage() {
         }))
     } : pageConfig.activities;
 
+    // Use Contentful hero if available, otherwise fall back to hardcoded
+    const heroConfig = pageHero ? {
+        title: pageHero.title,
+        subtitle: pageHero.subtitle || pageConfig.hero.subtitle,
+        image: pageHero.backgroundImage ? `https:${pageHero.backgroundImage.fields.file?.url}` : pageConfig.hero.image
+    } : pageConfig.hero;
+
     return (
         <main>
-            <WhatWeDoHero {...pageConfig.hero} />
+            <WhatWeDoHero {...heroConfig} />
             <ActivityGrid {...activitiesConfig} />
             <TestimonialsSection 
                 title="Stories of Transformation"

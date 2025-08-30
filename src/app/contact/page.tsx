@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import ContactHero from '@/app/contact/components/ContactHero';
 import ContactForm from '@/app/contact/components/ContactForm';
 import ContactInfo from '@/app/contact/components/ContactInfo';
-import { getFAQs } from '../../../lib/contentful-api';
+import { getFAQs, getPageHero } from '../../../lib/contentful-api';
 
 export const metadata: Metadata = {
   title: 'Contact Us | Christ Community',
@@ -10,11 +10,14 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactPage() {
-  const faqs = await getFAQs();
+  const [faqs, pageHero] = await Promise.all([
+    getFAQs(),
+    getPageHero('contact')
+  ]);
 
   return (
     <>
-      <ContactHero />
+      <ContactHero pageHero={pageHero} />
       <ContactInfo faqs={faqs} />
       <ContactForm />
     </>

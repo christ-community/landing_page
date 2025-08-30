@@ -325,6 +325,45 @@ export interface IPageHero {
   isActive?: boolean
 }
 
+export interface IFooter {
+  churchInfo: {
+    name: string
+    description: string
+    socialMediaLinks: Array<{
+      platform: string
+      href: string
+      ariaLabel: string
+      icon?: React.ReactNode
+    }>
+  }
+  quickLinks: Array<{
+    href: string
+    label: string
+    isExternal?: boolean
+  }>
+  contactInfo: {
+    address: {
+      street: string
+      city: string
+      state: string
+      zipCode: string
+    }
+    phone: string
+    email: string
+  }
+  serviceTimes: Array<{
+    name: string
+    time: string
+    day?: string
+  }>
+  copyrightText: string
+  legalLinks: Array<{
+    href: string
+    label: string
+  }>
+  isActive: boolean
+}
+
 export interface IFAQ {
   question: string
   answer: any // Rich text
@@ -469,4 +508,9 @@ export interface IHelpImpactSkeleton extends EntrySkeletonType {
 export interface IPageHeroSkeleton extends EntrySkeletonType {
   contentTypeId: 'pageHero'
   fields: IPageHero
+}
+
+export interface IFooterSkeleton extends EntrySkeletonType {
+  contentTypeId: 'footer'
+  fields: IFooter
 }

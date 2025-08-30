@@ -14,6 +14,8 @@
     "contentful:test-new": "tsx scripts/testNewContentTypes.ts",
     "contentful:check-all": "tsx scripts/checkAllContentEntries.ts",
     "contentful:create-types": "tsx scripts/completeContentTypes.ts",
+    "contentful:create-footer": "tsx scripts/create-footer-type.ts",
+    "contentful:populate": "tsx scripts/populate-contentful.ts",
     "contentful:populate-basic": "tsx scripts/allContentMigration.ts",
     "contentful:populate-remaining": "tsx scripts/completeRemainingContent.ts",
     "contentful:full-check": "tsx scripts/checkAllContentEntries.ts",

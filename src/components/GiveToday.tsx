@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { Heart, Loader2, CreditCard } from 'lucide-react';
 import getStripe from '@/lib/stripe';
-import type { IHelpImpact, ICommunityStat } from '../../types/contentful';
+import type { IHelpImpact, ICommunityStat, IPageHero } from '../../types/contentful';
 
 const presetAmounts = [5, 10, 25, 50, 100, 250];
 const currencies = [
@@ -19,9 +19,10 @@ type Frequency = 'once' | 'monthly';
 interface GiveTodayProps {
   helpImpact?: IHelpImpact[];
   communityStats?: ICommunityStat[];
+  pageHero?: IPageHero | null;
 }
 
-const GiveToday = ({ helpImpact, communityStats }: GiveTodayProps) => {
+const GiveToday = ({ helpImpact, communityStats, pageHero }: GiveTodayProps) => {
   const [amount, setAmount] = useState<number | string>(50);
   const [currency, setCurrency] = useState('GBP');
   const [frequency, setFrequency] = useState<Frequency>('monthly');

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
+import type { IPageHero } from '../../../../types/contentful';
 
 interface ContactHeroProps {
   config?: {
@@ -11,6 +12,7 @@ interface ContactHeroProps {
     subtitle?: string;
     backgroundImage?: string;
   };
+  pageHero?: IPageHero | null;
 }
 
 const defaultConfig = {
@@ -19,8 +21,13 @@ const defaultConfig = {
   backgroundImage: "/Church-Conference.jpg",
 };
 
-export default function ContactHero({ config }: ContactHeroProps) {
-  const heroConfig = { ...defaultConfig, ...config };
+export default function ContactHero({ config, pageHero }: ContactHeroProps) {
+  // Use Contentful data if available, otherwise fall back to config or default
+  const heroConfig = pageHero ? {
+    title: pageHero.title,
+    subtitle: pageHero.subtitle || defaultConfig.subtitle,
+    backgroundImage: pageHero.backgroundImage ? `https:${pageHero.backgroundImage.fields.file?.url}` : defaultConfig.backgroundImage
+  } : { ...defaultConfig, ...config };
   const { title, subtitle, backgroundImage } = heroConfig;
 
   const handleScrollToForm = () => {

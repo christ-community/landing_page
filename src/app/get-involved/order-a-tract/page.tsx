@@ -5,7 +5,7 @@ import TractCatalog from './components/TractCatalog';
 import HowItWorks from './components/HowItWorks';
 import OrderForm from './components/OrderForm';
 import NewsletterSection from '@/components/NewsletterSection';
-import { getTracts } from '../../../../lib/contentful-api';
+import { getTracts, processAsset } from '../../../../lib/contentful-api';
 import { Tract } from '@/types';
 
 export const metadata: Metadata = {
@@ -18,10 +18,35 @@ export default async function OrderATractPage() {
     const tracts = await getTracts();
     console.log('tracts, ', tracts);
     
+    // Process tract assets on server side with proper error handling
+    const processedTracts = tracts.map(tract => {
+        try {
+            return {
+                ...tract,
+                processedCoverImage: tract.coverImage ? processAsset(tract.coverImage) : '/Church-Conference.jpg',
+                processedSamplePages: tract.samplePages ? tract.samplePages.map(page => {
+                    try {
+                        return processAsset(page);
+                    } catch (error) {
+                        console.error('Error processing sample page:', error);
+                        return null;
+                    }
+                }).filter(Boolean) : []
+            };
+        } catch (error) {
+            console.error('Error processing tract:', tract.title, error);
+            return {
+                ...tract,
+                processedCoverImage: '/Church-Conference.jpg',
+                processedSamplePages: []
+            };
+        }
+    });
+    
     return (
         <main>
             <OrderTractHero />
-            <TractCatalog tracts={tracts as unknown as Tract[]} />
+            <TractCatalog contentfulTracts={processedTracts} />
             <HowItWorks />
             <div id="order-form" className="scroll-mt-20">
                 <Suspense fallback={<div>Loading...</div>}>

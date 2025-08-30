@@ -6,6 +6,7 @@ import SearchForm from './church-finder/SearchForm';
 import ChurchList from './church-finder/ChurchList';
 import ChurchMap from './church-finder/ChurchMap';
 import type { ChurchFinderConfig, Church, UserLocation } from '@/types';
+import type { IChurch } from '../../types/contentful';
 
 // Google Maps integration
 declare global {
@@ -237,6 +238,7 @@ const defaultConfig: ChurchFinderConfig = {
 
 interface ChurchFinderSectionProps {
   config?: Partial<ChurchFinderConfig>;
+  contentfulChurches?: IChurch[];
 }
 
 // Simple distance calculation (Haversine formula)
@@ -305,13 +307,31 @@ const reverseGeocode = async (coords: { lat: number; lng: number }): Promise<str
   });
 };
 
-export default function ChurchFinderSection({ config }: ChurchFinderSectionProps) {
+export default function ChurchFinderSection({ config, contentfulChurches = [] }: ChurchFinderSectionProps) {
   const finderConfig = { ...defaultConfig, ...config };
   const [searchValue, setSearchValue] = useState('');
   const searchInputRef = useRef<HTMLInputElement>(null);
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
 
-  const [churches, setChurches] = useState<Church[]>(realChurches);
+  // Convert Contentful churches to local format
+  const convertedChurches: Church[] = contentfulChurches.map(church => ({
+    id: (church as any).sys?.id || Math.random().toString(),
+    name: church.name,
+    address: {
+      ...church.address,
+      postcode: church.address.postcode || ''
+    },
+    coordinates: church.coordinates || { lat: 0, lng: 0 },
+    contact: church.contact || {},
+    services: church.services || {},
+    pastor: church.pastor || '',
+    denomination: church.denomination || '',
+    image: (church as any).processedImage || '/Church-Conference.jpg'
+  }));
+
+  // Use Contentful churches if available, otherwise fall back to real churches
+  const initialChurches = convertedChurches.length > 0 ? convertedChurches : realChurches;
+  const [churches, setChurches] = useState<Church[]>(initialChurches);
   const [filteredChurches, setFilteredChurches] = useState<Church[]>([]);
   const [selectedChurch, setSelectedChurch] = useState<Church | null>(null);
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
@@ -324,29 +344,32 @@ export default function ChurchFinderSection({ config }: ChurchFinderSectionProps
   const [mapCenter, setMapCenter] = useState(finderConfig.mapCenter);
   const mapContainerRef = useRef<HTMLDivElement>(null);
 
-  // Geocode church addresses on load
+  // Geocode church addresses on load (only for churches without coordinates)
   useEffect(() => {
     if (mapLoaded) {
       const geocodeChurches = async () => {
         const geocodedChurches = await Promise.all(
-            realChurches.map(async (church) => {
-            try {
-              const address = `${church.address.street}, ${church.address.city}, ${church.address.postcode}`;
-              const coords = await geocodeLocation(address);
-              if (coords) {
-                return { ...church, coordinates: coords };
+          initialChurches.map(async (church) => {
+            // Only geocode if coordinates are missing or invalid
+            if (!church.coordinates || (church.coordinates.lat === 0 && church.coordinates.lng === 0)) {
+              try {
+                const address = `${church.address.street}, ${church.address.city}, ${church.address.postcode || church.address.state}`;
+                const coords = await geocodeLocation(address);
+                if (coords) {
+                  return { ...church, coordinates: coords };
+                }
+              } catch (error) {
+                console.error(`Could not geocode address for ${church.name}:`, error);
               }
-            } catch (error) {
-              console.error(`Could not geocode address for ${church.name}:`, error);
             }
-            return church; // return original church if geocoding fails
+            return church; // return original church if geocoding fails or not needed
           })
         );
         setChurches(geocodedChurches);
       };
       geocodeChurches();
     }
-  }, [mapLoaded]);
+  }, [mapLoaded, initialChurches]);
 
   // Load Google Maps and initialize Autocomplete
   useEffect(() => {
