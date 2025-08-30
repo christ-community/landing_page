@@ -41,8 +41,8 @@ const HeroSection = ({ config, pageContent, pageHero }: HeroSectionProps) => {
   const heroConfig = pageHero ? {
     content: {
       title: pageHero.title,
-      subtitle: pageHero.subtitle,
-      description: pageHero.description || defaultHeroConfig.content.description,
+      subtitle: undefined, // Don't use subtitle as part of title
+      description: pageHero.subtitle || defaultHeroConfig.content.description, // Use pageHero.subtitle as description
       buttons: defaultHeroConfig.content.buttons // Keep default buttons for now
     },
     images: (pageHero as any).processedBackgroundImage ? [
