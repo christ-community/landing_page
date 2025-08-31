@@ -116,43 +116,7 @@ export default function TeamHero({ config }: TeamHeroProps) {
             })}
           </div>
 
-          {/* Team Stats */}
-          <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-white/20 dark:border-slate-700/20 shadow-xl">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <div className="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-2">
-                  6
-                </div>
-                <div className="text-sm text-slate-600 dark:text-slate-400 font-medium">
-                  Team Members
-                </div>
-              </div>
-              <div>
-                <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">
-                  50+
-                </div>
-                <div className="text-sm text-slate-600 dark:text-slate-400 font-medium">
-                  Years Combined Experience
-                </div>
-              </div>
-              <div>
-                <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mb-2">
-                  15+
-                </div>
-                <div className="text-sm text-slate-600 dark:text-slate-400 font-medium">
-                  Ministry Areas Covered
-                </div>
-              </div>
-              <div>
-                <div className="text-4xl font-bold bg-gradient-to-r from-rose-500 to-pink-500 bg-clip-text text-transparent mb-2">
-                  500+
-                </div>
-                <div className="text-sm text-slate-600 dark:text-slate-400 font-medium">
-                  Lives Impacted
-                </div>
-              </div>
-            </div>
-          </div>
+
 
           {/* Call to Action */}
           <div className="text-center mt-16">

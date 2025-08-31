@@ -47,7 +47,7 @@ export default async function HomePage() {
       <TestimonialsSection testimonials={testimonials} />
       <UpcomingEventsSection events={upcomingEvents} />
       <NewsletterSection />
-      <ChurchFinderSection contentfulChurches={processedChurches} />
+      <ChurchFinderSection />
       <HelpSection />
     </>
   );

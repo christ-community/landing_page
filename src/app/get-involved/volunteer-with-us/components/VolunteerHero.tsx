@@ -90,7 +90,7 @@ export default function VolunteerHero({ config }: VolunteerHeroProps) {
                   size="lg"
                   variant="outline"
                   asChild
-                  className="border-2 border-orange-200 text-foreground hover:bg-orange-50 dark:border-orange-800 dark:hover:bg-orange-950 px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300"
+                  className="border-2 border-orange-300 text-orange-700 hover:bg-orange-50 hover:text-orange-800 dark:border-orange-600 dark:text-orange-300 dark:hover:bg-orange-900/20 px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 shadow-md hover:shadow-lg"
                 >
                   <a href="/about">
                     Learn More About Us

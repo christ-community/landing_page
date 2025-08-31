@@ -48,22 +48,14 @@ const contactMethods = [
   },
   {
     icon: MapPin,
-    title: "Visit Us",
+    title: "Visit Us This Sunday",
     description: "Join us for our meetings",
     contact: "18 St Margarets, Swansea, United Kingdom, SA1 1JZ",
     action: "https://maps.google.com/?q=18+St+Margarets+Swansea+SA1+1JZ+UK",
     actionText: "Get Directions",
     color: "purple"
   },
-  {
-    icon: MessageCircle,
-    title: "Live Chat",
-    description: "Chat with our team online",
-    contact: "Available 24/7",
-    action: "#",
-    actionText: "Start Chat",
-    color: "orange"
-  }
+
 ];
 
 const serviceInfo = [
@@ -131,7 +123,7 @@ export default function ContactInfo({ config, faqs }: ContactInfoProps) {
         </div>
 
         {/* Contact Methods */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="grid gap-8 mb-16 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {contactMethods.map((method, index) => {
             const colors = getColorClasses(method.color);
             const Icon = method.icon;

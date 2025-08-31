@@ -18,7 +18,6 @@ import { processAsset } from '../../../../lib/contentful-api';
 
 interface AboutOverviewProps {
   coreValues: ICoreValue[]
-  communityStats: ICommunityStat[]
   differentiators: IDifferentiator[]
   missionVision: IMissionVision[]
 }
@@ -40,7 +39,7 @@ const getIconComponent = (iconName?: string) => {
   }
 };
 
-export default function AboutOverview({ coreValues, communityStats, differentiators, missionVision }: AboutOverviewProps) {
+export default function AboutOverview({ coreValues, differentiators, missionVision }: AboutOverviewProps) {
   // Get mission for the intro text
   const mission = missionVision.find(item => item.type === 'mission')
   return (
@@ -56,18 +55,7 @@ export default function AboutOverview({ coreValues, communityStats, differentiat
           </p>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
-          {communityStats.map((stat, index) => (
-            <Card key={index} className="text-center border-2 border-border/10 hover:border-primary/30 transition-all duration-300">
-              <CardContent className="p-6">
-                <div className="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">{stat.value}</div>
-                <div className="text-lg font-semibold text-foreground mb-1">{stat.label}</div>
-                <div className="text-sm text-muted-foreground">{stat.description}</div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+
 
         {/* Core Values */}
         <div className="mb-20">
@@ -135,16 +123,16 @@ export default function AboutOverview({ coreValues, communityStats, differentiat
                 <CardContent className="p-6">
                   <div className="flex items-center gap-3 mb-3">
                     <Calendar className="w-5 h-5 text-primary" />
-                    <h4 className="font-semibold text-foreground">Join Us This Sunday</h4>
+                    <h4 className="font-semibold text-foreground">Book a Visit</h4>
                   </div>
                   <p className="text-sm text-muted-foreground mb-4">
                     Experience our community firsthand. Services at 9:00 AM & 11:00 AM.
                   </p>
-                  <Link href="/contact">
-                    <Button className="w-full bg-primary hover:bg-primary/90">
-                      Plan Your Visit
-                    </Button>
-                  </Link>
+                                     <Link href="https://calendly.com/christcommunityglobal/30min" target="_blank" rel="noopener noreferrer">
+                     <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                       Book a Visit
+                     </Button>
+                   </Link>
                 </CardContent>
               </Card>
 
@@ -169,24 +157,7 @@ export default function AboutOverview({ coreValues, communityStats, differentiat
         </div>
 
         {/* Navigation to other pages */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <Link href="/about/who-we-are" className="group">
-            <Card className="border-2 border-border/10 hover:border-purple-300 hover:shadow-lg transition-all duration-300 h-full">
-              <CardContent className="p-8 text-center">
-                <div className="inline-flex p-4 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 mb-4 group-hover:scale-110 transition-transform">
-                  <Heart className="w-8 h-8" />
-                </div>
-                <h3 className="text-2xl font-bold text-foreground mb-3">Who We Are</h3>
-                <p className="text-muted-foreground mb-4">
-                  Learn more about our history, beliefs, and the vision that drives our community forward.
-                </p>
-                <div className="flex items-center justify-center text-purple-600 group-hover:translate-x-2 transition-transform">
-                  <span className="font-medium">Learn More</span>
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
+        <div className="grid grid-cols-1 gap-8">
 
           <Link href="/about/meet-the-team" className="group">
             <Card className="border-2 border-border/10 hover:border-indigo-300 hover:shadow-lg transition-all duration-300 h-full">

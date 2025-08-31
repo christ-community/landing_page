@@ -16,8 +16,8 @@ const ENVIRONMENT_ID = process.env.CONTENTFUL_ENVIRONMENT || 'master';
 const whoWeAreHeroData = {
   pageName: 'who-we-are',
   title: 'Who We Are',
-  subtitle: 'Our story, our values, and the heart behind everything we do as a community of faith.',
-  description: 'Christ Community is more than just a church—we\'re a family united by faith, hope, and love. Our journey began with a simple dream: to create a place where everyone can encounter God\'s grace.',
+  subtitle: 'Our story, our values and the heart behind what we do as a community of faith.',
+  description: 'Christ community is an interdenominational Christian organisation, we are bonded by our  faith in Christ. Our journey began with small group of believers who are passionate about sharing the life of God within communities. ',
   ctaText: 'Meet Our Team',
   ctaUrl: '/about/meet-the-team',
   isActive: true,

@@ -90,12 +90,7 @@ const values = [
   }
 ];
 
-const demographics = [
-  { label: "Families", percentage: 65, color: "bg-blue-500" },
-  { label: "Young Adults", percentage: 20, color: "bg-green-500" },
-  { label: "Seniors", percentage: 10, color: "bg-purple-500" },
-  { label: "Singles", percentage: 5, color: "bg-orange-500" }
-];
+
 
 interface OurStoryProps {
   timelineEvents?: ITimelineEvent[];
@@ -197,56 +192,7 @@ export default function OurStory({ timelineEvents, communityStats }: OurStoryPro
           </div>
         </div>
 
-        {/* Community Demographics */}
-        <div className="bg-gradient-to-r from-rose-50 to-pink-50 dark:from-rose-950/20 dark:to-pink-950/20 rounded-2xl p-8 md:p-12 mb-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="text-3xl font-bold text-foreground mb-6">Our Community Today</h3>
-              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                We're a diverse community that spans generations and backgrounds, united by our love for Christ 
-                and commitment to His mission. Here's a snapshot of who we are:
-              </p>
-              
-              <div className="space-y-4">
-                {demographics.map((demo, index) => (
-                  <div key={index} className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span className="font-medium text-foreground">{demo.label}</span>
-                      <span className="text-sm text-muted-foreground">{demo.percentage}%</span>
-                    </div>
-                    <div className="w-full bg-muted/50 rounded-full h-2">
-                      <div 
-                        className={`h-2 rounded-full ${demo.color}`}
-                        style={{ width: `${demo.percentage}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
 
-            <div className="space-y-6">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-6 bg-background/60 rounded-lg">
-                  <div className="text-3xl font-bold text-rose-600 mb-2">500+</div>
-                  <div className="text-sm text-muted-foreground">Active Members</div>
-                </div>
-                <div className="text-center p-6 bg-background/60 rounded-lg">
-                  <div className="text-3xl font-bold text-pink-600 mb-2">25+</div>
-                  <div className="text-sm text-muted-foreground">Ministry Programs</div>
-                </div>
-                <div className="text-center p-6 bg-background/60 rounded-lg">
-                  <div className="text-3xl font-bold text-red-600 mb-2">15+</div>
-                  <div className="text-sm text-muted-foreground">Years of Service</div>
-                </div>
-                <div className="text-center p-6 bg-background/60 rounded-lg">
-                  <div className="text-3xl font-bold text-orange-600 mb-2">12</div>
-                  <div className="text-sm text-muted-foreground">Countries Reached</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* What Makes Us Different */}
         <div className="mb-24">

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { HelpOption } from '@/types';
-import { HeartHandshake, HandHelping, Gift, BookOpen } from 'lucide-react';
+import { HandHelping, Gift, BookOpen } from 'lucide-react';
 
 const helpImages = [
   { src: '/worship-conference.jpeg', alt: 'Worship Conference' },
@@ -14,7 +14,6 @@ const helpImages = [
 
 const options: HelpOption[] = [
   { label: 'Volunteer', icon: <HandHelping className="w-6 h-6" />, image: '/worship-conference.jpeg', href: '/get-involved/volunteer-with-us' },
-  { label: 'Send Help', icon: <HeartHandshake className="w-6 h-6" />, image: '/Church-Conference.jpg', href: '/get-involved/send-help' },
   { label: 'Order Tracts', icon: <BookOpen className="w-6 h-6" />, image: '/worship-conference.jpeg', href: '/get-involved/order-a-tract' },
   { label: 'Give Monthly', icon: <Gift className="w-6 h-6" />, image: '/worship-conference.jpeg', href: '/donate' },
 ];
@@ -86,14 +85,7 @@ export default function HelpSection() {
               >
                 <Link href="/get-involved/volunteer-with-us">Volunteer Now</Link>
               </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-2 border-orange-500/50 hover:border-orange-500 hover:text-orange-600 hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-all duration-300 px-10 py-6 text-lg font-semibold"
-                asChild
-              >
-                <Link href="/get-involved/send-help">Send Help to a Missionary</Link>
-              </Button>
+
             </div>
             
             {/* Stats or additional info */}

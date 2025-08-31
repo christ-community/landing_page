@@ -99,12 +99,7 @@ const defaultHeaderConfig: HeaderConfig = {
           icon: HandHelping,
           description: "Use your gifts to serve the community.",
         },
-        {
-          href: "/get-involved/send-help",
-          label: "Send Help (Help Code)",
-          icon: HelpCircle,
-          description: "Give or receive help from the church body.",
-        },
+
         {
           href: "/get-involved/order-a-tract",
           label: "Order a Tract",

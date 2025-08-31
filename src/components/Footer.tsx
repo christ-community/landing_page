@@ -154,11 +154,11 @@ const Footer = ({ config, contentfulData }: FooterProps) => {
                   </svg>
                   <p className="text-primary/70">{contactInfo.phone}</p>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-tertiary flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-start space-x-3">
+                  <svg className="w-5 h-5 text-tertiary flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                   </svg>
-                  <p className="text-primary/70">{contactInfo.email}</p>
+                  <p className="text-primary/70 break-words hyphens-auto leading-relaxed">{contactInfo.email}</p>
                 </div>
               </div>
             </div>

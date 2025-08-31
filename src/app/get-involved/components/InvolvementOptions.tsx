@@ -38,14 +38,7 @@ const defaultOptions: InvolvementOption[] = [
     bgColor: "bg-teal-100 dark:bg-teal-950/30",
     textColor: "text-teal-600 dark:text-teal-400"
   },
-  {
-    title: "Send Help",
-    description: "Your financial support empowers us to continue our work and expand our reach.",
-    href: "/get-involved/send-help",
-    icon: Heart,
-    bgColor: "bg-rose-100 dark:bg-rose-950/30",
-    textColor: "text-rose-600 dark:text-rose-400"
-  }
+
 ];
 
 interface InvolvementOptionsProps {

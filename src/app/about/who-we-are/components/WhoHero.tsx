@@ -62,7 +62,7 @@ export default function WhoHero({ config, missionVision, pageHero }: WhoHeroProp
 
               <div className="space-y-4">
                 <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
-                  {pageHero?.description || "Christ Community is more than just a church—we're a family united by faith, hope, and love. Our journey began with a simple dream: to create a place where everyone can encounter God's grace."}
+                  {pageHero?.description || "Christ community is an interdenominational Christian organisation, we are bonded by our  faith in Christ. Our journey began with small group of believers who are passionate about sharing the life of God within communities."}
                 </p>
               </div>
 
