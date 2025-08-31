@@ -12,7 +12,6 @@ interface EventsHeroProps {
   title: string;
   subtitle: string;
   primaryCta: { text: string; href: string; };
-  secondaryCta: { text: string; href: string; };
   mainImage: string;
   previewImage: string;
   previewLabel: string;
@@ -23,7 +22,6 @@ export default function EventsHero({
   title,
   subtitle,
   primaryCta,
-  secondaryCta,
   mainImage,
   previewImage,
   previewLabel,
@@ -50,12 +48,7 @@ export default function EventsHero({
               <Button size="lg" asChild className="bg-white text-black hover:bg-gray-200 font-semibold px-8 py-6 rounded-lg">
                 <Link href={primaryCta.href}>{primaryCta.text}</Link>
               </Button>
-              <Button size="lg" variant="ghost" asChild className="hover:bg-white/10 group">
-                <Link href={secondaryCta.href} className="flex items-center gap-2">
-                  <Download className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
-                  {secondaryCta.text}
-                </Link>
-              </Button>
+             
             </div>
           </motion.div>
           

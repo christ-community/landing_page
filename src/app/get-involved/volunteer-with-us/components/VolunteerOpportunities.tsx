@@ -240,9 +240,14 @@ export default function VolunteerOpportunities({
                 )}
 
                 {/* Action Button */}
-                <Button className="w-full mt-4 bg-tertiary hover:bg-tertiary/90 text-tertiary-foreground">
-                  Learn More
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                <Button
+                  asChild
+                  className="w-full mt-4 bg-tertiary hover:bg-tertiary/90 text-tertiary-foreground"
+                >
+                  <a href="/contact">
+                    Learn More
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </a>
                 </Button>
               </CardContent>
             </Card>

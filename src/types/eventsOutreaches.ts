@@ -35,7 +35,7 @@ export interface EventsPageConfig {
       text: string;
       href: string;
     };
-    secondaryCta: {
+    secondaryCta?: {
       text: string;
       href: string;
     };

@@ -60,7 +60,6 @@ const pageConfig: Omit<EventsPageConfig, 'hero.brandIcon'> = {
     title: 'Connect, Grow, & Serve',
     subtitle: 'Our events are designed to help you connect with God and others, grow in your faith, and serve the world around you. Find your place here.',
     primaryCta: { text: 'View Calendar', href: '#' },
-    secondaryCta: { text: 'Get Event Pack', href: '#' },
     mainImage: '/worship-conference.jpeg',
     previewImage: '/Church-Conference.jpg',
     previewLabel: 'Next: Global Youth Conference'

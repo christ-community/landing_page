@@ -174,17 +174,23 @@ export default function VolunteerProcess({
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
+              asChild
               className="bg-background text-foreground hover:bg-background/90 px-8 py-4 text-lg font-semibold"
             >
-              Express Interest Now
-              <ArrowRight className="w-5 h-5 ml-2" />
+              <a href="/contact">
+                Express Interest Now
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </a>
             </Button>
             <Button 
               size="lg" 
               variant="outline"
-              className="border-2 border-tertiary-foreground/30 text-tertiary-foreground hover:bg-tertiary-foreground/10 px-8 py-4 text-lg font-semibold"
+              asChild
+              className="border-2 border-tertiary-foreground/30 text-black hover:bg-tertiary-foreground/10 px-8 py-4 text-lg font-semibold"
             >
-              Contact Us First
+              <a href="/contact">
+                Contact Us First
+              </a>
             </Button>
           </div>
         </div>
