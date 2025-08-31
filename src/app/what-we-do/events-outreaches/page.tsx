@@ -62,7 +62,7 @@ const pageConfig: Omit<EventsPageConfig, 'hero.brandIcon'> = {
     primaryCta: { text: 'View Calendar', href: '#' },
     mainImage: '/worship-conference.jpeg',
     previewImage: '/Church-Conference.jpg',
-    previewLabel: 'Next: Global Youth Conference'
+    previewLabel: 'Next: 10 WELSH CITIES FOR CHRIST, Carmarthen'
   },
   events: dummyEvents,
 };
