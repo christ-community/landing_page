@@ -23,6 +23,8 @@
     "webhook:test": "node scripts/test-webhook.js"
   },
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^16.1.0",
+    "@contentful/rich-text-types": "^17.1.0",
     "@googlemaps/js-api-loader": "^1.16.10",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-dialog": "^1.1.14",

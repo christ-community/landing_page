@@ -28,7 +28,7 @@ const PostCard = ({ post }: PostCardProps) => {
         {post.excerpt}
       </p>
       <div className="flex items-center text-xs text-muted-foreground">
-        <span>{post.author.name}</span>
+        <span>{post.author?.name || 'Christ Community Team'}</span>
         <span className="mx-2">•</span>
         <span>{post.date}</span>
       </div>

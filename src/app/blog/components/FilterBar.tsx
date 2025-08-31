@@ -4,7 +4,6 @@ import React from 'react';
 import { Search, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { categories } from '@/lib/posts';
 import { Badge } from '@/components/ui/badge';
 
 interface FilterBarProps {
@@ -12,6 +11,7 @@ interface FilterBarProps {
   onSearchTermChange: (term: string) => void;
   selectedCategory: string;
   onSelectCategory: (category: string) => void;
+  categories: any[];
 }
 
 const FilterBar = ({
@@ -19,6 +19,7 @@ const FilterBar = ({
   onSearchTermChange,
   selectedCategory,
   onSelectCategory,
+  categories,
 }: FilterBarProps) => {
   return (
     <div className="mb-12">
@@ -35,15 +36,15 @@ const FilterBar = ({
         </button>
         {categories.map((category) => (
           <button
-            key={category}
-            onClick={() => onSelectCategory(category)}
+            key={category.id || category.sys?.id}
+            onClick={() => onSelectCategory(category.name)}
             className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${
-              selectedCategory === category
+              selectedCategory === category.name
                 ? 'bg-foreground text-background'
                 : 'bg-background text-foreground hover:bg-muted'
             }`}
           >
-            {category}
+            {category.name}
           </button>
         ))}
       </div>

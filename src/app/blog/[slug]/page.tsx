@@ -1,13 +1,13 @@
 import 'server-only';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import readingTime from 'reading-time';
-import { posts } from '@/lib/posts';
+import { getBlogPost, getBlogPosts } from '../../../../lib/contentful-api';
 import { Badge } from '@/components/ui/badge';
 import PostCard from '../components/PostCard';
 import NewsletterSection from '@/components/NewsletterSection';
+import RichTextRenderer from '@/components/RichTextRenderer';
+import { extractTextFromRichText } from '@/utils/richTextUtils';
 import { BookOpen } from 'lucide-react';
 
 interface BlogPostPageProps {
@@ -18,26 +18,37 @@ interface BlogPostPageProps {
 
 const BlogPostPage = async ({ params }: BlogPostPageProps) => {
   const { slug } = await params;
-  const post = posts.find((p) => p.href === `/blog/${slug}`);
+  const post = await getBlogPost(slug);
 
   if (!post || !post.content) {
     notFound();
   }
 
-  const stats = readingTime(post.content);
-  const otherPosts = posts.filter((p) => p.id !== post.id).slice(0, 3);
+  // Extract text from rich text for reading time calculation
+  const contentText = extractTextFromRichText(post.content);
+  const stats = readingTime(contentText);
+  
+  // Get other posts for recommendations
+  const allPosts = await getBlogPosts({ limit: 10 });
+  const otherPosts = allPosts.filter((p: any) => p.slug !== post.slug).slice(0, 3);
 
   return (
     <div className="py-24">
       <div className="container mx-auto px-6 lg:px-12">
         <article>
           <header className="max-w-3xl mx-auto text-center mb-12">
-            <Badge variant="secondary" className="mb-4">{post.category}</Badge>
+            <Badge variant="secondary" className="mb-4">
+              {typeof post.category?.fields?.name === 'string' ? post.category.fields.name : 'Uncategorized'}
+            </Badge>
             <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">{post.title}</h1>
             <div className="text-muted-foreground flex items-center justify-center space-x-4">
-              <span>By {post.author.name}</span>
+              <span>By {typeof post.author?.fields?.name === 'string' ? post.author.fields.name : 'Christ Community Team'}</span>
               <span className="text-sm">•</span>
-              <span>{post.date}</span>
+              <span>{new Date(post.publishDate).toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              })}</span>
               <span className="text-sm">•</span>
               <span className="flex items-center">
                 <BookOpen className="w-4 h-4 mr-1.5" /> {stats.text}
@@ -47,7 +58,7 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
 
           <div className="mb-12">
             <Image
-              src={post.imageUrl}
+              src={post.featuredImage?.fields?.file?.url ? `https:${post.featuredImage.fields.file.url}` : '/default-blog-image.jpg'}
               alt={post.title}
               width={1200}
               height={675}
@@ -55,11 +66,10 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
             />
           </div>
 
-          <div className="prose prose-xl dark:prose-invert mx-auto max-w-3xl">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {post.content}
-            </ReactMarkdown>
-          </div>
+          <RichTextRenderer 
+            content={post.content}
+            className="prose prose-xl dark:prose-invert mx-auto max-w-3xl"
+          />
         </article>
 
         <div className="mt-24 border-t border-border/50 pt-16">
@@ -70,9 +80,21 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {otherPosts.map((p) => (
-              <PostCard key={p.id} post={p} />
-            ))}
+            {otherPosts.map((p: any) => {
+              const transformedPost = {
+                ...p,
+                href: `/blog/${p.slug}`,
+                imageUrl: p.featuredImage?.fields?.file?.url ? `https:${p.featuredImage.fields.file.url}` : '/default-blog-image.jpg',
+                author: typeof p.author?.fields?.name === 'string' ? { name: p.author.fields.name } : { name: 'Christ Community Team' },
+                date: new Date(p.publishDate).toLocaleDateString('en-US', { 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                }),
+                category: typeof p.category?.fields?.name === 'string' ? p.category.fields.name : 'Uncategorized'
+              };
+              return <PostCard key={p.id || p.sys?.id} post={transformedPost} />;
+            })}
           </div>
         </div>
       </div>

@@ -12,8 +12,8 @@ const defaultHeroConfig: HeroConfig = {
     title: "Building community through Christ",
     description: "Join us as we gather to worship, grow in faith, and serve our community together. Experience God's love in a welcoming environment where everyone belongs.",
     buttons: [
-      { label: "Join Us Sunday", variant: "primary" },
-      { label: "Plan Your Visit", variant: "secondary" },
+      { label: "Join missions", variant: "primary", href: "/contact" },
+      { label: "Plan a visit", variant: "secondary", href: "https://calendly.com/christcommunityglobal/30min" },
     ]
   },
   images: [

@@ -7,8 +7,8 @@ export interface Post {
     title: string;
     excerpt: string;
     content: string;
-    author: {
-      name:string;
+    author?: {
+      name: string;
       avatar?: string;
     };
     date: string;
