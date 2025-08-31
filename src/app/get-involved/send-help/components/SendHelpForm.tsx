@@ -40,16 +40,28 @@ export default function SendHelpForm({ config }: SendHelpFormProps) {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmissionStatus(null);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    if (formData.name && formData.email && formData.subject && formData.message) {
-      console.log("Form Submitted:", formData);
-      setSubmissionStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    } else {
+
+    try {
+      const response = await fetch('/api/send-help', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmissionStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setSubmissionStatus('error');
+      }
+    } catch (error) {
+      console.error('Send Help form submission error:', error);
       setSubmissionStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   };
 
   return (

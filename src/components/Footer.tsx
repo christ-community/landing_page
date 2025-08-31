@@ -7,7 +7,7 @@ import MailingList from "./MailingList";
 const defaultFooterConfig: FooterConfig = {
   churchInfo: {
     name: "Christ Community",
-    description: "Building community through Christ. Join us as we gather to worship, grow in faith, and serve our community together.",
+    description: "Join a community dedicated to shining the light of Christ to all Nations, Tribes and Tongues. Make impact in communities around the world.",
     socialMediaLinks: [
       {
         platform: "Twitter",
@@ -50,18 +50,18 @@ const defaultFooterConfig: FooterConfig = {
   ],
   contactInfo: {
     address: {
-      street: "123 Faith Street",
-      city: "Community City",
-      state: "CC",
-      zipCode: "12345"
+      street: "18 St Margarets",
+      city: "Swansea",
+      state: "United Kingdom",
+      zipCode: "SA1 1JZ"
     },
-    phone: "(555) 123-4567",
-    email: "info@christcommunity.org"
+    phone: "07428784005",
+    email: "christcommunityglobal@gmail.com"
   },
   serviceTimes: [
-    { name: "Sunday Worship", time: "9:00 AM & 11:00 AM" },
-    { name: "Wednesday Bible Study", time: "7:00 PM" },
-    { name: "Youth Group", time: "Friday 6:30 PM" },
+    { name: "Wednesday Intercessory Prayers", time: "9:00 PM" },
+    { name: "Friday Night Prayers", time: "9:00 PM" },
+    { name: "Sunday Night Bible Study", time: "7:00 PM" },
   ],
   copyrightText: "©2025 Christ Community. All rights reserved.",
   legalLinks: [
@@ -114,26 +114,6 @@ const Footer = ({ config, contentfulData }: FooterProps) => {
               <p className="text-primary/80 leading-relaxed">
                 {churchInfo.description}
               </p>
-              <div className="flex space-x-3">
-                {churchInfo.socialMediaLinks.map((social) => (
-                  <Button
-                    key={social.platform}
-                    variant="ghost"
-                    size="sm"
-                    className="text-primary/60 hover:text-primary hover:bg-primary/10 p-2"
-                    asChild
-                  >
-                    <a
-                      href={social.href}
-                      aria-label={social.ariaLabel}
-                      target={social.href.startsWith('http') ? "_blank" : undefined}
-                      rel={social.href.startsWith('http') ? "noopener noreferrer" : undefined}
-                    >
-                      {social.icon}
-                    </a>
-                  </Button>
-                ))}
-              </div>
             </div>
 
             {/* Quick Links */}

@@ -33,13 +33,6 @@ const pageConfig: Omit<WhatWeDoPageConfig, 'activities.items.icon'> = {
                 ctaText: "Learn About Consultation"
             },
             {
-                title: "Healing & Lifting Resources",
-                description: "Access a wealth of articles, videos, and guides to support you on your journey of healing and spiritual growth.",
-                href: "/what-we-do/healing-lifting-resources",
-                icon: "HeartHandshake",
-                ctaText: "Explore Resources"
-            },
-            {
                 title: "Our Blog & Publications",
                 description: "Read insightful articles on faith, culture, and ministry from our team and guest contributors.",
                 href: "/what-we-do/blog",
@@ -52,7 +45,7 @@ const pageConfig: Omit<WhatWeDoPageConfig, 'activities.items.icon'> = {
 
 export const metadata: Metadata = {
     title: "What We Do | Christ Community",
-    description: "Discover our core ministries, including events, consultation services, healing resources, and our blog. Learn how we are serving the community and building the kingdom.",
+    description: "Discover our core ministries, including events, consultation services, and our blog. Learn how we are serving the community and building the kingdom.",
 };
 
 export default async function WhatWeDoPage() {

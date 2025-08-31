@@ -63,20 +63,28 @@ export default function FreeBibleForm() {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmissionStatus(null);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    // Basic validation
-    if (formData.firstName && formData.lastName && formData.email && formData.address && 
-        formData.city && formData.state && formData.zipCode && formData.translation) {
-      console.log("Free Bible Request Submitted:", formData);
-      setSubmissionStatus('success');
-    } else {
+
+    try {
+      const response = await fetch('/api/free-bible', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmissionStatus('success');
+        // Don't reset form data immediately - let the success state show the data
+      } else {
+        setSubmissionStatus('error');
+      }
+    } catch (error) {
+      console.error('Free Bible form submission error:', error);
       setSubmissionStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
-    
-    setIsSubmitting(false);
   };
 
   if (submissionStatus === 'success') {
@@ -182,7 +190,7 @@ export default function FreeBibleForm() {
                         id="phone" 
                         name="phone" 
                         type="tel" 
-                        placeholder="(555) 123-4567" 
+                        placeholder="07428784005" 
                         className="pl-10"
                         onChange={handleInputChange} 
                         value={formData.phone}

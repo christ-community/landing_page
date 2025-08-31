@@ -28,7 +28,31 @@ export default function NewsletterSection({ config, onSubmit }: NewsletterSectio
   const [email, setEmail] = useState('');
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (onSubmit) await onSubmit(email);
+    
+    if (onSubmit) {
+      await onSubmit(email);
+    } else {
+      // Default behavior - call newsletter API
+      try {
+        const response = await fetch('/api/newsletter', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        });
+
+        if (response.ok) {
+          console.log('Newsletter subscription successful');
+          // You might want to show a success message here
+        } else {
+          console.error('Newsletter subscription failed');
+        }
+      } catch (error) {
+        console.error('Newsletter subscription error:', error);
+      }
+    }
+    
     setEmail('');
   };
 

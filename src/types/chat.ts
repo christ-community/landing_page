@@ -22,7 +22,7 @@ export interface ChatbotMessageDto {
 export interface ChatbotResponseDto {
   response: string;
   sessionId: string;
-  confidence: number;
+  confidence?: number;
   relatedTopics?: string[];
   suggestions?: string[];
   timestamp: string;
@@ -30,7 +30,7 @@ export interface ChatbotResponseDto {
 }
 
 export interface ConversationHistoryDto {
-  sessionId: string;
+  sessionId?: string;
   messages: Array<{
     id: string;
     content: string;
@@ -38,9 +38,13 @@ export interface ConversationHistoryDto {
     timestamp: string;
     confidence?: number;
   }>;
-  totalMessages: number;
-  createdAt: string;
-  lastActivity: string;
+  totalMessages?: number;
+  totalCount?: number;
+  page?: number;
+  limit?: number;
+  hasMore?: boolean;
+  createdAt?: string;
+  lastActivity?: string;
 }
 
 // Chat session management

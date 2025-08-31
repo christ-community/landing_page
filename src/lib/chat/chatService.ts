@@ -23,55 +23,74 @@ export class ChatService {
    */
   async sendMessage(payload: ChatbotMessageDto): Promise<ChatbotResponseDto> {
     const startTime = performance.now();
-    let lastError: Error;
+    const requestPayload = {
+      message: payload.message,
+      sessionId: payload.sessionId || `session_${Date.now()}`,
+    };
 
-    for (let attempt = 1; attempt <= this.config.retryAttempts; attempt++) {
-      try {
-        this.abortController = new AbortController();
+
+    try {
+      // Use a simple fetch request without conflicting signals
+      const response = await this.makeRequest<any>('/api/Chatbot/message', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(requestPayload),
+      });
+
+      // Log successful request
+      this.logEvent('message_sent', {
+        sessionId: payload.sessionId,
+        attempt: 1,
+        duration: performance.now() - startTime,
+        success: true,
+      });
+
+      // Handle the API response format (wrapped in ApiResponse)
+      if (response && response.success && response.data) {
+        const chatResponse = {
+          messageId: `msg_${Date.now()}`,
+          response: response.data.response,
+          timestamp: response.data.timestamp || new Date().toISOString(),
+          sessionId: response.data.sessionId || payload.sessionId,
+          relatedTopics: response.data.relatedTopics || [],
+        };
         
-        const response = await this.makeRequest<ChatbotResponseDto>('/api/Chatbot/message', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Request-ID': this.generateRequestId(),
-            'X-Session-ID': payload.sessionId,
-          },
-          body: JSON.stringify(payload),
-          signal: this.abortController.signal,
-        });
-
-        // Log successful request
-        this.logEvent('message_sent', {
-          sessionId: payload.sessionId,
-          attempt,
-          duration: performance.now() - startTime,
-          success: true,
-        });
-
-        return response;
-      } catch (error) {
-        lastError = error as Error;
-        
-        this.logEvent('message_failed', {
-          sessionId: payload.sessionId,
-          attempt,
-          error: error instanceof Error ? error.message : 'Unknown error',
-          duration: performance.now() - startTime,
-        });
-
-        // Don't retry on certain errors
-        if (this.isNonRetryableError(error)) {
-          throw this.createChatError('NON_RETRYABLE_ERROR', lastError.message, false);
-        }
-
-        // Wait before retry (exponential backoff)
-        if (attempt < this.config.retryAttempts) {
-          await this.delay(this.config.retryDelay * Math.pow(2, attempt - 1));
-        }
+        return chatResponse;
+      } else {
+        console.error('[ChatService] Invalid API response format:', response);
+        throw new Error('Invalid API response format');
       }
-    }
+    } catch (error) {
+      // If API fails, return a fallback response to prevent UI freezing
+      console.error('[ChatService] Chat API failed:', {
+        error: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined,
+        url: `${this.config.apiBaseUrl}/api/Chatbot/message`,
+        payload: requestPayload,
+        duration: performance.now() - startTime,
+      });
+      
+      this.logEvent('message_failed_using_fallback', {
+        sessionId: payload.sessionId,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        duration: performance.now() - startTime,
+      });
 
-    throw this.createChatError('MAX_RETRIES_EXCEEDED', lastError!.message, true);
+      // Return a simulated response
+      const fallbackResponse = {
+        messageId: `fallback_${Date.now()}`,
+        response: "I'm sorry, I'm having trouble connecting to our chat service right now. Please feel free to contact us directly using our contact form or call us for immediate assistance. Our team is here to help you!",
+        timestamp: new Date().toISOString(),
+        sessionId: payload.sessionId || `session_${Date.now()}`,
+        relatedTopics: ['Contact Us', 'Support'],
+      };
+      
+      console.log('[ChatService] Using fallback response:', fallbackResponse);
+      return fallbackResponse;
+    }
   }
 
   /**
@@ -92,9 +111,6 @@ export class ChatService {
         `/api/Chatbot/conversation/${sessionId}?${queryParams}`,
         {
           method: 'GET',
-          headers: {
-            'X-Request-ID': this.generateRequestId(),
-          },
         }
       );
 
@@ -109,7 +125,15 @@ export class ChatService {
         sessionId,
         error: error instanceof Error ? error.message : 'Unknown error',
       });
-      throw this.createChatError('HISTORY_LOAD_FAILED', 'Failed to load conversation history', true);
+      
+      // Return empty history instead of throwing error
+      return {
+        messages: [],
+        totalCount: 0,
+        page,
+        limit,
+        hasMore: false,
+      };
     }
   }
 
@@ -120,9 +144,6 @@ export class ChatService {
     try {
       return await this.makeRequest('/api/Chatbot/knowledge', {
         method: 'GET',
-        headers: {
-          'X-Request-ID': this.generateRequestId(),
-        },
       });
     } catch (error) {
       this.logEvent('knowledge_base_failed', {
@@ -146,9 +167,6 @@ export class ChatService {
         try {
           const response = await fetch(`${this.config.apiBaseUrl}${endpoint}`, {
             method: 'GET',
-            headers: {
-              'X-Request-ID': this.generateRequestId(),
-            },
             signal: AbortSignal.timeout(5000), // 5 second timeout
           });
           
@@ -199,8 +217,6 @@ export class ChatService {
     
     const defaultHeaders = {
       'Accept': 'application/json',
-      'User-Agent': `ChatClient/1.0 (${navigator.userAgent})`,
-      'X-Timestamp': new Date().toISOString(),
     };
 
     const requestOptions: RequestInit = {
@@ -209,8 +225,8 @@ export class ChatService {
         ...defaultHeaders,
         ...options.headers,
       },
-      // Add timeout
-      ...this.withTimeout(30000),
+      // Only use signal if provided, no automatic timeout
+      signal: options.signal,
     };
 
     try {
@@ -225,14 +241,7 @@ export class ChatService {
 
       const data = await response.json();
       
-      // Handle wrapped API responses
-      if (this.isWrappedResponse(data)) {
-        if (!data.success) {
-          throw new Error(data.error?.message || 'API request failed');
-        }
-        return data.data as T;
-      }
-
+      // Always return the raw response for now since we handle wrapping in the calling method
       return data as T;
     } catch (error) {
       if (error instanceof TypeError && error.message.includes('fetch')) {
@@ -350,10 +359,10 @@ export class ChatService {
 export const defaultChatConfig: ChatConfig = {
   apiBaseUrl: process.env.NEXT_PUBLIC_CHAT_API_BASE_URL || 'https://p01--ccg-api--jpcbk2mdwdkc.code.run',
   maxMessages: 100,
-  retryAttempts: 3,
-  retryDelay: 1000,
+  retryAttempts: 1, // Reduced to prevent long waits
+  retryDelay: 500,  // Reduced delay
   sessionTimeout: 30 * 60 * 1000, // 30 minutes
-  enablePersistence: true,
+  enablePersistence: false, // Disabled to prevent issues
   enableTypingIndicator: true,
   enableSuggestions: true,
   theme: 'system',

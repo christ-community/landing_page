@@ -61,7 +61,7 @@ export default function AboutOverview({ coreValues, communityStats, differentiat
           {communityStats.map((stat, index) => (
             <Card key={index} className="text-center border-2 border-border/10 hover:border-primary/30 transition-all duration-300">
               <CardContent className="p-6">
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.value}</div>
+                <div className="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">{stat.value}</div>
                 <div className="text-lg font-semibold text-foreground mb-1">{stat.label}</div>
                 <div className="text-sm text-muted-foreground">{stat.description}</div>
               </CardContent>

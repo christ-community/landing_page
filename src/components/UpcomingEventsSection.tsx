@@ -65,7 +65,7 @@ const defaultEventsConfig = {
 };
 
 const eventCategories = [
-  { id: 'worship', name: 'Worship Services', icon: <Calendar className="w-5 h-5" />, color: 'bg-orange-500' },
+  { id: 'worship', name: 'Weekly Services', icon: <Calendar className="w-5 h-5" />, color: 'bg-orange-500' },
   { id: 'outreach', name: 'Community Outreach', icon: <Users className="w-5 h-5" />, color: 'bg-purple-500' },
   { id: 'conference', name: 'Special Events', icon: <MapPin className="w-5 h-5" />, color: 'bg-green-500' },
   { id: 'prayer', name: 'Prayer & Healing', icon: <Clock className="w-5 h-5" />, color: 'bg-red-500' },

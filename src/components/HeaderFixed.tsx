@@ -71,12 +71,6 @@ const defaultHeaderConfig: HeaderConfig = {
           description: "Find upcoming church and community events.",
         },
         {
-          href: "/what-we-do/healing-lifting-resources",
-          label: "Healing Resources",
-          icon: HeartPulse,
-          description: "Support for your spiritual and emotional needs.",
-        },
-        {
           href: "/what-we-do/access-consultation-services",
           label: "Consultation Services",
           icon: Handshake,

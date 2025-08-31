@@ -28,6 +28,7 @@ const GiveToday = ({ helpImpact, communityStats, pageHero }: GiveTodayProps) => 
   const [frequency, setFrequency] = useState<Frequency>('monthly');
   const [isDedicated, setIsDedicated] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'paypal'>('stripe');
 
   const [selectedPreset, setSelectedPreset] = useState<number | null>(50);
 
@@ -71,13 +72,12 @@ const GiveToday = ({ helpImpact, communityStats, pageHero }: GiveTodayProps) => 
         throw new Error('Failed to create payment session');
       }
 
-      const { url, sessionId } = await response.json();
+      const data = await response.json();
 
-      if (url) {
-        // Redirect to Stripe Checkout
-        window.location.href = url;
+      if (data.url) {
+        window.location.href = data.url;
       } else {
-        console.error('No checkout URL received');
+        console.error('No payment URL received');
       }
     } catch (error) {
       console.error('Payment processing error:', error);
@@ -112,7 +112,7 @@ const GiveToday = ({ helpImpact, communityStats, pageHero }: GiveTodayProps) => 
                 onClick={() => setFrequency('once')}
                 className={cn(
                   'py-3 text-base rounded-lg transition-all',
-                  frequency === 'once' ? 'bg-background shadow-sm' : 'text-muted-foreground hover:bg-background/50'
+                  frequency === 'once' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:bg-background/50'
                 )}
               >
                 Give Once
@@ -176,17 +176,20 @@ const GiveToday = ({ helpImpact, communityStats, pageHero }: GiveTodayProps) => 
                 </select>
             </div>
             
-            <div className="flex items-center gap-3 mb-6">
-              <input 
-                type="checkbox"
-                id="dedicate-donation"
-                checked={isDedicated}
-                onChange={(e) => setIsDedicated(e.target.checked)}
-                className="h-5 w-5 rounded border-2 border-muted-foreground/50 text-primary focus:ring-primary/50 bg-muted/50"
-              />
-              <label htmlFor="dedicate-donation" className="text-sm font-medium text-foreground cursor-pointer">
-                Dedicate this donation
-              </label>
+            <div className="space-y-4 mb-6">
+              <div className="flex items-center gap-3">
+                <input 
+                  type="checkbox"
+                  id="dedicate-donation"
+                  checked={isDedicated}
+                  onChange={(e) => setIsDedicated(e.target.checked)}
+                  className="h-5 w-5 rounded border-2 border-muted-foreground/50 text-primary focus:ring-primary/50 bg-muted/50"
+                />
+                <label htmlFor="dedicate-donation" className="text-sm font-medium text-foreground cursor-pointer">
+                  Dedicate this donation
+                </label>
+              </div>
+              
             </div>
 
             <Button 

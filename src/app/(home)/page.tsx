@@ -1,6 +1,5 @@
 import HeroSection from '@/components/HeroSection';
 import WhatWeDoSection from '@/app/(home)/components/WhatWeDoSection';
-import HealingResourcesSection from '@/app//(home)/components/HealingResourcesSection';
 import UpcomingEventsSection from '@/components/UpcomingEventsSection';
 import NewsletterSection from '@/components/NewsletterSection';
 import HelpSection from '@/components/HelpSection';
@@ -49,7 +48,6 @@ export default async function HomePage() {
       <UpcomingEventsSection events={upcomingEvents} />
       <NewsletterSection />
       <ChurchFinderSection contentfulChurches={processedChurches} />
-      <HealingResourcesSection />
       <HelpSection />
     </>
   );

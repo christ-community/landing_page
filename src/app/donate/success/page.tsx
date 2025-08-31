@@ -84,55 +84,46 @@ function DonationSuccessContent() {
                     </div>
                   </div>
 
-                  <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
-                    <h4 className="font-semibold text-foreground mb-2 flex items-center">
-                      <Heart className="w-5 h-5 text-red-500 mr-2" />
-                      What's Next?
-                    </h4>
-                    <ul className="text-sm text-muted-foreground space-y-2">
-                      <li>• You'll receive an email confirmation shortly</li>
-                      <li>• Tax receipts will be sent at year-end</li>
-                      {sessionData.frequency === 'monthly' && (
-                        <li>• Your monthly donation will process automatically</li>
-                      )}
-                      <li>• You can manage your giving anytime from your account</li>
-                    </ul>
+
+                  <div className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-950/30 dark:to-green-950/30 rounded-lg p-6 border-l-4 border-green-500">
+                    <p className="text-foreground font-medium text-center">
+                      "Give, and it will be given to you. A good measure, pressed down, shaken together and running over, 
+                      will be poured into your lap. For with the measure you use, it will be measured to you."
+                    </p>
+                    <p className="text-sm text-muted-foreground text-center mt-2">- Luke 6:38</p>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <Button 
-                      className="flex-1 bg-green-600 hover:bg-green-700 text-white"
-                      onClick={() => window.print()}
-                    >
-                      <Download className="w-4 h-4 mr-2" />
-                      Download Receipt
-                    </Button>
-                    
-                    <Button 
-                      variant="outline" 
-                      className="flex-1 border-green-200 text-green-700 hover:bg-green-50"
-                      onClick={() => {
-                        if (navigator.share) {
-                          navigator.share({
-                            title: 'I just donated to Christ Community',
-                            text: 'Join me in supporting this amazing ministry!',
-                            url: window.location.origin + '/donate'
-                          });
-                        }
-                      }}
-                    >
-                      <Share2 className="w-4 h-4 mr-2" />
-                      Share Impact
-                    </Button>
+                  <div className="text-center">
+                    <p className="text-muted-foreground">
+                      Your donation will be put to work immediately in our mission to shine the light of Christ to all Nations, Tribes and Tongues. 
+                      May God bless you abundantly for your faithfulness.
+                    </p>
                   </div>
 
-                  <div className="text-center pt-6 border-t">
-                    <Link href="/">
-                      <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-                        <ArrowLeft className="w-4 h-4 mr-2" />
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
+                      <Link href="/">
                         Return to Home
-                      </Button>
-                    </Link>
+                      </Link>
+                    </Button>
+                    <Button asChild variant="outline" size="lg">
+                      <Link href="/what-we-do">
+                        See Our Impact
+                      </Link>
+                    </Button>
+                  </div>
+
+                  <div className="text-center pt-6 border-t border-border/20">
+                    <p className="text-sm text-muted-foreground">
+                      Questions about your donation? Contact us at{' '}
+                      <a href="mailto:christcommunityglobal@gmail.com" className="text-primary hover:underline">
+                        christcommunityglobal@gmail.com
+                      </a>{' '}
+                      or call{' '}
+                      <a href="tel:07428784005" className="text-primary hover:underline">
+                        07428784005
+                      </a>
+                    </p>
                   </div>
                 </div>
               ) : (

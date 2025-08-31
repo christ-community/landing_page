@@ -74,14 +74,28 @@ export default function OrderForm() {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmissionStatus(null);
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    if (formData.tractId && formData.name && formData.email && formData.address && formData.quantity > 0) {
-      console.log("Form Submitted:", { ...formData, estimatedDonation });
-      setSubmissionStatus('success');
-    } else {
+
+    try {
+      const response = await fetch('/api/order-tract', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmissionStatus('success');
+        // Don't reset form data immediately - let the success state show the data
+      } else {
+        setSubmissionStatus('error');
+      }
+    } catch (error) {
+      console.error('Order Tract form submission error:', error);
       setSubmissionStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   };
 
   if (submissionStatus === 'success') {

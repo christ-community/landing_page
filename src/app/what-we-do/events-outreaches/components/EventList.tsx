@@ -41,7 +41,7 @@ function EventCard({ event }: { event: EventItem }) {
         </div>
         <p className="text-muted-foreground text-sm line-clamp-3 mb-6 flex-grow">{event.description}</p>
         <Button asChild className="mt-auto w-full">
-            <Link href="#">View Details</Link>
+            <Link href="/contact">Join Event</Link>
         </Button>
       </div>
     </Card>

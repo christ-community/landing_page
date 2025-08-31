@@ -32,8 +32,8 @@ const contactMethods = [
     icon: Mail,
     title: "Email Us",
     description: "Send us a message anytime",
-    contact: "hello@christcommunity.org",
-    action: "mailto:hello@christcommunity.org",
+    contact: "christcommunityglobal@gmail.com",
+    action: "mailto:christcommunityglobal@gmail.com",
     actionText: "Send Email",
     color: "blue"
   },
@@ -41,17 +41,17 @@ const contactMethods = [
     icon: Phone,
     title: "Call Us",
     description: "Speak with our team directly",
-    contact: "+1 (555) 123-4567",
-    action: "tel:+15551234567",
+    contact: "07428784005",
+    action: "tel:07428784005",
     actionText: "Call Now",
     color: "green"
   },
   {
     icon: MapPin,
     title: "Visit Us",
-    description: "Join us for Sunday service",
-    contact: "123 Faith Street, Hope City, HC 12345",
-    action: "https://maps.google.com/?q=123+Faith+Street+Hope+City",
+    description: "Join us for our meetings",
+    contact: "18 St Margarets, Swansea, United Kingdom, SA1 1JZ",
+    action: "https://maps.google.com/?q=18+St+Margarets+Swansea+SA1+1JZ+UK",
     actionText: "Get Directions",
     color: "purple"
   },
@@ -59,7 +59,7 @@ const contactMethods = [
     icon: MessageCircle,
     title: "Live Chat",
     description: "Chat with our team online",
-    contact: "Available Monday - Friday",
+    contact: "Available 24/7",
     action: "#",
     actionText: "Start Chat",
     color: "orange"
@@ -69,21 +69,21 @@ const contactMethods = [
 const serviceInfo = [
   {
     icon: Calendar,
-    title: "Sunday Services",
-    time: "9:00 AM & 11:00 AM",
-    description: "Join us for worship and fellowship"
+    title: "Wednesday Intercessory Prayers",
+    time: "9:00 PM",
+    description: "Join us for prayer and intercession"
   },
   {
     icon: Users,
-    title: "Small Groups",
-    time: "Wednesdays 7:00 PM",
-    description: "Connect in smaller community groups"
+    title: "Friday Night Prayers",
+    time: "9:00 PM",
+    description: "Evening prayers and fellowship"
   },
   {
     icon: Clock,
-    title: "Office Hours",
-    time: "Mon-Fri: 9:00 AM - 5:00 PM",
-    description: "Drop by or schedule an appointment"
+    title: "Sunday Night Bible Study",
+    time: "7:00 PM",
+    description: "Study God's word together"
   }
 ];
 
@@ -199,7 +199,7 @@ export default function ContactInfo({ config, faqs }: ContactInfoProps) {
               </p>
               <Button 
                 className="bg-red-600 hover:bg-red-700 text-white"
-                onClick={() => window.open('tel:+15551234567', '_blank')}
+                onClick={() => window.open('tel:07428784005', '_blank')}
               >
                 <Phone className="w-4 h-4 mr-2" />
                 Emergency Prayer Line

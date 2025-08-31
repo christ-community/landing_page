@@ -7,9 +7,28 @@ import { Input } from '@/components/ui/input';
 const MailingList = () => {
   const [email, setEmail] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Submitted email for mailing list:', email);
+    
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        console.log('Mailing list subscription successful');
+        // You might want to show a success message here
+      } else {
+        console.error('Mailing list subscription failed');
+      }
+    } catch (error) {
+      console.error('Mailing list subscription error:', error);
+    }
+    
     setEmail('');
   };
 
