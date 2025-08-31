@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Heart, Users, BookOpen, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+
 import type { IPageHero } from '../../../../types/contentful';
 
 interface AboutHeroProps {
@@ -20,12 +20,7 @@ const defaultConfig = {
   subtitle: "Discover our heart, mission, and the people who make this community special.",
 };
 
-const stats = [
-  { number: "15+", label: "Years Serving", icon: "🏛️" },
-  { number: "500+", label: "Community Members", icon: "👥" },
-  { number: "25+", label: "Active Ministries", icon: "🤝" },
-  { number: "12", label: "Countries Reached", icon: "🌍" }
-];
+
 
 export default function AboutHero({ config, pageHero }: AboutHeroProps) {
   // Use Contentful data if available, otherwise fall back to config or default
@@ -34,14 +29,6 @@ export default function AboutHero({ config, pageHero }: AboutHeroProps) {
     subtitle: pageHero.subtitle
   } : { ...defaultConfig, ...config };
   const { title, subtitle } = heroConfig;
-  const [currentStat, setCurrentStat] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentStat((prev) => (prev + 1) % stats.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
 
   const handleScrollToContent = () => {
     const overviewSection = document.querySelector('[data-section="about-overview"]');
@@ -94,28 +81,7 @@ export default function AboutHero({ config, pageHero }: AboutHeroProps) {
                 </Link>
               </div>
 
-              {/* Rotating Stats Display */}
-              <div className="p-6 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-2xl border border-white/20 dark:border-slate-700/20">
-                <div className="text-center transition-all duration-500">
-                  <div className="text-4xl mb-2">{stats[currentStat].icon}</div>
-                  <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">
-                    {stats[currentStat].number}
-                  </div>
-                  <div className="text-sm text-slate-600 dark:text-slate-400 font-medium">
-                    {stats[currentStat].label}
-                  </div>
-                </div>
-                <div className="flex justify-center mt-4 space-x-2">
-                  {stats.map((_, index) => (
-                    <div
-                      key={index}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        index === currentStat ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'
-                      }`}
-                    />
-                  ))}
-                </div>
-              </div>
+
             </div>
 
             {/* Right Content - Feature Cards */}
