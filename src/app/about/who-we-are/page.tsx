@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import WhoHero from '@/app/about/who-we-are/components/WhoHero';
 import OurStory from '@/app/about/who-we-are/components/OurStory';
-import { getTimelineEvents, getMissionVision, getCommunityStats } from '../../../../lib/contentful-api';
+import { getTimelineEvents, getMissionVision, getCommunityStats, getPageHero } from '../../../../lib/contentful-api';
 
 export const metadata: Metadata = {
   title: 'Who We Are | Christ Community',
@@ -9,15 +9,16 @@ export const metadata: Metadata = {
 };
 
 export default async function WhoWeArePage() {
-  const [timelineEvents, missionVision, communityStats] = await Promise.all([
+  const [timelineEvents, missionVision, communityStats, heroData] = await Promise.all([
     getTimelineEvents(),
     getMissionVision(),
-    getCommunityStats()
+    getCommunityStats(),
+    getPageHero('who-we-are')
   ]);
 
   return (
     <>
-      <WhoHero missionVision={missionVision} />
+      <WhoHero missionVision={missionVision} pageHero={heroData} />
       <OurStory timelineEvents={timelineEvents} communityStats={communityStats} />
     </>
   );

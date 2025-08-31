@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Users, Heart, Calendar, MapPin, Clock, ArrowRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
-import type { IMissionVision } from '../../../../../types/contentful';
+import type { IMissionVision, IPageHero } from '../../../../../types/contentful';
 import { useState, useEffect } from 'react';
 
 interface WhoHeroProps {
@@ -13,6 +13,7 @@ interface WhoHeroProps {
     subtitle?: string;
   };
   missionVision?: IMissionVision[];
+  pageHero?: IPageHero | null;
 }
 
 const defaultConfig = {
@@ -29,8 +30,12 @@ const journeyMilestones = [
   { year: "2024", event: "500+ Members", emoji: "⭐" }
 ];
 
-export default function WhoHero({ config, missionVision }: WhoHeroProps) {
-  const heroConfig = { ...defaultConfig, ...config };
+export default function WhoHero({ config, missionVision, pageHero }: WhoHeroProps) {
+  // Use Contentful data if available, otherwise fall back to config or default
+  const heroConfig = pageHero ? {
+    title: pageHero.title,
+    subtitle: pageHero.subtitle || defaultConfig.subtitle,
+  } : { ...defaultConfig, ...config };
   const { title, subtitle } = heroConfig;
   const [currentMilestone, setCurrentMilestone] = useState(0);
 
@@ -95,7 +100,7 @@ export default function WhoHero({ config, missionVision }: WhoHeroProps) {
                     Meet Our Team
                   </Button>
                 </Link>
-                <Link href="/contact">
+                <Link href="https://calendly.com/christcommunityglobal/30min" target="_blank" rel="noopener noreferrer">
                   <Button size="lg" variant="outline" className="border-2 border-rose-200 text-slate-700 dark:text-slate-300 hover:bg-rose-50 dark:hover:bg-rose-950/20 px-6 py-3 text-lg rounded-lg">
                     <Calendar className="w-5 h-5 mr-2" />
                     Visit Us Sunday

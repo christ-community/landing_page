@@ -321,7 +321,7 @@ export default function ChurchFinderSection({ config, contentfulChurches = [] }:
       ...church.address,
       postcode: church.address.postcode || ''
     },
-    coordinates: church.coordinates || { lat: 0, lng: 0 },
+    coordinates: church.coordinates || undefined, // Don't set default coordinates
     contact: church.contact || {},
     services: church.services || {},
     pastor: church.pastor || '',
@@ -350,8 +350,8 @@ export default function ChurchFinderSection({ config, contentfulChurches = [] }:
       const geocodeChurches = async () => {
         const geocodedChurches = await Promise.all(
           initialChurches.map(async (church) => {
-            // Only geocode if coordinates are missing or invalid
-            if (!church.coordinates || (church.coordinates.lat === 0 && church.coordinates.lng === 0)) {
+            // Only geocode if coordinates are completely missing
+            if (!church.coordinates) {
               try {
                 const address = `${church.address.street}, ${church.address.city}, ${church.address.postcode || church.address.state}`;
                 const coords = await geocodeLocation(address);
@@ -456,40 +456,55 @@ export default function ChurchFinderSection({ config, contentfulChurches = [] }:
     
     try {
       let coordinates = coords;
+      let locationDisplayName = locationName || searchValue;
+      
       if (!coordinates) {
         const geocodedCoords = await geocodeLocation(searchValue);
         if (geocodedCoords) {
           coordinates = geocodedCoords;
         } else {
-          throw new Error('Location not found');
+          // If geocoding fails, still show churches but without distance calculations
+          coordinates = undefined;
         }
       }
       
       setUserLocation({
-        postcode: locationName || searchValue,
-        coordinates
+        postcode: locationDisplayName,
+        coordinates,
+        locationName: locationDisplayName
       });
       setUserLocationSource(source);
-      setMapCenter(coordinates);
+      
+      if (coordinates) {
+        setMapCenter(coordinates);
+      }
 
       // Calculate distances and filter churches
       let churchesWithDistance = churches.map(church => ({
         ...church,
-        distance: calculateDistance(
+        distance: (church.coordinates && coordinates) ? calculateDistance(
           coordinates.lat,
           coordinates.lng,
           church.coordinates.lat,
           church.coordinates.lng
-        )
+        ) : undefined
       }));
 
-      // Filter by maximum distance
-      churchesWithDistance = churchesWithDistance.filter(
-        church => (church.distance || 0) <= finderConfig.maxDistance
-      );
+      // If we have coordinates, filter by distance; otherwise show all churches
+      if (coordinates) {
+        churchesWithDistance = churchesWithDistance.filter(
+          church => !church.coordinates || (church.distance || 0) <= finderConfig.maxDistance
+        );
+      }
 
-      // Sort by distance
-      churchesWithDistance.sort((a, b) => (a.distance || 0) - (b.distance || 0));
+      // Sort by distance - churches with coordinates first, then by distance
+      churchesWithDistance.sort((a, b) => {
+        if (!a.coordinates && !b.coordinates) return 0;
+        if (!a.coordinates) return 1;
+        if (!b.coordinates) return -1;
+        if (!coordinates) return 0; // If no user coordinates, don't sort by distance
+        return (a.distance || 0) - (b.distance || 0);
+      });
 
       setFilteredChurches(churchesWithDistance);
       
@@ -512,7 +527,7 @@ export default function ChurchFinderSection({ config, contentfulChurches = [] }:
 
   const handleChurchSelect = (church: Church | null) => {
     setSelectedChurch(church);
-    if (church) {
+    if (church && church.coordinates) {
       setMapCenter(church.coordinates);
       // On small screens, scroll to the map
       if (window.innerWidth < 1024 && mapContainerRef.current) {
@@ -559,7 +574,7 @@ export default function ChurchFinderSection({ config, contentfulChurches = [] }:
                 {/* Church List - Left Side */}
                 <div className="space-y-4">
                   <h3 className="text-2xl font-bold text-foreground mb-6">
-                    Found {filteredChurches.length} church{filteredChurches.length !== 1 ? 'es' : ''} near you
+                    Found {filteredChurches.length} church{filteredChurches.length !== 1 ? 'es' : ''} {userLocation?.coordinates ? 'near you' : 'in your area'}
                   </h3>
                   <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
                     <ChurchList

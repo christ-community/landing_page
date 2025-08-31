@@ -87,6 +87,12 @@ const SearchForm = forwardRef<HTMLInputElement, SearchFormProps>(({
             <p className="text-blue-700 dark:text-blue-300 text-sm">Loading Google Maps...</p>
           </div>
         )}
+
+        <div className="mt-4 p-3 bg-green-100 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+          <p className="text-green-700 dark:text-green-300 text-sm">
+            💡 <strong>Search Tip:</strong> Enter a town, city, or postcode to find churches. Churches without exact coordinates will still be shown in the list.
+          </p>
+        </div>
     </div>
   );
 });

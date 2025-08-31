@@ -27,7 +27,7 @@ export default function ChurchCard({ church, isSelected, onClick, onGetDirection
               {church.name}
             </CardTitle>
             <CardDescription className="text-sm text-muted-foreground mt-1">
-              {church.denomination} • {church.distance?.toFixed(1)} miles away
+              {church.denomination}{church.distance ? ` • ${church.distance.toFixed(1)} miles away` : ''}
             </CardDescription>
           </div>
           <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-blue-600 transition-colors" />

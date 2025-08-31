@@ -86,8 +86,10 @@ export default function ChurchMap({
       markersRef.current.push(userMarker);
     }
 
-    // Add church markers
+    // Add church markers (only for churches with coordinates)
     churches.forEach((church) => {
+      if (!church.coordinates) return; // Skip churches without coordinates
+      
       const marker = new window.google.maps.Marker({
         position: church.coordinates,
         map: mapInstanceRef.current,
@@ -158,7 +160,7 @@ export default function ChurchMap({
             {selectedChurch.address.street}, {selectedChurch.address.city}
           </p>
           <p className="text-sm text-blue-600 font-medium mt-2">
-            {selectedChurch.denomination} • {selectedChurch.distance?.toFixed(1)} miles away
+            {selectedChurch.denomination}{selectedChurch.distance ? ` • ${selectedChurch.distance.toFixed(1)} miles away` : ''}
           </p>
         </div>
       )}

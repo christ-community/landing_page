@@ -8,7 +8,7 @@ export interface Church {
     postcode: string;
     country: string;
   };
-  coordinates: {
+  coordinates?: {
     lat: number;
     lng: number;
   };
@@ -48,6 +48,7 @@ export interface UserLocation {
     lat: number;
     lng: number;
   };
+  locationName?: string; // Add location name for display
 }
 
 export interface SearchFilters {

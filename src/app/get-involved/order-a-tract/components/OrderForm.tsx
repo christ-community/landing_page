@@ -8,33 +8,27 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { DollarSign, Loader2, PartyPopper, CheckCircle } from 'lucide-react';
+import { Loader2, PartyPopper } from 'lucide-react';
 import type { Tract, OrderFormConfig, OrderData } from '@/types';
 
-// Dummy Data - should be consistent with TractCatalog
-const allTracts: Tract[] = [
-    { id: '1', title: "The Four Spiritual Laws", description: "A classic and effective presentation of the gospel message.", coverImage: "/Church-Conference.jpg", tags: ["Foundation", "Classic"], samplePages: [], pricePer100: 15.00, isPopular: true, language: "English" },
-    { id: '2', title: "More Than a Carpenter", description: "Explores the claims of Jesus Christ and their validity.", coverImage: "/worship-conference.jpeg", tags: ["Apologetics", "Youth"], samplePages: [], pricePer100: 18.00, isPopular: true, language: "English" },
-    { id: '3', title: "The Case for Christ", description: "A journalist's investigation into the evidence for Jesus.", coverImage: "/Church-Conference.jpg", tags: ["Apologetics", "Skeptics"], samplePages: [], pricePer100: 20.00, isPopular: false, language: "English" },
-    { id: '4', title: "God's Love Story", description: "A simple, narrative-driven tract about God's love.", coverImage: "/worship-conference.jpeg", tags: ["Story", "Children"], samplePages: [], pricePer100: 12.00, isPopular: false, language: "English" },
-    { id: '5', title: "Las Cuatro Leyes Espirituales", description: "A classic and effective presentation of the gospel message.", coverImage: "/Church-Conference.jpg", tags: ["Foundation", "Classic"], samplePages: [], pricePer100: 15.00, isPopular: false, language: "Spanish" },
-    { id: '6', title: "Finding Hope", description: "A tract designed for those going through difficult times.", coverImage: "/worship-conference.jpeg", tags: ["Hope", "Outreach"], samplePages: [], pricePer100: 16.00, isPopular: true, language: "English" },
-];
+interface OrderFormProps {
+  tracts?: any[];
+}
 
 const defaultConfig: OrderFormConfig = {
-  title: "Request Your Tracts",
-  subtitle: "Fill out the form below to complete your request. Shipping is free for all orders.",
+  title: "Order Your Tracts",
+  subtitle: "Fill out the form below to complete your payment and order. Shipping is free for all orders.",
   fields: {
     name: { label: "Full Name", placeholder: "Your Name" },
     email: { label: "Email Address", placeholder: "your.email@example.com" },
-    address: { label: "Shipping Address", placeholder: "123 Main St, Anytown, USA" },
+    address: { label: "Shipping Address", placeholder: "123 Main St, Anytown, UK" },
     tract: { label: "Selected Tract", placeholder: "Select a tract from the catalog above" },
     quantity: { label: "Number of Tracts", placeholder: "e.g., 50" },
   },
-  submitButtonText: "Submit Request"
+  submitButtonText: "Proceed to Payment"
 };
 
-export default function OrderForm() {
+export default function OrderForm({ tracts = [] }: OrderFormProps) {
   const searchParams = useSearchParams();
   const selectedTractId = searchParams.get('selectedTractId');
   const formConfig = { ...defaultConfig };
@@ -43,6 +37,8 @@ export default function OrderForm() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState<'success' | 'error' | null>(null);
+
+
 
   useEffect(() => {
     if (selectedTractId) {
@@ -60,12 +56,18 @@ export default function OrderForm() {
   };
 
   const selectedTract = useMemo(() => {
-    return allTracts.find(t => t.id === formData.tractId);
-  }, [formData.tractId]);
+    return tracts.find(t => {
+      const tractId = t.id || t.sys?.id;
+      return tractId === formData.tractId;
+    });
+  }, [formData.tractId, tracts]);
 
-  const estimatedDonation = useMemo(() => {
+  const totalPrice = useMemo(() => {
     if (!selectedTract || !formData.quantity) return 0;
-    const pricePerTract = selectedTract.pricePer100 / 100;
+    // Contentful has pricePer100 in pence, convert to pounds per tract
+    const pricePer100 = selectedTract.pricePer100 || 1500; // Default £15 per 100
+    const pricePerTract = pricePer100 / 100; // Convert pence to pounds per tract
+    // Calculate total price: price per tract × quantity
     return pricePerTract * formData.quantity;
   }, [selectedTract, formData.quantity]);
 
@@ -76,22 +78,34 @@ export default function OrderForm() {
     setSubmissionStatus(null);
 
     try {
-      const response = await fetch('/api/order-tract', {
+      // Create Stripe checkout session
+      const response = await fetch('/api/create-tract-checkout-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          tractTitle: selectedTract?.title,
+          totalPrice: totalPrice,
+          currency: 'gbp'
+        }),
       });
 
       if (response.ok) {
-        setSubmissionStatus('success');
-        // Don't reset form data immediately - let the success state show the data
+        const data = await response.json();
+
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          console.error('No payment URL received');
+          setSubmissionStatus('error');
+        }
       } else {
         setSubmissionStatus('error');
       }
     } catch (error) {
-      console.error('Order Tract form submission error:', error);
+      console.error('Tract order submission error:', error);
       setSubmissionStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -136,9 +150,16 @@ export default function OrderForm() {
                       <SelectValue placeholder={formConfig.fields.tract.placeholder} />
                     </SelectTrigger>
                     <SelectContent>
-                      {allTracts.map(tract => (
-                        <SelectItem key={tract.id} value={tract.id}>{tract.title}</SelectItem>
-                      ))}
+                      {tracts.map(tract => {
+                        const tractId = tract.id || tract.sys?.id;
+                        const pricePer100 = tract.pricePer100 || 1500;
+                        const pricePerTract = (pricePer100 / 100).toFixed(2);
+                        return (
+                          <SelectItem key={tractId} value={tractId}>
+                            {tract.title} - £{pricePerTract} per tract
+                          </SelectItem>
+                        );
+                      })}
                     </SelectContent>
                   </Select>
                 </div>
@@ -158,27 +179,22 @@ export default function OrderForm() {
               <div>
                 <Label htmlFor="address">{formConfig.fields.address.label}</Label>
                 <Textarea id="address" name="address" placeholder={formConfig.fields.address.placeholder} onChange={handleInputChange} value={formData.address} required />
-              </div>
-              
-              <Card className="bg-muted/50 border-dashed">
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <DollarSign className="w-5 h-5 mr-2 text-green-500"/>
-                    Optional Donation
-                  </CardTitle>
-                  <CardDescription>
-                    Our tracts are free, but a suggested donation helps us cover printing and shipping costs to continue this ministry.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex justify-between items-center">
-                    <span className="text-lg font-medium">Suggested Donation:</span>
-                    <span className="text-2xl font-bold text-foreground">
-                      ${estimatedDonation.toFixed(2)}
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
+                             </div>
+               
+               <div className="bg-muted/20 p-4 rounded-lg border">
+                 <div className="flex justify-between items-center">
+                   <span className="text-lg font-medium text-foreground">Total Price:</span>
+                   <span className="text-3xl font-bold text-foreground">
+                     £{totalPrice.toFixed(2)}
+                   </span>
+                 </div>
+                 {selectedTract && formData.quantity > 0 && (
+                   <p className="text-sm text-muted-foreground mt-2">
+                     {formData.quantity} × {selectedTract.title}
+                   </p>
+                 )}
+               </div>
+                                            
 
               {submissionStatus === 'error' && <p className="text-sm text-red-500">Please fill out all required fields.</p>}
               

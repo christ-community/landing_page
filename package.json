@@ -18,6 +18,7 @@
     "contentful:populate": "tsx scripts/populate-contentful.ts",
     "contentful:populate-basic": "tsx scripts/allContentMigration.ts",
     "contentful:populate-remaining": "tsx scripts/completeRemainingContent.ts",
+    "contentful:add-who-we-are-hero": "tsx scripts/add-who-we-are-hero.ts",
     "contentful:full-check": "tsx scripts/checkAllContentEntries.ts",
     "webhook:setup": "tsx scripts/setup-webhook.ts",
     "webhook:test": "node scripts/test-webhook.js"

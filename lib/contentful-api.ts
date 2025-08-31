@@ -399,12 +399,13 @@ export async function getTracts(options: ApiOptions = {}): Promise<ITract[]> {
   try {
     const entries = await getClient(options.preview).getEntries({
       content_type: 'tract',
-      'fields.isActive': true,
+      // Temporarily remove isActive filter to see all tracts
+      // 'fields.isActive': true,
       limit: options.limit || 100,
       skip: options.skip || 0
     } as any)
 
-    return entries.items.map(item => processEntry<ITract>(item))
+    return entries.items.map(item => processEntry<ITract>(item));
   } catch (error) {
     console.error('Error fetching tracts:', error)
     return []

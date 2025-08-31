@@ -16,15 +16,17 @@ export const metadata: Metadata = {
 
 export default async function OrderATractPage() {
     const tracts = await getTracts();
-    console.log('tracts, ', tracts);
+    console.log('Raw tracts from Contentful:', tracts);
+    console.log('Number of tracts:', tracts.length);
     
     // Process tract assets on server side with proper error handling
-    const processedTracts = tracts.map(tract => {
+    const processedTracts = tracts.map((tract: any) => {
         try {
             return {
                 ...tract,
+                id: tract.sys?.id || Math.random().toString(), // Ensure each tract has an ID
                 processedCoverImage: tract.coverImage ? processAsset(tract.coverImage) : '/Church-Conference.jpg',
-                processedSamplePages: tract.samplePages ? tract.samplePages.map(page => {
+                processedSamplePages: tract.samplePages ? tract.samplePages.map((page: any) => {
                     try {
                         return processAsset(page);
                     } catch (error) {
@@ -37,12 +39,14 @@ export default async function OrderATractPage() {
             console.error('Error processing tract:', tract.title, error);
             return {
                 ...tract,
+                id: tract.sys?.id || Math.random().toString(),
                 processedCoverImage: '/Church-Conference.jpg',
                 processedSamplePages: []
             };
         }
     });
     
+ 
     return (
         <main>
             <OrderTractHero />
@@ -50,7 +54,7 @@ export default async function OrderATractPage() {
             <HowItWorks />
             <div id="order-form" className="scroll-mt-20">
                 <Suspense fallback={<div>Loading...</div>}>
-                    <OrderForm />
+                    <OrderForm tracts={processedTracts} />
                 </Suspense>
             </div>
             <NewsletterSection config={{
