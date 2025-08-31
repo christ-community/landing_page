@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import VolunteerHero from './components/VolunteerHero';
 import VolunteerOpportunities from './components/VolunteerOpportunities';
 import VolunteerProcess from './components/VolunteerProcess';
-import VolunteerImpact from './components/VolunteerImpact';
+
 import NewsletterSection from '@/components/NewsletterSection';
 import { getPageHero, getVolunteerOpportunities, processAsset } from '../../../../lib/contentful-api';
 
@@ -47,8 +47,7 @@ export default async function VolunteerWithUsPage() {
       {/* How to Get Started */}
       <VolunteerProcess />
       
-      {/* Impact Stories & Testimonials */}
-      <VolunteerImpact />
+
       
       {/* Newsletter Signup */}
       <NewsletterSection config={volunteerNewsletterConfig} />

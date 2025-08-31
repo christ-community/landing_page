@@ -137,19 +137,21 @@ export default function ContactInfo({ config, faqs }: ContactInfoProps) {
             const Icon = method.icon;
             
             return (
-              <Card key={index} className={`border-2 ${colors.border} hover:shadow-lg transition-all duration-300`}>
-                <CardHeader className="text-center pb-4">
+              <Card key={index} className={`border-2 ${colors.border} hover:shadow-lg transition-all duration-300 min-h-[280px] flex flex-col`}>
+                <CardHeader className="text-center pb-4 flex-shrink-0">
                   <div className={`inline-flex p-3 rounded-full ${colors.bg} text-white mb-3`}>
                     <Icon className="w-6 h-6" />
                   </div>
                   <CardTitle className="text-xl font-semibold">{method.title}</CardTitle>
                   <p className="text-sm text-muted-foreground">{method.description}</p>
                 </CardHeader>
-                <CardContent className="text-center">
-                  <p className="font-medium text-foreground mb-4">{method.contact}</p>
+                <CardContent className="text-center flex-1 flex flex-col justify-between">
+                  <p className="font-medium text-foreground mb-4 break-words hyphens-auto leading-relaxed px-2 text-sm lg:text-base">
+                    {method.contact}
+                  </p>
                   <Button 
                     size="sm"
-                    className={`${colors.bg} ${colors.hoverBg} text-white`}
+                    className={`${colors.bg} ${colors.hoverBg} text-white mt-auto`}
                     onClick={() => {
                       if (method.action.startsWith('http') || method.action.startsWith('mailto:') || method.action.startsWith('tel:')) {
                         window.open(method.action, '_blank');

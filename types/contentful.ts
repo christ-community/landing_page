@@ -322,6 +322,10 @@ export interface IPageHero {
   backgroundImage?: Asset
   ctaText?: string
   ctaUrl?: string
+  ctaButton1Text?: string
+  ctaButton1Link?: string
+  ctaButton2Text?: string
+  ctaButton2Link?: string
   isActive?: boolean
 }
 

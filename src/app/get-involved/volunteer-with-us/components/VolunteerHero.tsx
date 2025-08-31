@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Heart, Users, Clock, MapPin, ArrowRight, Sparkles } from 'lucide-react';
+import { Heart, Users, ArrowRight, Sparkles } from 'lucide-react';
 import type { VolunteerHeroConfig } from '@/types';
 
 interface VolunteerHeroProps {
@@ -28,17 +28,9 @@ export default function VolunteerHero({ config }: VolunteerHeroProps) {
   const heroConfig = { ...defaultConfig, ...config };
   const { title, subtitle, description, backgroundImage, ctaText, stats } = heroConfig;
 
-  const statItems = [
-    { icon: Users, label: "Active Volunteers", value: `${stats?.volunteers}+`, color: "text-emerald-600" },
-    { icon: Clock, label: "Hours Served", value: `${stats?.hoursServed?.toLocaleString()}+`, color: "text-orange-600" },
-    { icon: Heart, label: "Projects Completed", value: `${stats?.projectsCompleted}+`, color: "text-rose-600" },
-    { icon: MapPin, label: "Communities Impacted", value: `${stats?.communitiesImpacted}+`, color: "text-blue-600" }
-  ];
 
-  const handleGetStarted = () => {
-    const opportunitiesSection = document.querySelector('[data-section="volunteer-opportunities"]');
-    opportunitiesSection?.scrollIntoView({ behavior: 'smooth' });
-  };
+
+
 
   return (
     <section className="relative min-h-[95vh] bg-gradient-to-br from-orange-50 via-rose-50 to-amber-50 dark:from-orange-950/30 dark:via-rose-950/30 dark:to-amber-950/30 overflow-hidden">
@@ -85,38 +77,28 @@ export default function VolunteerHero({ config }: VolunteerHeroProps) {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   size="lg"
-                  onClick={handleGetStarted}
+                  asChild
                   className="bg-gradient-to-r from-orange-600 to-rose-600 hover:from-orange-700 hover:to-rose-700 text-white px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  {ctaText}
-                  <ArrowRight className="w-5 h-5 ml-2" />
+                  <a href="/get-involved/volunteer-with-us#opportunities">
+                    {ctaText}
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </a>
                 </Button>
                 
                 <Button 
                   size="lg"
                   variant="outline"
+                  asChild
                   className="border-2 border-orange-200 text-foreground hover:bg-orange-50 dark:border-orange-800 dark:hover:bg-orange-950 px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300"
                 >
-                  Learn More About Us
+                  <a href="/about">
+                    Learn More About Us
+                  </a>
                 </Button>
               </div>
 
-              {/* Stats Row */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8">
-                {statItems.map((stat, index) => (
-                  <div key={index} className="text-center">
-                    <div className={`inline-flex p-3 rounded-full bg-white/80 dark:bg-black/20 shadow-lg mb-2 ${stat.color}`}>
-                      <stat.icon className="w-6 h-6" />
-                    </div>
-                    <div className="text-2xl font-bold text-foreground">
-                      {stat.value}
-                    </div>
-                    <div className="text-sm text-muted-foreground font-medium">
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
+
             </div>
 
             {/* Right Side - Image with Overlays */}
@@ -131,20 +113,6 @@ export default function VolunteerHero({ config }: VolunteerHeroProps) {
                   className="object-cover w-full h-[500px] lg:h-[600px]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-                
-                {/* Floating Stats */}
-                <div className="absolute bottom-6 left-6 right-6">
-                  <div className="bg-white/90 dark:bg-black/80 backdrop-blur-sm rounded-2xl p-4">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-foreground mb-1">
-                        Join {stats?.volunteers}+ Volunteers
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        Making a difference every day
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
 
               {/* Floating Elements */}
@@ -160,22 +128,7 @@ export default function VolunteerHero({ config }: VolunteerHeroProps) {
         </div>
       </div>
 
-      {/* Decorative Bottom Wave */}
-      <div className="absolute bottom-0 left-0 w-full">
-        <svg viewBox="0 0 1200 120" fill="none" className="w-full h-16">
-          <path 
-            d="M0,60 C300,120 900,0 1200,60 L1200,120 L0,120 Z" 
-            fill="url(#volunteer-gradient)"
-          />
-          <defs>
-            <linearGradient id="volunteer-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#ea580c" />
-              <stop offset="50%" stopColor="#e11d48" />
-              <stop offset="100%" stopColor="#f59e0b" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
+
     </section>
   );
 } 

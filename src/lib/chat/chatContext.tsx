@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useReducer, useEffect, useCallback, useRef } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, useCallback, useRef, useMemo } from 'react';
 import type { 
   ChatState, 
   ChatAction, 
@@ -285,7 +285,7 @@ export function useChat(): UseChatReturn {
   const sendMessage = useCallback(async (content: string) => {
     if (!state.session || !content.trim()) return;
 
-    const messageId = `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const messageId = `msg_${Date.now()}_${crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substr(2, 9)}`;
     
     // Add user message immediately
     const userMessage: ChatMessage = {
@@ -443,15 +443,17 @@ export function useChat(): UseChatReturn {
     await sendMessage(message.content);
   }, [state.messages, sendMessage]);
 
+  const actions = useMemo(() => ({
+    sendMessage,
+    loadHistory,
+    clearMessages,
+    minimizeChat,
+    markAsRead,
+    retryMessage,
+  }), [sendMessage, loadHistory, clearMessages, minimizeChat, markAsRead, retryMessage]);
+
   return {
     state,
-    actions: {
-      sendMessage,
-      loadHistory,
-      clearMessages,
-      minimizeChat,
-      markAsRead,
-      retryMessage,
-    },
+    actions,
   };
 }

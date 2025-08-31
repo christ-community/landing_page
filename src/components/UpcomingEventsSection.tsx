@@ -119,56 +119,26 @@ export default function UpcomingEventsSection({ config, events }: UpcomingEvents
             </div>
           </div>
 
-          {/* Right Side - 3D Geometric Structure */}
+          {/* Right Side - Simple Visual Design */}
           <div className="w-full lg:w-1/2 relative">
-            {/* Main 3D Container */}
-            <div className="relative w-full max-w-2xl mx-auto h-[500px] perspective-1000">
+            <div className="relative w-full max-w-2xl mx-auto h-[500px]">
               
-              {/* 3D Orange Structure */}
-              <div className="absolute inset-0 transform-gpu">
-                {/* Main geometric shape */}
-                <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-orange-400 to-orange-600 transform rotate-12 skew-y-6 rounded-2xl shadow-2xl">
-                  {/* Inner geometric patterns */}
-                  <div className="absolute inset-4 bg-gradient-to-br from-orange-300 to-orange-500 rounded-xl">
-                    <div className="absolute inset-4 bg-gradient-to-br from-orange-200 to-orange-400 rounded-lg">
-                      {/* Central content area */}
-                      <div className="absolute inset-4 bg-gradient-to-br from-orange-100 to-orange-300 rounded-md flex items-center justify-center">
-                        <div className="w-32 h-20 bg-white/20 rounded backdrop-blur-sm flex items-center justify-center">
-                          <Calendar className="w-8 h-8 text-white" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Vertical lines pattern */}
-                  <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-b from-orange-500 to-orange-700 opacity-80">
-                    {Array.from({ length: 20 }).map((_, i) => (
-                      <div 
-                        key={i} 
-                        className="h-1 bg-orange-600 mb-1 opacity-60" 
-                        style={{ width: `${Math.random() * 100}%` }}
-                      />
-                    ))}
-                  </div>
+              {/* Simple card-based design */}
+              <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl shadow-2xl flex items-center justify-center">
+                <div className="text-center text-white">
+                  <Calendar className="w-16 h-16 mx-auto mb-4" />
+                  <h3 className="text-xl font-bold">Join Our Events</h3>
+                  <p className="text-orange-100">Experience community & growth</p>
                 </div>
+              </div>
 
-                {/* Secondary geometric elements */}
-                <div className="absolute bottom-10 left-10 w-32 h-32 bg-gradient-to-br from-amber-400 to-orange-500 transform -rotate-12 rounded-xl shadow-xl opacity-90">
-                  <div className="absolute inset-2 bg-gradient-to-br from-amber-300 to-orange-400 rounded-lg">
-                    <div className="absolute inset-2 bg-gradient-to-br from-amber-200 to-orange-300 rounded flex items-center justify-center">
-                      <Users className="w-6 h-6 text-white" />
-                    </div>
-                  </div>
-                </div>
+              {/* Simple accent elements */}
+              <div className="absolute bottom-10 left-10 w-32 h-32 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl shadow-xl flex items-center justify-center">
+                <Users className="w-8 h-8 text-white" />
+              </div>
 
-                {/* Floating accent shapes */}
-                <div className="absolute top-20 left-20 w-20 h-20 bg-gradient-to-br from-red-400 to-orange-500 transform rotate-45 rounded-lg shadow-lg opacity-70">
-                  <div className="absolute inset-2 bg-gradient-to-br from-red-300 to-orange-400 rounded">
-                    <div className="absolute inset-2 bg-gradient-to-br from-red-200 to-orange-300 rounded flex items-center justify-center">
-                      <Clock className="w-4 h-4 text-white" />
-                    </div>
-                  </div>
-                </div>
+              <div className="absolute top-20 left-20 w-20 h-20 bg-gradient-to-br from-red-400 to-orange-500 rounded-lg shadow-lg flex items-center justify-center">
+                <Clock className="w-6 h-6 text-white" />
               </div>
             </div>
           </div>
@@ -196,13 +166,6 @@ export default function UpcomingEventsSection({ config, events }: UpcomingEvents
           </div>
         </div>
       </div>
-
-      {/* CSS for 3D perspective */}
-      <style jsx>{`
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-      `}</style>
     </section>
   );
 } 

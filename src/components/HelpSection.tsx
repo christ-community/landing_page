@@ -10,14 +10,6 @@ const helpImages = [
   { src: '/Church-Conference.jpg', alt: 'Church Conference' },
   { src: '/worship-conference.jpeg', alt: 'Community Worship' },
   { src: '/Church-Conference.jpg', alt: 'Faith Gathering' },
-  { src: '/worship-conference.jpeg', alt: 'Prayer Meeting' },
-  { src: '/Church-Conference.jpg', alt: 'Bible Study' },
-  { src: '/worship-conference.jpeg', alt: 'Youth Ministry' },
-  { src: '/Church-Conference.jpg', alt: 'Outreach Event' },
-  { src: '/worship-conference.jpeg', alt: 'Mission Work' },
-  { src: '/Church-Conference.jpg', alt: 'Community Service' },
-  { src: '/worship-conference.jpeg', alt: 'Fellowship' },
-  { src: '/Church-Conference.jpg', alt: 'Discipleship' },
 ];
 
 const options: HelpOption[] = [
@@ -25,21 +17,6 @@ const options: HelpOption[] = [
   { label: 'Send Help', icon: <HeartHandshake className="w-6 h-6" />, image: '/Church-Conference.jpg', href: '/get-involved/send-help' },
   { label: 'Order Tracts', icon: <BookOpen className="w-6 h-6" />, image: '/worship-conference.jpeg', href: '/get-involved/order-a-tract' },
   { label: 'Give Monthly', icon: <Gift className="w-6 h-6" />, image: '/worship-conference.jpeg', href: '/donate' },
-];
-
-// Create rows of images for animation - 4 images per row
-const createImageRow = (startIndex: number) => {
-  const rowImages = [];
-  for (let i = 0; i < 8; i++) { // 8 images per row for seamless loop (4 visible + 4 duplicate)
-    rowImages.push(helpImages[(startIndex + i) % helpImages.length]);
-  }
-  return rowImages;
-};
-
-const rowClasses = [
-  'animate-[marquee-left_30s_linear_infinite]',   // Top row - left, fast
-  'animate-[marquee-right_45s_linear_infinite]',  // Middle row - right, medium
-  'animate-[marquee-left_60s_linear_infinite]'    // Bottom row - left, slow
 ];
 
 export default function HelpSection() {
@@ -52,42 +29,21 @@ export default function HelpSection() {
       <div className="container mx-auto px-4 lg:px-8 relative z-10 h-full">
         <div className="flex flex-col lg:flex-row gap-20 items-center min-h-[60vh]">
           
-          {/* Visual Grid - Left Side */}
+          {/* Visual Grid - Left Side - Simplified */}
           <div className="w-full lg:w-[55%] max-w-4xl">
-            <div className="space-y-4 overflow-hidden">
-              {[0, 1, 2].map((rowIdx) => (
-                <div
-                  key={rowIdx}
-                  className={`flex gap-4 ${rowClasses[rowIdx]}`}
+            <div className="grid grid-cols-2 gap-4">
+              {helpImages.map((image, index) => (
+                <div 
+                  key={index} 
+                  className="relative w-full h-48 overflow-hidden rounded-lg shadow-lg"
                 >
-                  {/* First set of images */}
-                  {createImageRow(rowIdx * 4).map((image, idx) => (
-                    <div 
-                      key={idx} 
-                      className="relative w-48 h-36 flex-shrink-0 overflow-hidden rounded-lg shadow-lg"
-                    >
-                      <Image 
-                        src={image.src} 
-                        alt={image.alt} 
-                        fill 
-                        className="object-cover" 
-                      />
-                    </div>
-                  ))}
-                  {/* Duplicate set for seamless loop */}
-                  {createImageRow(rowIdx * 4).map((image, idx) => (
-                    <div 
-                      key={`dup-${idx}`} 
-                      className="relative w-48 h-36 flex-shrink-0 overflow-hidden rounded-lg shadow-lg"
-                    >
-                      <Image 
-                        src={image.src} 
-                        alt={image.alt} 
-                        fill 
-                        className="object-cover" 
-                      />
-                    </div>
-                  ))}
+                  <Image 
+                    src={image.src} 
+                    alt={image.alt} 
+                    fill 
+                    className="object-cover"
+                    loading={index < 2 ? "eager" : "lazy"}
+                  />
                 </div>
               ))}
             </div>
@@ -156,18 +112,6 @@ export default function HelpSection() {
           </div>
         </div>
       </div>
-
-      {/* Animation Keyframes */}
-      <style jsx global>{`
-        @keyframes marquee-left {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        @keyframes marquee-right {
-          0% { transform: translateX(-50%); }
-          100% { transform: translateX(0); }
-        }
-      `}</style>
     </section>
   );
 }

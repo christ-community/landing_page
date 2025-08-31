@@ -2,7 +2,7 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import type { HeroConfig } from "@/types";
 import type { IPageContent, IPageHero } from "../../types/contentful";
 
@@ -70,16 +70,29 @@ const HeroSection = ({ config, pageContent, pageHero }: HeroSectionProps) => {
   
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Auto-change images
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
-        prevIndex === images.length - 1 ? 0 : prevIndex + 1
-      );
-    }, autoChangeInterval);
+  // Optimized auto-change images with useCallback
+  const changeImage = useCallback(() => {
+    setCurrentImageIndex((prevIndex) => 
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    );
+  }, [images.length]);
 
+  // Auto-change images with cleanup
+  useEffect(() => {
+    if (images.length <= 1) return; // Don't set interval for single image
+    
+    const interval = setInterval(changeImage, autoChangeInterval);
     return () => clearInterval(interval);
-  }, [images.length, autoChangeInterval]);
+  }, [autoChangeInterval, changeImage, images.length]);
+
+  // Preload next image for better performance
+  useEffect(() => {
+    if (images.length > 1) {
+      const nextIndex = (currentImageIndex + 1) % images.length;
+      const img = new Image();
+      img.src = images[nextIndex].src;
+    }
+  }, [currentImageIndex, images]);
 
   return (
     <section className="relative h-[90vh] bg-secondary overflow-hidden">
@@ -95,7 +108,7 @@ const HeroSection = ({ config, pageContent, pageHero }: HeroSectionProps) => {
           {images.map((image, index) => (
             <div
               key={index}
-              className={`absolute inset-0 transition-all duration-2000 ease-in-out ${
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
                 index === currentImageIndex ? 'opacity-100' : 'opacity-0'
               }`}
             >
@@ -103,6 +116,7 @@ const HeroSection = ({ config, pageContent, pageHero }: HeroSectionProps) => {
                 src={image.src} 
                 alt={image.alt}
                 className="w-full h-full object-cover"
+                loading={index === 0 ? "eager" : "lazy"}
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   const parent = e.currentTarget.parentElement;
@@ -114,7 +128,7 @@ const HeroSection = ({ config, pageContent, pageHero }: HeroSectionProps) => {
             </div>
           ))}
         </div>
-              </div>
+      </div>
               
       {/* Content Container - Bottom left position */}
       <div className="relative z-20 h-full flex items-end">
@@ -129,14 +143,14 @@ const HeroSection = ({ config, pageContent, pageHero }: HeroSectionProps) => {
                   <span className="text-primary">{content.subtitle}</span>
                 </>
               )}
-              </h1>
+            </h1>
               
-              {/* Description */}
+            {/* Description */}
             <p className="text-lg lg:text-xl text-primary/90 leading-relaxed mb-10 max-w-xl drop-shadow-md">
               {content.description}
-              </p>
+            </p>
               
-              {/* Action Buttons */}
+            {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               {content.buttons.map((button, index) => (
                 <Button 
@@ -160,7 +174,7 @@ const HeroSection = ({ config, pageContent, pageHero }: HeroSectionProps) => {
             </div>
           </div>
         </div>
-              </div>
+      </div>
               
       {/* Connect Widget - Bottom Right */}
       {connectButtonLabel && (
@@ -175,28 +189,25 @@ const HeroSection = ({ config, pageContent, pageHero }: HeroSectionProps) => {
       )}
 
       {/* Image Indicators - Bottom Center */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-30 flex space-x-2">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentImageIndex(index)}
-            className={`w-2.5 h-2.5 rounded-full transition-all duration-500 ${
-              index === currentImageIndex 
-                ? 'bg-primary shadow-lg' 
-                : 'bg-primary/40 hover:bg-primary/60'
-            }`}
-          />
-        ))}
-      </div>
+      {images.length > 1 && (
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-30 flex space-x-2">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentImageIndex(index)}
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                index === currentImageIndex 
+                  ? 'bg-primary shadow-lg' 
+                  : 'bg-primary/40 hover:bg-primary/60'
+              }`}
+            />
+          ))}
+        </div>
+      )}
       
-      {/* Enhanced vivid red line with multiple effects using tertiary color */}
+      {/* Simplified vivid red line */}
       <div className="absolute bottom-0 left-0 right-0 z-25">
-        {/* Glowing tertiary line with gradient effect */}
         <div className="h-1 bg-gradient-to-r from-tertiary/60 via-tertiary to-tertiary/60 shadow-lg"></div>
-        {/* Subtle glow effect */}
-        <div className="h-0.5 bg-gradient-to-r from-transparent via-tertiary/60 to-transparent blur-sm -mt-0.5"></div>
-        {/* Animated shimmer effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-tertiary/30 to-transparent animate-pulse"></div>
       </div>
     </section>
   );
