@@ -48,11 +48,11 @@ const contactMethods = [
   },
   {
     icon: MapPin,
-    title: "Visit Us This Sunday",
-    description: "Join us for our meetings",
-    contact: "18 St Margarets, Swansea, United Kingdom, SA1 1JZ",
-    action: "https://maps.google.com/?q=18+St+Margarets+Swansea+SA1+1JZ+UK",
-    actionText: "Get Directions",
+    title: "Book a Visit",
+    description: "Schedule a visit with us",
+    contact: "47B Westbury Street, Swansea SA1 4JW",
+    action: "https://calendly.com/christcommunityglobal/30min",
+    actionText: "Book a Visit",
     color: "purple"
   },
 

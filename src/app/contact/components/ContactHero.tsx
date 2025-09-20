@@ -87,8 +87,9 @@ export default function ContactHero({ config, pageHero }: ContactHeroProps) {
                 size="lg"
                 variant="outline"
                 className="border-2 border-blue-200 text-foreground hover:bg-blue-50 dark:border-blue-800 dark:hover:bg-blue-950 px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300"
+                onClick={() => window.open('https://calendly.com/christcommunityglobal/30min', '_blank')}
               >
-                Visit Us Sunday
+                Book a Visit
               </Button>
             </div>
 

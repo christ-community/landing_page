@@ -79,13 +79,13 @@ const defaultHeaderConfig: HeaderConfig = {
           href: "/what-we-do/events-outreaches",
           label: "Events & Outreaches",
           icon: Calendar,
-          description: "Find upcoming church and community events.",
+          description: "Find upcoming meetings and community events.",
         },
         {
           href: "/what-we-do/access-consultation-services",
           label: "Consultation Services",
           icon: Handshake,
-          description: "Get guidance from our pastoral team.",
+          description: "Get guidance from our Leadership Team.",
         },
       ],
     },
@@ -126,7 +126,7 @@ const menuHighlights = {
   "About Us": {
     title: "Our Core Identity",
     description:
-      "Learn about our foundational beliefs and the people leading our church.",
+      "Learn about our foundational beliefs and the people leading our mission.",
   },
   "What We Do": {
     title: "Serving & Healing",

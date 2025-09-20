@@ -50,10 +50,10 @@ const defaultFooterConfig: FooterConfig = {
   ],
   contactInfo: {
     address: {
-      street: "18 St Margarets",
+      street: "47B Westbury Street",
       city: "Swansea",
       state: "United Kingdom",
-      zipCode: "SA1 1JZ"
+      zipCode: "SA1 4JW"
     },
     phone: "07428784005",
     email: "christcommunityglobal@gmail.com"

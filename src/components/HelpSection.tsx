@@ -6,16 +6,16 @@ import { HelpOption } from '@/types';
 import { HandHelping, Gift, BookOpen } from 'lucide-react';
 
 const helpImages = [
-  { src: '/worship-conference.jpeg', alt: 'Worship Conference' },
-  { src: '/Church-Conference.jpg', alt: 'Church Conference' },
-  { src: '/worship-conference.jpeg', alt: 'Community Worship' },
-  { src: '/Church-Conference.jpg', alt: 'Faith Gathering' },
+  { src: '/Website photo 2.JPG', alt: 'Website Photo 2 - Community Worship' },
+  { src: '/Website photo 4.jpg', alt: 'Website Photo 4 - Fellowship Event' },
+  { src: '/Website photo use .jpg', alt: 'Website Photo Use - Community Gathering' },
+  { src: '/Website photo used.jpg', alt: 'Website Photo Used - Service Event' },
 ];
 
 const options: HelpOption[] = [
-  { label: 'Volunteer', icon: <HandHelping className="w-6 h-6" />, image: '/worship-conference.jpeg', href: '/get-involved/volunteer-with-us' },
-  { label: 'Order Tracts', icon: <BookOpen className="w-6 h-6" />, image: '/worship-conference.jpeg', href: '/get-involved/order-a-tract' },
-  { label: 'Give Monthly', icon: <Gift className="w-6 h-6" />, image: '/worship-conference.jpeg', href: '/donate' },
+  { label: 'Volunteer', icon: <HandHelping className="w-6 h-6" />, image: '/Website photo 2.JPG', href: '/get-involved/volunteer-with-us' },
+  { label: 'Order Tracts', icon: <BookOpen className="w-6 h-6" />, image: '/Website photo 4.jpg', href: '/get-involved/order-a-tract' },
+  { label: 'Give Monthly', icon: <Gift className="w-6 h-6" />, image: '/Website photo use .jpg', href: '/donate' },
 ];
 
 export default function HelpSection() {

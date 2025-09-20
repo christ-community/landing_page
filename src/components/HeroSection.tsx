@@ -22,8 +22,8 @@ const defaultHeroConfig: HeroConfig = {
       alt: "Church conference with speaker and congregation"
     },
     {
-      src: "/worship-conference.jpeg", 
-      alt: "Worship service with band and congregation"
+      src: "/Website photo use .jpg", 
+      alt: "Website photo use - Community gathering"
     }
   ],
   autoChangeInterval: 12000,

@@ -190,7 +190,7 @@ class EmailService {
               <div class="footer">
                 <p>Blessings,<br><strong>The Christ Community Team</strong></p>
                 <p>📧 christcommunityglobal@gmail.com | 📞 07428784005</p>
-                <p>18 St Margarets, Swansea, United Kingdom, SA1 1JZ</p>
+                <p>47B Westbury Street, Swansea SA1 4JW</p>
               </div>
             </div>
           </div>

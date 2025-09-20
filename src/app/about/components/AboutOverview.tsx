@@ -126,7 +126,7 @@ export default function AboutOverview({ coreValues, differentiators, missionVisi
                     <h4 className="font-semibold text-foreground">Book a Visit</h4>
                   </div>
                   <p className="text-sm text-muted-foreground mb-4">
-                    Experience our community firsthand. Services at 9:00 AM & 11:00 AM.
+                    Experience our community firsthand.
                   </p>
                                      <Link href="https://calendly.com/christcommunityglobal/30min" target="_blank" rel="noopener noreferrer">
                      <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
@@ -167,7 +167,7 @@ export default function AboutOverview({ coreValues, differentiators, missionVisi
                 </div>
                 <h3 className="text-2xl font-bold text-foreground mb-3">Meet the Team</h3>
                 <p className="text-muted-foreground mb-4">
-                  Get to know our pastoral staff and leadership team who guide and serve our community.
+                  Get to know our leadership team who guide and serve our community.
                 </p>
                 <div className="flex items-center justify-center text-indigo-600 group-hover:translate-x-2 transition-transform">
                   <span className="font-medium">Meet Our Team</span>
