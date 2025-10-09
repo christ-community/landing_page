@@ -145,13 +145,13 @@ export default function ChurchMap({
 
   return (
     <div className="bg-white/80 dark:bg-black/20 backdrop-blur-md border border-border/30 rounded-2xl p-6 shadow-xl">
-      <h3 className="text-xl font-bold text-foreground mb-4">Map View</h3>
+      {/* <h3 className="text-xl font-bold text-foreground mb-4">Map View</h3> */}
       
-      <div 
+      {/* <div 
         ref={mapRef}
         className="w-full h-[600px] rounded-xl overflow-hidden"
         style={{ minHeight: '600px' }}
-      />
+      /> */}
       
       {selectedChurch && (
         <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
