@@ -180,12 +180,6 @@ class EmailService {
               
               <p>We typically respond to all inquiries within 24-48 hours during business days. If your matter is urgent, please don't hesitate to call us directly.</p>
               
-              <p>In the meantime, we invite you to:</p>
-              <ul>
-                <li>Join us for Sunday service at 9:00 AM or 11:00 AM</li>
-                <li>Explore our website to learn more about our ministries</li>
-                <li>Follow us on social media for updates and inspiration</li>
-              </ul>
               
               <div class="footer">
                 <p>Blessings,<br><strong>The Christ Community Team</strong></p>
