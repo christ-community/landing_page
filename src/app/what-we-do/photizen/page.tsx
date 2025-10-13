@@ -6,9 +6,9 @@ import PhotozenRegistration from './components/PhotozenRegistration';
 import NewsletterSection from '@/components/NewsletterSection';
 
 export const metadata: Metadata = {
-    title: 'The Big Church Conference Swansea | Christ Community',
-    description: 'Join us for The Big Church Conference Swansea on November 15th, 2025. A gathering of churches in South Wales to meet and pray together for the salvation of the region.',
-    keywords: 'big church conference, swansea, interdenominational, christian conference, south wales, church unity, gospel',
+    title: 'The Big Community Conference Swansea | Christ Community',
+    description: 'Join us for The Big Community Conference Swansea on November 15th, 2025. A gathering of faith communities in South Wales to meet and pray together for the salvation of the region.',
+    keywords: 'big community conference, swansea, interdenominational, christian conference, south wales, unity, gospel',
 };
 
 export default function PhotozenPage() {
@@ -23,7 +23,7 @@ export default function PhotozenPage() {
             </div>
             <NewsletterSection config={{
                 title: 'Stay Updated on Conference Details',
-                subtitle: 'Receive updates and notifications about The Big Church Conference and other Christ Community events.',
+                subtitle: 'Receive updates and notifications about The Big Community Conference and other Christ Community events.',
                 backgroundImage: '/worship-conference.jpeg'
             }} />
         </main>

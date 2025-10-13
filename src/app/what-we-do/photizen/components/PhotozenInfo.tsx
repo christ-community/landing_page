@@ -8,12 +8,12 @@ export default function PhotozenInfo() {
     {
       icon: <Users className="w-8 h-8 text-blue-500" />,
       title: "Panel Session",
-      description: "Leaders and representatives from up to 6 churches and 2 student Christian associations sharing wisdom and insights."
+      description: "Leaders and representatives from up to 6 faith communities and 2 student Christian associations sharing wisdom and insights."
     },
     {
       icon: <Music className="w-8 h-8 text-purple-500" />,
       title: "Joint Choir Ministration",
-      description: "Experience powerful worship as churches come together in unified praise and celebration."
+      description: "Experience powerful worship as faith communities come together in unified praise and celebration."
     },
     {
       icon: <MessageCircle className="w-8 h-8 text-green-500" />,
@@ -23,7 +23,7 @@ export default function PhotozenInfo() {
     {
       icon: <Heart className="w-8 h-8 text-red-500" />,
       title: "Interdenominational Unity",
-      description: "Promoting collaboration and cooperation among churches across South Wales."
+      description: "Promoting collaboration and cooperation among faith communities across South Wales."
     },
     {
       icon: <Church className="w-8 h-8 text-indigo-500" />,
@@ -45,23 +45,23 @@ export default function PhotozenInfo() {
             About The Conference
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            There's no big church and there's no small church. But there's a <strong>Big Church</strong> when we come together: 
-            The commonwealth of Zion, the church of the Most High.
+            There's no big congregation and there's no small congregation. But there's a <strong>Big Community</strong> when we come together: 
+            The commonwealth of Zion, the body of the Most High.
           </p>
         </div>
 
         <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 rounded-3xl p-8 lg:p-12 mb-16">
           <div className="prose prose-lg dark:prose-invert max-w-none">
             <p className="text-muted-foreground leading-relaxed mb-6">
-              The Big Church Conference is a gathering of churches in South Wales to meet and pray together for 
+              The Big Community Conference is a gathering of faith communities in South Wales to meet and pray together for 
               the salvation of the region, to promote interdenominational collaboration and explore various ways 
               we can work together to foster the spread of the gospel in Wales and the United Kingdom.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-6">
               This Conference is also pivotal to intergenerational transfer of knowledge and wisdom from the 
               older generation to the new. The conference will employ prayer, joint choir ministration, a panel 
-              session consisting of various church leaders, question and answer session, networking, and meet 
-              and greet to achieve the objective of fostering interdenominational cooperation among churches 
+              session consisting of various ministry leaders, question and answer session, networking, and meet 
+              and greet to achieve the objective of fostering interdenominational cooperation among faith communities 
               in South Wales.
             </p>
           </div>
@@ -91,7 +91,7 @@ export default function PhotozenInfo() {
           </h3>
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
-              The Big Church Conference Swansea is organised by <strong>Christ Community Global</strong>. 
+              The Big Community Conference Swansea is organised by <strong>Christ Community Global</strong>. 
               We are an interdenominational Christian organisation with the goal of promoting interdenominational 
               activities to advance the course of the Gospel in the United Kingdom and the World at large.
             </p>
@@ -121,7 +121,7 @@ export default function PhotozenInfo() {
 
         <div className="mt-16 bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-950/30 dark:to-blue-950/30 rounded-3xl p-8 lg:p-12">
           <h3 className="text-3xl font-bold text-foreground mb-6">
-            Benefits to Your Church
+            Benefits to Your Ministry
           </h3>
           <ul className="space-y-4 text-muted-foreground">
             <li className="flex items-start">
@@ -130,7 +130,7 @@ export default function PhotozenInfo() {
             </li>
             <li className="flex items-start">
               <span className="text-blue-600 mr-3 text-xl">✓</span>
-              <span>Opportunity to share God's revelation and vision for your church with other ministries to advance the Gospel</span>
+              <span>Opportunity to share God's revelation and vision for your ministry with other faith communities to advance the Gospel</span>
             </li>
             <li className="flex items-start">
               <span className="text-blue-600 mr-3 text-xl">✓</span>
@@ -138,11 +138,11 @@ export default function PhotozenInfo() {
             </li>
             <li className="flex items-start">
               <span className="text-blue-600 mr-3 text-xl">✓</span>
-              <span>Be part of the first churches onboarded on our Find a Church technology to be deployed on our website</span>
+              <span>Be part of the first faith communities onboarded on our Find a Faith Community technology to be deployed on our website</span>
             </li>
             <li className="flex items-start">
               <span className="text-blue-600 mr-3 text-xl">✓</span>
-              <span>Most importantly, you'll be obeying God by playing a great part in fostering the unity of the Church in South Wales</span>
+              <span>Most importantly, you'll be obeying God by playing a great part in fostering the unity of the body of Christ in South Wales</span>
             </li>
           </ul>
         </div>
