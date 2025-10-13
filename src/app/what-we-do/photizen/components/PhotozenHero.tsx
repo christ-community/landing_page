@@ -22,7 +22,7 @@ export default function PhotozenHero() {
     <section className="relative min-h-[90vh] bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-blue-950/30 dark:via-indigo-950/30 dark:to-purple-950/30 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-50">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.001)_0,_rgba(255,255,255,0.001)_1px,_transparent_1px)] bg-[length:2rem_2rem]"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.05)_0,_rgba(255,255,255,0.05)_1px,_transparent_1px)] bg-[length:2rem_2rem]"></div>
         <div className="absolute top-20 -left-20 w-80 h-80 bg-gradient-to-br from-blue-200/50 to-indigo-200/50 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 -right-20 w-96 h-96 bg-gradient-to-br from-indigo-200/50 to-purple-200/50 rounded-full blur-3xl"></div>
       </div>
