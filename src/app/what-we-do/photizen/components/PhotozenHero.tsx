@@ -8,7 +8,6 @@ import { Calendar, MapPin, ArrowRight, Clock } from 'lucide-react';
 const defaultConfig = {
   title: "The Big Church Conference Swansea",
   subtitle: "A gathering of churches in South Wales to meet and pray together for the salvation of the region.",
-  backgroundImage: "/worship-conference.jpeg",
 };
 
 export default function PhotozenHero() {
