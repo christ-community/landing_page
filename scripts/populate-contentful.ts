@@ -35,7 +35,7 @@ const pageHeroesData = [
   {
     pageName: 'get-involved',
     title: 'Join Our Mission',
-    subtitle: 'Discover the many ways you can contribute, from finding a faith community and volunteering to ordering resources and providing support.',
+    subtitle: 'Discover the many ways you can contribute, from finding a church and volunteering to ordering resources and providing support.',
     isActive: true,
   },
   {

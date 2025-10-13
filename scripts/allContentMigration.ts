@@ -176,10 +176,10 @@ async function createCompleteData() {
       },
       {
         pageName: "find-church",
-        title: "Find Your Spiritual Home",
+        title: "Find Your Church Home",
         subtitle: "Discover a community of faith near you",
-        description: "Whether you're new to faith or looking for a new faith community, we can help you find a Bible-believing community where you can grow and belong.",
-        ctaText: "Search Communities",
+        description: "Whether you're new to faith or looking for a new church family, we can help you find a Bible-believing community where you can grow and belong.",
+        ctaText: "Search Churches",
         ctaUrl: "#church-search",
         isActive: true
       }
