@@ -57,9 +57,9 @@ async function createCompleteData() {
         isActive: true
       },
       {
-        title: "The Church",
+        title: "The Community of Believers",
         subtitle: "The body of Christ",
-        description: "We believe the church is the body of Christ, made up of all who have been born again through faith in Jesus Christ. The local church exists to worship God, build up believers, and reach the lost.",
+        description: "We believe the community of believers is the body of Christ, made up of all who have been born again through faith in Jesus Christ. The local community of faith exists to worship God, build up believers, and reach the lost.",
         scriptureReference: "Ephesians 4:11-16",
         icon: "users",
         order: 4,
@@ -176,10 +176,10 @@ async function createCompleteData() {
       },
       {
         pageName: "find-church",
-        title: "Find Your Church Home",
+        title: "Find Your Spiritual Home",
         subtitle: "Discover a community of faith near you",
-        description: "Whether you're new to faith or looking for a new church family, we can help you find a Bible-believing community where you can grow and belong.",
-        ctaText: "Search Churches",
+        description: "Whether you're new to faith or looking for a new faith community, we can help you find a Bible-believing community where you can grow and belong.",
+        ctaText: "Search Communities",
         ctaUrl: "#church-search",
         isActive: true
       }

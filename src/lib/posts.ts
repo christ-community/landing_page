@@ -72,19 +72,19 @@ export const posts: Post[] = [
   },
   {
     id: '4',
-    title: 'How to Get Involved: A Guide to Our Church Ministries',
+    title: 'How to Get Involved: A Guide to Our Community Ministries',
     excerpt: 'Looking for a place to serve? This guide breaks down all our ministries, from the welcome team to the youth group, helping you find your perfect fit.',
     content: articleContent,
     author: { name: 'Admin Team' },
     date: 'July 15, 2024',
-    category: 'Church Life',
+    category: 'Community Life',
     imageUrl: '/Church-Conference.jpg',
     href: '/blog/guide-to-ministries'
   },
   {
     id: '5',
     title: 'A Testimony of Healing and Renewed Hope',
-    excerpt: "Read an inspiring story from one of our members who found healing and strength through faith and the support of our church family during a difficult time.",
+    excerpt: "Read an inspiring story from one of our members who found healing and strength through faith and the support of our community during a difficult time.",
     content: articleContent,
     author: { name: 'Jane Doe' },
     date: 'July 12, 2024',

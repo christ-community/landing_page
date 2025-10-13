@@ -18,7 +18,7 @@ const BlogPage = async () => {
             {pageHero?.title || "Insights & Resources"}
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            {pageHero?.subtitle || "Explore our latest articles, case studies, and resources to help your church thrive."}
+            {pageHero?.subtitle || "Explore our latest articles, case studies, and resources to help your community thrive."}
           </p>
         </header>
 

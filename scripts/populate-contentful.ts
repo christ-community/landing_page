@@ -35,7 +35,7 @@ const pageHeroesData = [
   {
     pageName: 'get-involved',
     title: 'Join Our Mission',
-    subtitle: 'Discover the many ways you can contribute, from finding a church and volunteering to ordering resources and providing support.',
+    subtitle: 'Discover the many ways you can contribute, from finding a faith community and volunteering to ordering resources and providing support.',
     isActive: true,
   },
   {
@@ -47,7 +47,7 @@ const pageHeroesData = [
   {
     pageName: 'blog',
     title: 'Insights & Resources',
-    subtitle: 'Explore our latest articles, case studies, and resources to help your church thrive.',
+    subtitle: 'Explore our latest articles, case studies, and resources to help your community thrive.',
     isActive: true,
   },
   {
@@ -203,7 +203,7 @@ async function createContentTypes() {
         },
         {
           id: 'churchInfo',
-          name: 'Church Information',
+          name: 'Community Information',
           type: 'Object',
           required: true,
           localized: false

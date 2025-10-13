@@ -9,7 +9,7 @@ import { processAsset } from '@/lib/contentful-utils';
 const defaultEventsConfig = {
   title: "Join Us for Amazing Events!",
   subtitle: "Experience community, growth, and spiritual transformation",
-  description: "You can have confidence in your experience. Our church offers fully-engaging, transformative events along with community support, fellowship and spiritual growth opportunities. What do you have to lose?",
+  description: "You can have confidence in your experience. Our community offers fully-engaging, transformative events along with community support, fellowship and spiritual growth opportunities. What do you have to lose?",
   ctaText: "View All Events",
   ctaUrl: "/what-we-do/events-outreaches",
   events: [

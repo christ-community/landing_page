@@ -1,4 +1,4 @@
-export const blogCategories = ['Faith & Doctrine', 'Community & Outreach', 'Sermons & Series', 'Church Life', 'Testimonies'] as const;
+export const blogCategories = ['Faith & Doctrine', 'Community & Outreach', 'Sermons & Series', 'Community Life', 'Testimonies'] as const;
 
 export type Category = typeof blogCategories[number];
 

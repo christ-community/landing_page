@@ -120,7 +120,7 @@ const defaultHeaderConfig: HeaderConfig = {
 const menuHighlights = {
   "About Us": {
     title: "Our Core Identity",
-    description: "Learn about our foundational beliefs and the people leading our church.",
+    description: "Learn about our foundational beliefs and the people leading our community.",
   },
   "What We Do": {
     title: "Serving & Healing",
