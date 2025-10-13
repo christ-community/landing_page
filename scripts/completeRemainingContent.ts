@@ -95,8 +95,8 @@ async function createRemainingContent() {
     const timelineEvents = [
       {
         year: "1985",
-        title: "Church Founded",
-        description: "Christ Community was established with a vision to create an authentic, Bible-centered church where people could encounter God's love and grow in their faith.",
+        title: "Community Founded",
+        description: "Christ Community was established with a vision to create an authentic, Bible-centered faith community where people could encounter God's love and grow in their faith.",
         category: "founding",
         order: 1,
         isActive: true
@@ -128,7 +128,7 @@ async function createRemainingContent() {
       {
         year: "2012",
         title: "Missions Partnership",
-        description: "Began long-term partnerships with international missions organizations, sending teams and supporting churches in developing countries.",
+        description: "Began long-term partnerships with international missions organizations, sending teams and supporting faith communities in developing countries.",
         category: "outreach",
         order: 5,
         isActive: true
@@ -268,7 +268,7 @@ async function createRemainingContent() {
       },
       {
         title: "Global Missions Focus",
-        description: "We actively support church planting and evangelism in unreached areas around the world. Every member is encouraged to participate in the Great Commission, whether through going, giving, or praying for global missions efforts.",
+        description: "We actively support community planting and evangelism in unreached areas around the world. Every member is encouraged to participate in the Great Commission, whether through going, giving, or praying for global missions efforts.",
         icon: "globe",
         order: 3,
         isActive: true
@@ -314,7 +314,7 @@ async function createRemainingContent() {
       },
       {
         title: "Global Missions",
-        description: "Supporting church planting, evangelism, and humanitarian aid in 12 countries around the world.",
+        description: "Supporting community planting, evangelism, and humanitarian aid in 12 countries around the world.",
         percentage: 25,
         icon: "globe",
         color: "blue",
@@ -341,7 +341,7 @@ async function createRemainingContent() {
       },
       {
         title: "Facilities & Operations",
-        description: "Maintaining our church facilities and supporting the infrastructure that enables ministry to happen.",
+        description: "Maintaining our community facilities and supporting the infrastructure that enables ministry to happen.",
         percentage: 5,
         icon: "building",
         color: "gray",

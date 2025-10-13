@@ -10,7 +10,7 @@ import { getPageHero, getTestimonials } from '../../../../lib/contentful-api';
 const pageConfig: ConsultationPageConfig = {
     hero: {
         title: 'Expert Consultation for Your Ministry',
-        subtitle: 'Partner with us to amplify your impact. We provide tailored guidance in leadership, outreach, digital presence, and stewardship to help your church thrive.',
+        subtitle: 'Partner with us to amplify your impact. We provide tailored guidance in leadership, outreach, digital presence, and stewardship to help your faith community thrive.',
         image: '/Church-Conference.jpg'
     },
     services: {
@@ -20,7 +20,7 @@ const pageConfig: ConsultationPageConfig = {
             { id: '1', title: 'Leadership Development', description: 'Equipping pastors and leaders with the skills to lead with vision and integrity.', icon: HeartHandshake, tags: [] },
             { id: '2', title: 'Community Outreach Strategy', description: 'Developing effective strategies to connect with and serve your local community.', icon: Megaphone, tags: [] },
             { id: '3', title: 'Digital Ministry Growth', description: 'Enhancing your online presence to reach a wider audience and engage your congregation.', icon: Presentation, tags: [] },
-            { id: '4', title: 'Stewardship & Generosity', description: 'Fostering a culture of generosity and managing church resources wisely.', icon: HandCoins, tags: [] },
+            { id: '4', title: 'Stewardship & Generosity', description: 'Fostering a culture of generosity and managing ministry resources wisely.', icon: HandCoins, tags: [] },
         ]
     },
     process: {
@@ -42,7 +42,7 @@ const pageConfig: ConsultationPageConfig = {
 export const metadata: Metadata = {
     title: 'Consultation Services | Christ Community',
     description: 'Elevate your ministry with expert consultation in leadership, outreach, digital strategy, and stewardship. Partner with us to thrive.',
-    keywords: 'church consultation, ministry consulting, leadership development, church growth, digital ministry',
+    keywords: 'ministry consultation, ministry consulting, leadership development, community growth, digital ministry',
 };
 
 export default async function AccessConsultationServicesPage() {

@@ -57,9 +57,9 @@ async function createCompleteData() {
         isActive: true
       },
       {
-        title: "The Church",
+        title: "The Community of Believers",
         subtitle: "The body of Christ",
-        description: "We believe the church is the body of Christ, made up of all who have been born again through faith in Jesus Christ. The local church exists to worship God, build up believers, and reach the lost.",
+        description: "We believe the community of believers is the body of Christ, made up of all who have been born again through faith in Jesus Christ. The local community of faith exists to worship God, build up believers, and reach the lost.",
         scriptureReference: "Ephesians 4:11-16",
         icon: "users",
         order: 4,

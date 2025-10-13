@@ -34,7 +34,7 @@ async function createFooterContentType() {
       fields: [
         {
           id: 'churchInfo',
-          name: 'Church Information',
+          name: 'Community Information',
           type: 'Object',
           required: true,
           localized: false
@@ -100,7 +100,7 @@ async function createFooterContentType() {
     console.log('   - Footer: ✅')
     console.log('\n💡 Next steps:')
     console.log('   1. Go to Contentful web app')
-    console.log('   2. Create a Footer entry with your church information')
+    console.log('   2. Create a Footer entry with your community information')
     console.log('   3. The website will automatically use this data')
 
   } catch (error: unknown) {
