@@ -26,8 +26,7 @@ export default function PhotozenRegistration() {
                     src="https://docs.google.com/forms/d/e/1FAIpQLSf0RSQ5QlFszXVUdZ9lgf0ILPEB9vKnC-Y5wtTsAThutIWAsw/viewform?embedded=true" 
                     width="100%" 
                     height="800" 
-                    frameBorder="0"
-                    className="rounded-xl shadow-lg"
+                    className="rounded-xl shadow-lg border-0"
                     title="Big Church Conference Registration Form"
                   >
                     Loading…
