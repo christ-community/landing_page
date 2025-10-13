@@ -62,6 +62,45 @@ export default function EventList({ events }: EventListProps) {
   return (
     <div className="py-24 bg-background">
       <div className="container mx-auto px-6 lg:px-12">
+        {/* Featured Conference Banner */}
+        <Card className="mb-12 overflow-hidden bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border-2 border-blue-200 dark:border-blue-800">
+          <div className="grid md:grid-cols-2 gap-6 p-8">
+            <div className="flex flex-col justify-center">
+              <Badge className="bg-blue-600 text-white border-0 w-fit mb-4">
+                Featured Conference
+              </Badge>
+              <h3 className="text-3xl font-bold text-foreground mb-3">
+                The Big Church Conference Swansea
+              </h3>
+              <p className="text-muted-foreground mb-4">
+                A gathering of churches in South Wales to meet and pray together for the salvation of the region. 
+                Join us for worship, panel discussions, and networking.
+              </p>
+              <div className="space-y-2 text-sm text-muted-foreground mb-6">
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-blue-600" />
+                  <span>Saturday, November 15th, 2025 • 4:00 PM - 7:00 PM</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-blue-600" />
+                  <span>47B Westbury Street, Swansea, SA1 4JW</span>
+                </div>
+              </div>
+              <Button asChild className="w-fit bg-blue-600 hover:bg-blue-700">
+                <Link href="/what-we-do/photizen">Learn More & Register</Link>
+              </Button>
+            </div>
+            <div className="relative h-64 md:h-auto rounded-xl overflow-hidden">
+              <Image 
+                src="/Church-Conference.jpg" 
+                alt="Big Church Conference" 
+                fill 
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </Card>
+
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Filters - Left Sidebar */}
           <aside className="lg:col-span-1">
