@@ -46,7 +46,7 @@ export default function PhotozenInfo() {
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             There's no big congregation and there's no small congregation. But there's a <strong>Big Community</strong> when we come together: 
-            The commonwealth of Zion, the body of the Most High.
+            The commonwealth of Zion, the community of the Most High.
           </p>
         </div>
 
