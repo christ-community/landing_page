@@ -71,6 +71,12 @@ const defaultHeaderConfig: HeaderConfig = {
           description: "Find upcoming church and community events.",
         },
         {
+          href: "/what-we-do/photizen",
+          label: "Big Church Conference",
+          icon: Users,
+          description: "Join us for The Big Church Conference Swansea.",
+        },
+        {
           href: "/what-we-do/access-consultation-services",
           label: "Consultation Services",
           icon: Handshake,
