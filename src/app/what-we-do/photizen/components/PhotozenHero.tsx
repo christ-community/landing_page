@@ -57,7 +57,7 @@ export default function PhotozenHero() {
                 </div>
                 <div className="flex items-center gap-3 justify-center lg:justify-start">
                   <Clock className="w-5 h-5 text-blue-600" />
-                  <span>4:00 PM - 7:00 PM</span>
+                  <span>5:00 PM - 8:00 PM</span>
                 </div>
                 <div className="flex items-center gap-3 justify-center lg:justify-start">
                   <MapPin className="w-5 h-5 text-blue-600" />

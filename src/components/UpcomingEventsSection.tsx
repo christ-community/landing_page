@@ -158,7 +158,7 @@ export default function UpcomingEventsSection({ config, events }: UpcomingEvents
                 </div>
                 <h3 className="text-3xl font-bold">The Big Church Conference Swansea</h3>
                 <p className="text-blue-100 text-sm md:text-base">
-                  November 15, 2025 • 4:00 PM - 7:00 PM • 47B Westbury Street, Swansea
+                  November 15, 2025 • 5:00 PM - 8:00 PM • 47B Westbury Street, Swansea
                 </p>
               </div>
               <Button 

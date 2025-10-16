@@ -79,7 +79,7 @@ export default function EventList({ events }: EventListProps) {
               <div className="space-y-2 text-sm text-muted-foreground mb-6">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-blue-600" />
-                  <span>Saturday, November 15th, 2025 • 4:00 PM - 7:00 PM</span>
+                  <span>Saturday, November 15th, 2025 • 5:00 PM - 8:00 PM</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-blue-600" />
