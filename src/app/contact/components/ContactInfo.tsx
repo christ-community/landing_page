@@ -32,8 +32,8 @@ const contactMethods = [
     icon: Mail,
     title: "Email Us",
     description: "Send us a message anytime",
-    contact: "christcommunityglobal@gmail.com",
-    action: "mailto:christcommunityglobal@gmail.com",
+    contact: "info@christcommunityglobal.org",
+    action: "mailto:info@christcommunityglobal.org",
     actionText: "Send Email",
     color: "blue"
   },

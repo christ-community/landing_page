@@ -116,8 +116,8 @@ function DonationSuccessContent() {
                   <div className="text-center pt-6 border-t border-border/20">
                     <p className="text-sm text-muted-foreground">
                       Questions about your donation? Contact us at{' '}
-                      <a href="mailto:christcommunityglobal@gmail.com" className="text-primary hover:underline">
-                        christcommunityglobal@gmail.com
+                      <a href="mailto:info@christcommunityglobal.org" className="text-primary hover:underline">
+                        info@christcommunityglobal.org
                       </a>{' '}
                       or call{' '}
                       <a href="tel:07428784005" className="text-primary hover:underline">

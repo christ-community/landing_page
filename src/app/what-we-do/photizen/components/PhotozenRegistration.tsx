@@ -45,10 +45,10 @@ export default function PhotozenRegistration() {
                     <div>
                       <p className="text-sm text-muted-foreground">Email</p>
                       <a 
-                        href="mailto:christcommunityglobal@gmail.com" 
+                        href="mailto:info@christcommunityglobal.org" 
                         className="text-foreground font-medium hover:text-blue-600 transition-colors"
                       >
-                        christcommunityglobal@gmail.com
+                        info@christcommunityglobal.org
                       </a>
                     </div>
                   </div>
