@@ -56,7 +56,7 @@ const defaultFooterConfig: FooterConfig = {
       zipCode: "SA1 4JW"
     },
     phone: "07428784005",
-    email: "christcommunityglobal@gmail.com"
+    email: "info@christcommunityglobal.org"
   },
   serviceTimes: [
     { name: "Wednesday Intercessory Prayers", time: "9:00 PM" },

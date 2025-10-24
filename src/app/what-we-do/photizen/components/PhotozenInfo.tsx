@@ -53,15 +53,15 @@ export default function PhotozenInfo() {
         <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 rounded-3xl p-8 lg:p-12 mb-16">
           <div className="prose prose-lg dark:prose-invert max-w-none">
             <p className="text-muted-foreground leading-relaxed mb-6">
-              The Big Church Conference is a gathering of churches in South Wales to meet and pray together for 
-              the salvation of the region, to promote interdenominational collaboration and explore various ways 
-              we can work together to foster the spread of the gospel in Wales and the United Kingdom.
+              The Big Church Conference is the gathering of Christians from different denominations in South Wales 
+              to meet and pray together for the salvation of the region, to promote interdenominational collaboration 
+              and explore various ways we can work together to foster the spread of the gospel in Wales and the United Kingdom.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-6">
               This Conference is also pivotal to intergenerational transfer of knowledge and wisdom from the 
               older generation to the new. The conference will employ prayer, joint choir ministration, a panel 
               session consisting of various church leaders, question and answer session, networking, and meet 
-              and greet to achieve the objective of fostering interdenominational cooperation among churches 
+              and greet to achieve the objective of fostering interdenominational cooperation among Christians 
               in South Wales.
             </p>
           </div>
@@ -121,16 +121,16 @@ export default function PhotozenInfo() {
 
         <div className="mt-16 bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-950/30 dark:to-blue-950/30 rounded-3xl p-8 lg:p-12">
           <h3 className="text-3xl font-bold text-foreground mb-6">
-            Benefits to Your Church
+            Benefits to You
           </h3>
           <ul className="space-y-4 text-muted-foreground">
             <li className="flex items-start">
               <span className="text-blue-600 mr-3 text-xl">✓</span>
-              <span>Opportunity to connect and learn from leaders in other ministries</span>
+              <span>Opportunity to connect and learn from leaders in different ministries</span>
             </li>
             <li className="flex items-start">
               <span className="text-blue-600 mr-3 text-xl">✓</span>
-              <span>Opportunity to share God's revelation and vision for your church with other ministries to advance the Gospel</span>
+              <span>Opportunity to share God's revelation and vision with other believers to advance the Gospel</span>
             </li>
             <li className="flex items-start">
               <span className="text-blue-600 mr-3 text-xl">✓</span>
@@ -138,11 +138,11 @@ export default function PhotozenInfo() {
             </li>
             <li className="flex items-start">
               <span className="text-blue-600 mr-3 text-xl">✓</span>
-              <span>Be part of the first churches onboarded on our Find a Church technology to be deployed on our website</span>
+              <span>Experience the power of unified worship and intercession with believers from diverse backgrounds</span>
             </li>
             <li className="flex items-start">
               <span className="text-blue-600 mr-3 text-xl">✓</span>
-              <span>Most importantly, you'll be obeying God by playing a great part in fostering the unity of the Church in South Wales</span>
+              <span>Most importantly, you'll be obeying God by playing a great part in fostering the unity of believers in South Wales</span>
             </li>
           </ul>
         </div>

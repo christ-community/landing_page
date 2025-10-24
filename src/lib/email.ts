@@ -183,7 +183,7 @@ class EmailService {
               
               <div class="footer">
                 <p>Blessings,<br><strong>The Christ Community Team</strong></p>
-                <p>📧 christcommunityglobal@gmail.com | 📞 07428784005</p>
+                <p>📧 info@christcommunityglobal.org | 📞 07428784005</p>
                 <p>47B Westbury Street, Swansea SA1 4JW</p>
               </div>
             </div>
@@ -195,7 +195,7 @@ class EmailService {
     try {
       // Send email to team
       const teamEmailSent = await this.sendEmail({
-        to: process.env.CONTACT_EMAIL || 'contact@christcommunity.org',
+        to: process.env.CONTACT_EMAIL || 'info@christcommunityglobal.org',
         subject: `New Contact Form: ${subject}`,
         html: teamEmailHtml,
       });
@@ -324,7 +324,7 @@ class EmailService {
               
               <div class="footer">
                 <p>Blessings,<br><strong>The Christ Community Team</strong></p>
-                <p>📧 christcommunityglobal@gmail.com | 📞 07428784005</p>
+                <p>📧 info@christcommunityglobal.org | 📞 07428784005</p>
               </div>
             </div>
           </div>
@@ -334,7 +334,7 @@ class EmailService {
 
     try {
       const teamEmailSent = await this.sendEmail({
-        to: process.env.CONTACT_EMAIL || 'christcommunityglobal@gmail.com',
+        to: process.env.CONTACT_EMAIL || 'info@christcommunityglobal.org',
         subject: `Free Bible Request - ${translation} for ${firstName} ${lastName}`,
         html: teamEmailHtml,
       });
@@ -450,7 +450,7 @@ class EmailService {
               
               <div class="footer">
                 <p>Blessings,<br><strong>The Christ Community Team</strong></p>
-                <p>📧 christcommunityglobal@gmail.com | 📞 07428784005</p>
+                <p>📧 info@christcommunityglobal.org | 📞 07428784005</p>
               </div>
             </div>
           </div>
@@ -460,7 +460,7 @@ class EmailService {
 
     try {
       const teamEmailSent = await this.sendEmail({
-        to: process.env.CONTACT_EMAIL || 'christcommunityglobal@gmail.com',
+        to: process.env.CONTACT_EMAIL || 'info@christcommunityglobal.org',
         subject: `Send Help Request: ${subject}`,
         html: teamEmailHtml,
       });
@@ -588,7 +588,7 @@ class EmailService {
               
               <div class="footer">
                 <p>Blessings,<br><strong>The Christ Community Team</strong></p>
-                <p>📧 christcommunityglobal@gmail.com | 📞 07428784005</p>
+                <p>📧 info@christcommunityglobal.org | 📞 07428784005</p>
               </div>
             </div>
           </div>
@@ -598,7 +598,7 @@ class EmailService {
 
     try {
       const teamEmailSent = await this.sendEmail({
-        to: process.env.CONTACT_EMAIL || 'christcommunityglobal@gmail.com',
+        to: process.env.CONTACT_EMAIL || 'info@christcommunityglobal.org',
         subject: `Tract Order: ${quantity}x ${tractName} for ${name}`,
         html: teamEmailHtml,
       });
@@ -698,7 +698,7 @@ class EmailService {
               
               <div class="footer">
                 <p>Blessings,<br><strong>The Christ Community Team</strong></p>
-                <p>📧 christcommunityglobal@gmail.com | 📞 07428784005</p>
+                <p>📧 info@christcommunityglobal.org | 📞 07428784005</p>
               </div>
             </div>
           </div>
@@ -708,7 +708,7 @@ class EmailService {
 
     try {
       const teamEmailSent = await this.sendEmail({
-        to: process.env.CONTACT_EMAIL || 'christcommunityglobal@gmail.com',
+        to: process.env.CONTACT_EMAIL || 'info@christcommunityglobal.org',
         subject: `New Newsletter Signup: ${email}`,
         html: teamEmailHtml,
       });

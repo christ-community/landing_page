@@ -73,7 +73,7 @@ export default function EventList({ events }: EventListProps) {
                 The Big Church Conference Swansea
               </h3>
               <p className="text-muted-foreground mb-4">
-                A gathering of churches in South Wales to meet and pray together for the salvation of the region. 
+                The gathering of Christians from different denominations in South Wales. 
                 Join us for worship, panel discussions, and networking.
               </p>
               <div className="space-y-2 text-sm text-muted-foreground mb-6">
