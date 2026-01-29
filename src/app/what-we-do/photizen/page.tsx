@@ -6,9 +6,9 @@ import PhotozenRegistration from './components/PhotozenRegistration';
 import NewsletterSection from '@/components/NewsletterSection';
 
 export const metadata: Metadata = {
-    title: 'The Big Church Conference Swansea | Christ Community',
-    description: 'Join us for The Big Church Conference Swansea on November 15th, 2025. The gathering of Christians from different denominations in South Wales.',
-    keywords: 'big church conference, swansea, interdenominational, christian conference, south wales, church unity, gospel',
+    title: 'The Big Church Conference Swansea (Past Event) | Christ Community',
+    description: 'The Big Church Conference Swansea took place on November 15th, 2025. A gathering of Christians from different denominations in South Wales.',
+    keywords: 'big church conference, swansea, interdenominational, christian conference, south wales, church unity, gospel, past event',
 };
 
 export default function PhotozenPage() {

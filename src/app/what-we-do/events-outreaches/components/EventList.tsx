@@ -62,32 +62,75 @@ export default function EventList({ events }: EventListProps) {
   return (
     <div className="py-24 bg-background">
       <div className="container mx-auto px-6 lg:px-12">
-        {/* Featured Conference Banner */}
-        <Card className="mb-12 overflow-hidden bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border-2 border-blue-200 dark:border-blue-800">
+        {/* Featured Event - Cardiff Outreach */}
+        <Card className="mb-12 overflow-hidden bg-gradient-to-r from-tertiary/10 to-red-50 dark:from-tertiary/20 dark:to-red-950/30 border-2 border-tertiary/30 dark:border-tertiary/50">
           <div className="grid md:grid-cols-2 gap-6 p-8">
             <div className="flex flex-col justify-center">
-              <Badge className="bg-blue-600 text-white border-0 w-fit mb-4">
-                Featured Conference
+              <Badge className="bg-gradient-to-r from-tertiary to-red-600 text-white border-0 w-fit mb-4">
+                Featured Event - Easter 2026
+              </Badge>
+              <h3 className="text-3xl font-bold text-foreground mb-3">
+                100 Believers to Cardiff
+              </h3>
+              <p className="text-muted-foreground mb-4">
+                Join us for a powerful evangelism outreach to Cardiff City Center this Easter. 
+                Witness Christ, pray, and worship as we spread the Gospel together.
+              </p>
+              <div className="space-y-2 text-sm text-muted-foreground mb-6">
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-tertiary" />
+                  <span className="font-semibold">Saturday, April 4th, 2026</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-tertiary" />
+                  <span>Cardiff City Center</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Users className="w-4 h-4 text-tertiary" />
+                  <span>Target: 100 Believers</span>
+                </div>
+              </div>
+              <Button asChild className="w-fit bg-gradient-to-r from-tertiary to-red-600 hover:from-red-700 hover:to-red-700">
+                <Link href="/what-we-do/cardiff-outreach">Sign Up Now</Link>
+              </Button>
+            </div>
+            <div className="relative h-64 md:h-auto rounded-xl overflow-hidden">
+              <Image 
+                src="/Church-Conference.jpg" 
+                alt="Cardiff Outreach" 
+                fill 
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </Card>
+
+        {/* Past Event - Big Church Conference */}
+        <Card className="mb-12 overflow-hidden bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-950/30 dark:to-gray-900/30 border border-gray-200 dark:border-gray-800">
+          <div className="grid md:grid-cols-2 gap-6 p-8">
+            <div className="flex flex-col justify-center">
+              <Badge className="bg-gray-600 text-white border-0 w-fit mb-4">
+                Past Event
               </Badge>
               <h3 className="text-3xl font-bold text-foreground mb-3">
                 The Big Church Conference Swansea
               </h3>
               <p className="text-muted-foreground mb-4">
-                The gathering of Christians from different denominations in South Wales. 
-                Join us for worship, panel discussions, and networking.
+                This conference brought together Christians from different denominations in South Wales 
+                for worship, panel discussions, and networking.
               </p>
               <div className="space-y-2 text-sm text-muted-foreground mb-6">
                 <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-blue-600" />
+                  <Calendar className="w-4 h-4 text-gray-600" />
                   <span>Saturday, November 15th, 2025 • 5:00 PM - 8:00 PM</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-blue-600" />
+                  <MapPin className="w-4 h-4 text-gray-600" />
                   <span>47B Westbury Street, Swansea, SA1 4JW</span>
                 </div>
               </div>
-              <Button asChild className="w-fit bg-blue-600 hover:bg-blue-700">
-                <Link href="/what-we-do/photizen">Learn More & Register</Link>
+              <Button asChild variant="outline" className="w-fit">
+                <Link href="/what-we-do/photizen">View Event Details</Link>
               </Button>
             </div>
             <div className="relative h-64 md:h-auto rounded-xl overflow-hidden">

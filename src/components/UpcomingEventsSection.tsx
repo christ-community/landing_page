@@ -144,28 +144,28 @@ export default function UpcomingEventsSection({ config, events }: UpcomingEvents
           </div>
         </div>
 
-        {/* Featured Conference Banner */}
+        {/* Featured Cardiff Outreach Banner */}
         <div className="mt-16">
           <Link 
-            href="/what-we-do/photizen"
-            className="block bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-300 group"
+            href="/what-we-do/cardiff-outreach"
+            className="block bg-gradient-to-r from-tertiary to-red-700 rounded-2xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-300 group"
           >
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex-1 text-white space-y-3">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-5 h-5" />
-                  <span className="text-sm font-semibold uppercase tracking-wider">Featured Event</span>
+                  <span className="text-sm font-semibold uppercase tracking-wider">Featured Event - Easter 2026</span>
                 </div>
-                <h3 className="text-3xl font-bold">The Big Church Conference Swansea</h3>
-                <p className="text-blue-100 text-sm md:text-base">
-                  November 15, 2025 • 5:00 PM - 8:00 PM • 47B Westbury Street, Swansea
+                <h3 className="text-3xl font-bold">100 Believers to Cardiff</h3>
+                <p className="text-red-100 text-sm md:text-base">
+                  Saturday, April 4th, 2026 • Cardiff City Center • Evangelism Outreach
                 </p>
               </div>
               <Button 
                 size="lg" 
-                className="bg-white text-blue-600 hover:bg-blue-50 shadow-lg group-hover:scale-105 transition-all duration-300"
+                className="bg-white text-tertiary hover:bg-red-50 shadow-lg group-hover:scale-105 transition-all duration-300"
               >
-                Register Now
+                Sign Up Now
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </div>
