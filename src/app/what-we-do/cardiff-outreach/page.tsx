@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { Suspense } from 'react';
 import CardiffHero from './components/CardiffHero';
 import CardiffInfo from './components/CardiffInfo';
 import CardiffRegistration from './components/CardiffRegistration';
@@ -17,9 +16,7 @@ export default function CardiffOutreachPage() {
             <CardiffHero />
             <CardiffInfo />
             <div id="registration-section" className="scroll-mt-20">
-                <Suspense fallback={<div>Loading...</div>}>
-                    <CardiffRegistration />
-                </Suspense>
+                <CardiffRegistration />
             </div>
             <NewsletterSection config={{
                 title: 'Stay Updated on Revival Moments',
