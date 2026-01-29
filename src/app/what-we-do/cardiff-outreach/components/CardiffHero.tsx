@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, MapPin, ArrowRight, Clock, Users } from 'lucide-react';
+import { Calendar, MapPin, ArrowRight, Users } from 'lucide-react';
 
 const defaultConfig = {
   title: "100 Believers to Cardiff",

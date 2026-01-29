@@ -45,7 +45,7 @@ export default function PhotozenInfo() {
             About The Conference
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            There's no big church and there's no small church. But there's a <strong>Big Church</strong> when we come together: 
+            There&apos;s no big church and there&apos;s no small church. But there&apos;s a <strong>Big Church</strong> when we come together: 
             The commonwealth of Zion, the church of the Most High.
           </p>
         </div>
@@ -98,9 +98,9 @@ export default function PhotozenInfo() {
             <p>
               We believe in a united body of Christ, as the scripture says in Ephesians 4:4-5: 
               <em className="block mt-2 pl-4 border-l-4 border-blue-500 italic">
-                "There is one body and one Spirit, just as you were called to one hope when you were called; 
+                &quot;There is one body and one Spirit, just as you were called to one hope when you were called; 
                 one Lord, one faith, one baptism; one God and Father of all, who is over all and through all 
-                and in all."
+                and in all.&quot;
               </em>
             </p>
             <p>
@@ -130,7 +130,7 @@ export default function PhotozenInfo() {
             </li>
             <li className="flex items-start">
               <span className="text-blue-600 mr-3 text-xl">✓</span>
-              <span>Opportunity to share God's revelation and vision with other believers to advance the Gospel</span>
+              <span>Opportunity to share God&apos;s revelation and vision with other believers to advance the Gospel</span>
             </li>
             <li className="flex items-start">
               <span className="text-blue-600 mr-3 text-xl">✓</span>
@@ -142,7 +142,7 @@ export default function PhotozenInfo() {
             </li>
             <li className="flex items-start">
               <span className="text-blue-600 mr-3 text-xl">✓</span>
-              <span>Most importantly, you'll be obeying God by playing a great part in fostering the unity of believers in South Wales</span>
+              <span>Most importantly, you&apos;ll be obeying God by playing a great part in fostering the unity of believers in South Wales</span>
             </li>
           </ul>
         </div>

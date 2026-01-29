@@ -38,10 +38,10 @@ export default function CardiffRegistration() {
                         <AlertCircle className="w-6 h-6 text-tertiary flex-shrink-0 mt-1" />
                         <div>
                           <h3 className="text-lg font-semibold text-foreground mb-2">
-                            Can't see the form?
+                            Can&apos;t see the form?
                           </h3>
                           <p className="text-muted-foreground mb-4">
-                            If the form doesn't load below, you can open it in a new tab for better accessibility.
+                            If the form doesn&apos;t load below, you can open it in a new tab for better accessibility.
                           </p>
                           <Button 
                             onClick={() => window.open(formUrl, '_blank', 'noopener,noreferrer')}
@@ -77,7 +77,7 @@ export default function CardiffRegistration() {
                       Unable to Load Form
                     </h3>
                     <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                      The registration form couldn't be loaded. Please click the button below to open it in a new tab.
+                      The registration form couldn&apos;t be loaded. Please click the button below to open it in a new tab.
                     </p>
                     <Button 
                       onClick={() => window.open(formUrl, '_blank', 'noopener,noreferrer')}

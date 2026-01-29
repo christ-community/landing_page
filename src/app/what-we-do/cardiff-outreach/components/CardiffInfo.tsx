@@ -58,12 +58,12 @@ export default function CardiffInfo() {
             </p>
             <p className="text-muted-foreground leading-relaxed mb-6">
               This outreach is a demonstration of our faith and commitment to the Great Commission. As believers 
-              unite in Cardiff, we will witness to the power of Christ's resurrection, pray for the city, and 
+              unite in Cardiff, we will witness to the power of Christ&apos;s resurrection, pray for the city, and 
               worship our Lord in public. We believe that through the Holy Spirit, hearts will be touched, 
               lives will be transformed, and the Kingdom of God will advance in Wales.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Whether you're sharing your testimony, distributing Gospel literature, praying for strangers, 
+              Whether you&apos;re sharing your testimony, distributing Gospel literature, praying for strangers, 
               or simply being a visible witness to the love of Christ, your participation matters. Together, 
               we will create a powerful moment of revival in the heart of Cardiff.
             </p>
@@ -115,7 +115,7 @@ export default function CardiffInfo() {
             </li>
             <li className="flex items-start">
               <span className="text-tertiary mr-3 text-xl">✓</span>
-              <span>Closing prayer and celebration of the day's impact</span>
+              <span>Closing prayer and celebration of the day&apos;s impact</span>
             </li>
           </ul>
         </div>
@@ -130,8 +130,8 @@ export default function CardiffInfo() {
               This outreach is an opportunity to share the hope of the Gospel with those who need it most.
             </p>
             <p>
-              By joining 100 believers in Cardiff, you're not just participating in an event - you're being 
-              obedient to the Great Commission. You're stepping out in faith, trusting the Holy Spirit to 
+              By joining 100 believers in Cardiff, you&apos;re not just participating in an event - you&apos;re being 
+              obedient to the Great Commission. You&apos;re stepping out in faith, trusting the Holy Spirit to 
               work through you to bring the message of salvation to Cardiff.
             </p>
             <p>
@@ -140,7 +140,7 @@ export default function CardiffInfo() {
               Your prayers matter.
             </p>
             <p className="font-semibold text-foreground">
-              Sign up today and be part of this historic outreach. Let's reach Cardiff for Christ this Easter!
+              Sign up today and be part of this historic outreach. Let&apos;s reach Cardiff for Christ this Easter!
             </p>
           </div>
         </div>

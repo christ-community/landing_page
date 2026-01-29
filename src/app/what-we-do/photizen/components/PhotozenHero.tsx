@@ -1,9 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, MapPin, ArrowRight, Clock } from 'lucide-react';
+import { Calendar, MapPin, Clock } from 'lucide-react';
 
 const defaultConfig = {
   title: "The Big Church Conference Swansea",
@@ -12,11 +11,6 @@ const defaultConfig = {
 
 export default function PhotozenHero() {
   const { title, subtitle } = defaultConfig;
-
-  const handleScrollToForm = () => {
-    const formSection = document.querySelector('#registration-form');
-    formSection?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   return (
     <section className="relative min-h-[90vh] bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-blue-950/30 dark:via-indigo-950/30 dark:to-purple-950/30 overflow-hidden">

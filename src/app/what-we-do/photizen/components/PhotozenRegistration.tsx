@@ -1,7 +1,7 @@
 'use client';
 
 import { Card, CardContent } from '@/components/ui/card';
-import { UserPlus, Mail, Phone } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 
 export default function PhotozenRegistration() {
   return (
