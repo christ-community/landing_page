@@ -1,36 +1,41 @@
 'use client';
 
 import { Card, CardContent } from '@/components/ui/card';
-import { UserPlus, Mail, Phone } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 
 export default function PhotozenRegistration() {
   return (
-    <section id="registration-form" className="py-24 bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-blue-950/20 dark:via-background dark:to-indigo-950/20 scroll-mt-20">
+    <section id="registration-form" className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-950/20 dark:via-background dark:to-gray-900/20 scroll-mt-20">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="text-center mb-12">
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Register for the Conference
+            Event Concluded
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Join us at The Big Church Conference Swansea. Fill out the form below to secure your spot.
+            Thank you to everyone who joined us at The Big Church Conference Swansea on November 15th, 2025. 
+            Stay connected for future events and gatherings.
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto">
           <Card className="bg-card border border-border/10 rounded-3xl shadow-2xl overflow-hidden">
             <CardContent className="p-0">
-              {/* Google Form Embed */}
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 p-8 lg:p-12">
-                <div className="flex justify-center">
-                  <iframe 
-                    src="https://docs.google.com/forms/d/e/1FAIpQLSf0RSQ5QlFszXVUdZ9lgf0ILPEB9vKnC-Y5wtTsAThutIWAsw/viewform?embedded=true" 
-                    width="100%" 
-                    height="800" 
-                    className="rounded-xl shadow-lg border-0"
-                    title="Big Church Conference Registration Form"
+              {/* Past Event Message */}
+              <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950/30 dark:to-gray-900/30 p-8 lg:p-12 text-center">
+                <div className="max-w-2xl mx-auto">
+                  <h3 className="text-2xl font-bold text-foreground mb-4">
+                    This Event Has Ended
+                  </h3>
+                  <p className="text-muted-foreground mb-6">
+                    We hope you were able to join us for this powerful gathering. Check out our upcoming events 
+                    to stay connected with the Christ Community.
+                  </p>
+                  <a 
+                    href="/what-we-do/events-outreaches"
+                    className="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-3 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
                   >
-                    Loading…
-                  </iframe>
+                    View Upcoming Events
+                  </a>
                 </div>
               </div>
 

@@ -1,9 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, MapPin, ArrowRight, Clock } from 'lucide-react';
+import { Calendar, MapPin, Clock } from 'lucide-react';
 
 const defaultConfig = {
   title: "The Big Church Conference Swansea",
@@ -12,11 +11,6 @@ const defaultConfig = {
 
 export default function PhotozenHero() {
   const { title, subtitle } = defaultConfig;
-
-  const handleScrollToForm = () => {
-    const formSection = document.querySelector('#registration-form');
-    formSection?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   return (
     <section className="relative min-h-[90vh] bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-blue-950/30 dark:via-indigo-950/30 dark:to-purple-950/30 overflow-hidden">
@@ -34,9 +28,9 @@ export default function PhotozenHero() {
             
             {/* Left Content */}
             <div className="space-y-8 text-center lg:text-left">
-              <Badge className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white border-0 text-sm px-6 py-3 rounded-full shadow-lg">
+              <Badge className="bg-gradient-to-r from-gray-500 to-gray-600 text-white border-0 text-sm px-6 py-3 rounded-full shadow-lg">
                 <Calendar className="w-4 h-4 mr-2" />
-                Conference 2025
+                Past Event - November 2025
               </Badge>
 
               <div className="space-y-4">
@@ -66,14 +60,9 @@ export default function PhotozenHero() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button 
-                  size="lg"
-                  onClick={handleScrollToForm}
-                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  Register Now
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
+                <Badge className="bg-gradient-to-r from-gray-600 to-gray-700 text-white border-0 text-base px-8 py-4 rounded-lg shadow-lg">
+                  Event Concluded
+                </Badge>
               </div>
             </div>
 

@@ -71,10 +71,16 @@ const defaultHeaderConfig: HeaderConfig = {
           description: "Find upcoming church and community events.",
         },
         {
+          href: "/what-we-do/cardiff-outreach",
+          label: "100 Believers to Cardiff",
+          icon: Users,
+          description: "Join the Easter evangelism outreach to Cardiff.",
+        },
+        {
           href: "/what-we-do/photizen",
           label: "Big Church Conference",
           icon: Users,
-          description: "Join us for The Big Church Conference Swansea.",
+          description: "View past conference (November 2025).",
         },
         {
           href: "/what-we-do/access-consultation-services",
