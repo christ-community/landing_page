@@ -53,7 +53,7 @@ export default function CardiffInfo() {
           <div className="prose prose-lg dark:prose-invert max-w-none">
             <p className="text-muted-foreground leading-relaxed mb-6">
               This is an evangelism outreach to Cardiff City Center, where we have a target of 100 believers 
-              to witness Christ, pray, and worship at the Cardiff city center. During this Easter, we want to 
+              to witness Christ, pray, and worship at the Cardiff City Center. During this Easter, we want to 
               spread the Gospel through the work of the Holy Spirit in us.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-6">

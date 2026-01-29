@@ -53,6 +53,7 @@ export default function CardiffHero() {
               <div className="space-y-4 text-lg text-muted-foreground">
                 <div className="flex items-center gap-3 justify-center lg:justify-start">
                   <Calendar className="w-5 h-5 text-tertiary" />
+                  {/* Date as specified in requirements: Saturday April 4th, 2026 (Easter Saturday / Holy Saturday) */}
                   <span className="font-semibold">Saturday, April 4th, 2026</span>
                 </div>
                 <div className="flex items-center gap-3 justify-center lg:justify-start">

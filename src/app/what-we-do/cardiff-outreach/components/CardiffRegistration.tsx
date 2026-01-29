@@ -7,10 +7,20 @@ import { Mail, Phone, ExternalLink, AlertCircle } from 'lucide-react';
 
 export default function CardiffRegistration() {
   const [formError, setFormError] = useState(false);
+  // TODO: Replace with actual Cardiff outreach registration form URL
+  // This is currently using a placeholder form URL
   const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSf0RSQ5QlFszXVUdZ9lgf0ILPEB9vKnC-Y5wtTsAThutIWAsw/viewform";
 
   const handleFormError = () => {
     setFormError(true);
+  };
+
+  const handleOpenForm = () => {
+    const link = document.createElement('a');
+    link.href = formUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.click();
   };
 
   return (
@@ -44,7 +54,7 @@ export default function CardiffRegistration() {
                             If the form doesn&apos;t load below, you can open it in a new tab for better accessibility.
                           </p>
                           <Button 
-                            onClick={() => window.open(formUrl, '_blank', 'noopener,noreferrer')}
+                            onClick={handleOpenForm}
                             className="bg-gradient-to-r from-tertiary to-red-600 hover:from-red-700 hover:to-red-700 text-white"
                           >
                             Open Form in New Tab
@@ -77,10 +87,11 @@ export default function CardiffRegistration() {
                       Unable to Load Form
                     </h3>
                     <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                      The registration form couldn&apos;t be loaded. Please click the button below to open it in a new tab.
+                      The registration form couldn&apos;t be displayed in your browser. This may be due to browser settings, 
+                      extensions, or privacy settings that block embedded forms. Please click the button below to open it in a new tab.
                     </p>
                     <Button 
-                      onClick={() => window.open(formUrl, '_blank', 'noopener,noreferrer')}
+                      onClick={handleOpenForm}
                       size="lg"
                       className="bg-gradient-to-r from-tertiary to-red-600 hover:from-red-700 hover:to-red-700 text-white"
                     >
