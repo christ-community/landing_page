@@ -7,9 +7,8 @@ import { Mail, Phone, ExternalLink, AlertCircle } from 'lucide-react';
 
 export default function CardiffRegistration() {
   const [formError, setFormError] = useState(false);
-  // TODO: Replace with actual Cardiff outreach registration form URL
-  // This is currently using a placeholder form URL
-  const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSf0RSQ5QlFszXVUdZ9lgf0ILPEB9vKnC-Y5wtTsAThutIWAsw/viewform";
+  // Official Cardiff outreach registration form
+  const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdZv-rvVEVuRhXuPZDAq06qdIztuZ-B39Y4tA84vso6ztmcRQ/viewform";
 
   const handleFormError = () => {
     setFormError(true);
@@ -69,9 +68,11 @@ export default function CardiffRegistration() {
                       <iframe 
                         src={`${formUrl}?embedded=true`}
                         width="100%" 
-                        height="800" 
-                        className="rounded-xl shadow-lg border-0"
+                        height="520"
+                        style={{ maxWidth: '700px', minHeight: '520px' }}
+                        className="rounded-xl shadow-lg border-0 mx-auto"
                         title="100 Believers to Cardiff Registration Form"
+                        aria-label="Registration form for 100 Believers to Cardiff Easter Outreach 2026"
                         onError={handleFormError}
                         loading="lazy"
                       >
