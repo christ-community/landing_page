@@ -72,6 +72,84 @@ export default function EventList({ events, featuredMedia }: EventListProps) {
   return (
     <section className="section">
       <div className="section-inner">
+        <div className="space-y-6 mb-12">
+          <Card className="overflow-hidden bg-muted/30 border border-border/40">
+            <div className="grid md:grid-cols-2 gap-6 p-8">
+              <div className="flex flex-col justify-center">
+                <Badge className="bg-background/80 text-foreground border border-border/40 w-fit mb-4">
+                  Conference Highlights
+                </Badge>
+                <h3 className="text-3xl font-bold text-foreground mb-3">
+                  The Big Church Conference
+                </h3>
+                <p className="text-muted-foreground mb-6">
+                  A gathering of believers across South Wales. Explore photos and videos from worship, teaching, and fellowship.
+                </p>
+                <Button asChild variant="outline" className="w-fit">
+                  <Link href="/what-we-do/photizen">View Gallery</Link>
+                </Button>
+              </div>
+              <div className="relative h-64 md:h-auto rounded-[var(--radius)] overflow-hidden">
+                {featuredMedia?.bigChurch?.type === 'video' ? (
+                  <video
+                    className="h-full w-full object-cover"
+                    controls
+                    preload="metadata"
+                    poster={featuredMedia.bigChurch.poster}
+                  >
+                    <source src={featuredMedia.bigChurch.src} />
+                  </video>
+                ) : (
+                  <Image
+                    src={featuredMedia?.bigChurch?.src || "/Church-Conference.jpg"}
+                    alt={featuredMedia?.bigChurch?.alt || "Big Church Conference"}
+                    fill
+                    className="object-cover"
+                  />
+                )}
+              </div>
+            </div>
+          </Card>
+
+          <Card className="overflow-hidden bg-muted/20 border border-border/40">
+            <div className="grid md:grid-cols-2 gap-6 p-8">
+              <div className="flex flex-col justify-center">
+                <Badge className="bg-background/80 text-foreground border border-border/40 w-fit mb-4">
+                  Outreach Highlights
+                </Badge>
+                <h3 className="text-3xl font-bold text-foreground mb-3">
+                  10 Welsh Cities for Christ
+                </h3>
+                <p className="text-muted-foreground mb-6">
+                  A multi-city outreach across Wales. See the moments from worship, prayer, and Gospel outreach.
+                </p>
+                <Button asChild variant="outline" className="w-fit">
+                  <Link href="/what-we-do/10-cities-for-christ">View Gallery</Link>
+                </Button>
+              </div>
+              <div className="relative h-64 md:h-auto rounded-[var(--radius)] overflow-hidden">
+                {featuredMedia?.tenCfc?.type === 'video' ? (
+                  <video
+                    className="h-full w-full object-cover"
+                    controls
+                    preload="metadata"
+                    poster={featuredMedia.tenCfc.poster}
+                  >
+                    <source src={featuredMedia.tenCfc.src} />
+                  </video>
+                ) : (
+                  <Image
+                    src={featuredMedia?.tenCfc?.src || "/Church-Conference.jpg"}
+                    alt={featuredMedia?.tenCfc?.alt || "10 Welsh Cities for Christ"}
+                    fill
+                    className="object-cover"
+                  />
+                )}
+              </div>
+            </div>
+          </Card>
+        </div>
+
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Filters - Left Sidebar */}
           <aside className="lg:col-span-1">

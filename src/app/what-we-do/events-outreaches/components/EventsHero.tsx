@@ -20,14 +20,13 @@ export default function EventsHero({
   title,
   subtitle,
   primaryCta,
-  mainImage,
   previewImage,
   previewLabel,
 }: EventsHeroProps) {
   return (
     <section className="section bg-muted/20">
       <div className="section-inner">
-        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
           <div className="flex flex-col text-center lg:text-left stack-lg">
             {brandIconNode}
             <h1>{title}</h1>
@@ -40,14 +39,11 @@ export default function EventsHero({
           </div>
 
           <div className="relative">
-            <div className="relative w-full h-[420px] rounded-[var(--radius)] overflow-hidden border border-border/40">
-              <Image src={mainImage} alt={title} fill className="object-cover" priority />
-            </div>
-            <div className="mt-4 rounded-[var(--radius)] border border-border/40 bg-card p-3">
+            <div className="rounded-[var(--radius)] border border-border/40 bg-card p-4">
               <div className="relative aspect-video rounded-[var(--radius)] overflow-hidden">
                 <Image src={previewImage} alt={previewLabel} fill className="object-cover" />
               </div>
-              <p className="text-sm font-semibold mt-2 text-center text-muted-foreground">{previewLabel}</p>
+              <p className="text-sm font-semibold mt-3 text-center text-muted-foreground">{previewLabel}</p>
             </div>
           </div>
         </div>
