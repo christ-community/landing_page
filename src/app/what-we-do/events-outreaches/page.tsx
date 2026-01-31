@@ -6,6 +6,7 @@ import type { EventsPageConfig, EventItem } from '@/types';
 import { getPageHero, getUpcomingEvents } from '../../../../lib/contentful-api';
 import { processAsset } from '../../../../lib/contentful-api';
 import { getEventMedia } from '@/lib/event-media';
+import EventMediaGallery from '@/components/EventMediaGallery';
 
 export const dynamic = 'force-dynamic';
 
@@ -137,6 +138,16 @@ export default async function EventsAndOutreachesPage() {
                     bigChurch: bigChurchMedia[0],
                     tenCfc: tenCfcMedia[0],
                 }}
+            />
+            <EventMediaGallery
+                title="Big Church Conference Gallery"
+                subtitle="Every image and video currently in the BigChurch folder."
+                items={bigChurchMedia}
+            />
+            <EventMediaGallery
+                title="10 Welsh Cities for Christ Gallery"
+                subtitle="Every image and video currently in the 10CFC folder."
+                items={tenCfcMedia}
             />
         </main>
     );

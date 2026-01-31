@@ -98,7 +98,7 @@ export default async function RootLayout({
         <HeaderFixed />
         <main className="bg-background">
           {children}
-          <ChatIntegration />
+          <ChatIntegration className="site-chat" />
         </main>
         <Footer contentfulData={footerData || undefined} />
       </body>

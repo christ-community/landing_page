@@ -44,51 +44,73 @@ export function LoginForm({ onLogin }: LoginFormProps) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-accent/20 to-background p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Dashboard Login</CardTitle>
-          <CardDescription className="text-center">
-            Enter your credentials to access the dashboard
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
-              <Input
-                id="username"
-                type="text"
-                placeholder="Enter username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-                disabled={loading}
+    <div className="min-h-screen bg-muted/10">
+      <div className="border-b border-border/60 bg-background/95 backdrop-blur-sm">
+        <div className="section-inner">
+          <div className="flex items-center justify-between py-4">
+            <a href="/" className="flex items-center">
+              <img
+                src="/Logo .PNG"
+                alt="Christ Community Logo"
+                width={64}
+                height={64}
               />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="Enter password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                disabled={loading}
-              />
-            </div>
-            {error && (
-              <div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-md">
-                {error}
-              </div>
-            )}
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Logging in...' : 'Login'}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+            </a>
+            <a href="/" className="text-sm text-muted-foreground hover:text-foreground">
+              Back to website
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div className="section">
+        <div className="section-inner">
+          <Card className="w-full max-w-md mx-auto border-border/40 shadow-sm">
+            <CardHeader className="space-y-1 text-center">
+              <CardTitle className="text-2xl font-semibold">Dashboard Login</CardTitle>
+              <CardDescription>
+                Enter your credentials to access the dashboard
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="username">Username</Label>
+                  <Input
+                    id="username"
+                    type="text"
+                    placeholder="Enter username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                    disabled={loading}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="password">Password</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="Enter password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    disabled={loading}
+                  />
+                </div>
+                {error && (
+                  <div className="p-3 text-sm text-destructive bg-destructive/10 border border-destructive/30 rounded-[var(--radius)]">
+                    {error}
+                  </div>
+                )}
+                <Button type="submit" className="w-full" disabled={loading}>
+                  {loading ? 'Logging in...' : 'Login'}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 }

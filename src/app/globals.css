@@ -222,3 +222,36 @@
     color: var(--muted-foreground);
   }
 }
+
+body.dashboard-mode header,
+body.dashboard-mode footer,
+body.dashboard-mode .site-chat {
+  display: none !important;
+}
+
+body.dashboard-mode,
+body.dashboard-mode main {
+  background: #ffffff;
+}
+
+body.dashboard-mode main {
+  padding: 0;
+}
+
+.dashboard-shell {
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.dashboard-shell [data-slot="card"] {
+  background: #ffffff;
+}
+
+.dashboard-shell .bg-muted,
+.dashboard-shell .bg-muted\/10,
+.dashboard-shell .bg-muted\/20,
+.dashboard-shell .bg-muted\/30,
+.dashboard-shell .bg-muted\/40,
+.dashboard-shell .bg-muted\/50 {
+  background-color: #ffffff !important;
+}

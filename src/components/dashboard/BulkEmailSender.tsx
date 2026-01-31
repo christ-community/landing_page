@@ -169,23 +169,8 @@ export function BulkEmailSender() {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await fetch('/api/dashboard/auth', { method: 'DELETE' });
-      window.location.reload();
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
-  };
-
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Bulk Email Dashboard</h1>
-        <Button variant="outline" onClick={handleLogout}>
-          Logout
-        </Button>
-      </div>
+    <div className="space-y-6">
 
       {/* File Upload Section */}
       <Card>
