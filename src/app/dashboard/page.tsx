@@ -5,6 +5,8 @@ import { LoginForm } from '@/components/dashboard/LoginForm';
 import { BulkEmailSender } from '@/components/dashboard/BulkEmailSender';
 import { BlobUploader } from '@/components/dashboard/BlobUploader';
 import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function DashboardPage() {
@@ -49,7 +51,7 @@ export default function DashboardPage() {
   return (
     <div className="dashboard-shell">
       <div className="grid min-h-screen lg:grid-cols-[260px_1fr]">
-        <aside className="flex flex-col border-r border-border/40 bg-white min-h-screen">
+        <aside className="hidden lg:flex flex-col border-r border-border/40 bg-white min-h-screen">
           <div className="flex items-center gap-3 px-6 py-6">
             <a href="/" className="flex items-center">
               <img src="/Logo .PNG" alt="Christ Community" width={48} height={48} />
@@ -101,6 +103,67 @@ export default function DashboardPage() {
         </aside>
 
         <main className="bg-white">
+          <div className="lg:hidden border-b border-border/40 bg-white">
+            <div className="flex items-center justify-between px-4 py-4">
+              <a href="/" className="flex items-center">
+                <img src="/Logo .PNG" alt="Christ Community" width={40} height={40} />
+              </a>
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="outline" size="icon">
+                    <Menu className="h-5 w-5" />
+                    <span className="sr-only">Open menu</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-[280px] sm:w-[320px]">
+                  <div className="flex flex-col h-full">
+                    <div className="flex items-center gap-3 pb-6">
+                      <img src="/Logo .PNG" alt="Christ Community" width={40} height={40} />
+                      <div className="text-sm font-semibold text-foreground">Dashboard</div>
+                    </div>
+                    <nav className="space-y-2">
+                      <button
+                        type="button"
+                        className={cn(
+                          'w-full text-left px-4 py-3 text-sm font-medium rounded-[var(--radius)] border transition-colors',
+                          activeTab === 'email'
+                            ? 'bg-primary/10 text-primary border-primary/30'
+                            : 'bg-white text-muted-foreground border-border/40 hover:bg-muted/20'
+                        )}
+                        onClick={() => setActiveTab('email')}
+                      >
+                        Bulk Email
+                      </button>
+                      <button
+                        type="button"
+                        className={cn(
+                          'w-full text-left px-4 py-3 text-sm font-medium rounded-[var(--radius)] border transition-colors',
+                          activeTab === 'media'
+                            ? 'bg-primary/10 text-primary border-primary/30'
+                            : 'bg-white text-muted-foreground border-border/40 hover:bg-muted/20'
+                        )}
+                        onClick={() => setActiveTab('media')}
+                      >
+                        Media Library
+                      </button>
+                    </nav>
+                    <div className="mt-auto pt-6">
+                      <Button
+                        variant="outline"
+                        className="w-full"
+                        onClick={async () => {
+                          await fetch('/api/dashboard/auth', { method: 'DELETE' });
+                          window.location.reload();
+                        }}
+                      >
+                        Logout
+                      </Button>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
+          </div>
           <div className="px-6 py-8">
             <div className="mb-6 text-center">
               <h1 className="text-2xl font-semibold text-foreground">
