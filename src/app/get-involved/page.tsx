@@ -9,8 +9,8 @@ import { getInvolvementOptions, getTestimonials, getPageHero } from '../../../li
 
 export const metadata: Metadata = {
   title: 'Get Involved | Christ Community',
-  description: 'Join our mission. Discover the many ways you can contribute, from finding a church and volunteering to ordering resources and providing support.',
-  keywords: 'get involved, volunteer, find a church, donate, support ministry, Christian community',
+  description: 'Join our mission. Discover the many ways you can contribute, from volunteering to ordering resources and providing support.',
+  keywords: 'get involved, volunteer, donate, support ministry, Christian community',
 };
 
 export default async function GetInvolvedPage() {

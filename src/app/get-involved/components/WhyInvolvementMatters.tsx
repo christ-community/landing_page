@@ -20,23 +20,24 @@ export default function WhyInvolvementMatters() {
   ];
 
   return (
-    <section className="py-24 bg-background">
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
-            Why Your Help Matters
-          </h2>
-          <p className="text-xl text-muted-foreground mt-4 max-w-3xl mx-auto">
+    <section className="section">
+      <div className="section-inner">
+        <div className="text-center stack-lg mb-12">
+          <div className="stack">
+            <p className="eyebrow">Why It Matters</p>
+            <h2 className="section-title">Why your help matters</h2>
+          </div>
+          <p className="section-lead max-w-3xl mx-auto">
             Every act of service, big or small, contributes to a greater purpose.
           </p>
         </div>
-        <div className="grid md:grid-cols-3 gap-8 text-center">
+        <div className="grid md:grid-cols-3 gap-6 text-center">
           {features.map((feature) => (
-            <div key={feature.title} className="p-8 border border-border/10 rounded-xl bg-card">
-              <div className="inline-flex p-4 bg-red-100 dark:bg-red-950/30 text-red-600 dark:text-red-400 rounded-full mb-6">
-                <feature.icon className="w-8 h-8" />
+            <div key={feature.title} className="p-6 border border-border/40 rounded-[var(--radius)] bg-card">
+              <div className="inline-flex p-3 bg-muted text-foreground rounded-[var(--radius)] mb-6">
+                <feature.icon className="w-6 h-6" />
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-3">{feature.title}</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-3">{feature.title}</h3>
               <p className="text-muted-foreground">{feature.description}</p>
             </div>
           ))}
@@ -44,4 +45,4 @@ export default function WhyInvolvementMatters() {
       </div>
     </section>
   );
-} 
+}

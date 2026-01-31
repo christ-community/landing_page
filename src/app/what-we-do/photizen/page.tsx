@@ -4,6 +4,10 @@ import PhotozenHero from './components/PhotozenHero';
 import PhotozenInfo from './components/PhotozenInfo';
 import PhotozenRegistration from './components/PhotozenRegistration';
 import NewsletterSection from '@/components/NewsletterSection';
+import EventMediaGallery from '@/components/EventMediaGallery';
+import { getEventMedia } from '@/lib/event-media';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
     title: 'The Big Church Conference Swansea (Past Event) | Christ Community',
@@ -11,10 +15,17 @@ export const metadata: Metadata = {
     keywords: 'big church conference, swansea, interdenominational, christian conference, south wales, church unity, gospel, past event',
 };
 
-export default function PhotozenPage() {
+export default async function PhotozenPage() {
+  const mediaItems = await getEventMedia('BigChurch');
+
     return (
         <main>
             <PhotozenHero />
+            <EventMediaGallery
+                title="The Big Church Conference Highlights"
+                subtitle="Moments from worship, teaching, and fellowship across the conference."
+                items={mediaItems}
+            />
             <PhotozenInfo />
             <div id="registration-section" className="scroll-mt-20">
                 <Suspense fallback={<div>Loading...</div>}>

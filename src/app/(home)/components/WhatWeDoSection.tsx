@@ -19,13 +19,14 @@ interface WhatWeDoSectionProps {
 
 export default function WhatWeDoSection({ activities }: WhatWeDoSectionProps) {
   return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="mb-12 grid lg:grid-cols-2 gap-8 items-center">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight text-foreground">
-            What we do
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-xl">
+    <section className="section">
+      <div className="section-inner">
+        <div className="grid lg:grid-cols-2 gap-8 items-center mb-12">
+          <div className="stack">
+            <p className="eyebrow">What We Do</p>
+            <h2 className="section-title">What we do</h2>
+          </div>
+          <p className="section-lead max-w-xl">
             Our ministry is multifaceted. Through the initiatives below, we aim to
             reach hearts, uplift spirits, and equip believers for impactful
             service.
@@ -39,10 +40,10 @@ export default function WhatWeDoSection({ activities }: WhatWeDoSectionProps) {
               <Card
                 key={activity.title}
                 className={cn(
-                  "group relative overflow-hidden border border-border/10 bg-card p-8 transition-all duration-300 hover:border-tertiary/40 hover:shadow-lg rounded-xl"
+                  "group relative overflow-hidden border border-border/40 bg-card p-6 transition-all duration-300 hover:shadow-md"
                 )}
               >
-                <Icon className="h-10 w-10 text-tertiary mb-6" />
+                <Icon className="h-8 w-8 text-primary mb-6" />
                 <h3 className="text-xl font-semibold mb-4 text-foreground">
                   {activity.title}
                 </h3>

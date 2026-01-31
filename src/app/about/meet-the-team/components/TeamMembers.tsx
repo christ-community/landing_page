@@ -4,15 +4,13 @@ import Image from 'next/image';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Mail, 
-  Phone, 
-  Calendar, 
-  Users, 
-  BookOpen, 
-  Heart,
-  Handshake,
-  Star
+import {
+  Mail,
+  Phone,
+  Calendar,
+  Users,
+  BookOpen,
+  Heart
 } from 'lucide-react';
 import type { ITeamMember } from '../../../../../types/contentful';
 import { processAsset } from '@/lib/contentful-utils';
@@ -22,36 +20,29 @@ interface TeamMembersProps {
 }
 
 const getDepartmentColor = (department: string) => {
-  const colorMap: { [key: string]: string } = {
-    'Leadership': 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
-    'Ministry': 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
-    'Youth & Family': 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
-    'Creative Arts': 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300',
-    'Family Ministry': 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
-    'Global Outreach': 'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300',
-  };
-  return colorMap[department] || 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-300';
+  return 'bg-muted text-foreground';
 };
 
 export default function TeamMembers({ teamMembers }: TeamMembersProps) {
   return (
-    <section className="py-24 bg-background">
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Our Leadership Team
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Each member of our team brings unique gifts, experience, and passion to serve our community. 
+    <section className="section">
+      <div className="section-inner">
+        <div className="text-center stack-lg mb-12">
+          <div className="stack">
+            <p className="eyebrow">Leadership</p>
+            <h2 className="section-title">Our Leadership Team</h2>
+          </div>
+          <p className="section-lead max-w-3xl mx-auto">
+            Each member of our team brings unique gifts, experience, and passion to serve our community.
             Together, we're committed to shepherding, teaching, and supporting our congregation.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {teamMembers.map((member, index) => (
-            <Card key={index} className="border-2 border-border/10 hover:border-primary/30 hover:shadow-lg transition-all duration-300 group">
+            <Card key={index} className="border border-border/40 transition-all duration-300 hover:shadow-md">
               <CardHeader className="text-center pb-4">
-                <div className="w-24 h-24 mx-auto bg-gradient-to-br from-primary/20 to-tertiary/20 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform overflow-hidden">
+                <div className="w-24 h-24 mx-auto bg-muted rounded-full flex items-center justify-center mb-4 overflow-hidden">
                   {member.profileImage ? (
                     <Image
                       src={processAsset(member.profileImage) || '/Church-Conference.jpg'}
@@ -61,11 +52,11 @@ export default function TeamMembers({ teamMembers }: TeamMembersProps) {
                       className="w-full h-full object-cover rounded-full"
                     />
                   ) : (
-                    <Users className="w-12 h-12 text-primary" />
+                    <Users className="w-10 h-10 text-foreground" />
                   )}
                 </div>
-                <h3 className="text-xl font-bold text-foreground">{member.name}</h3>
-                <p className="text-lg font-medium text-primary">{member.role}</p>
+                <h3 className="text-xl font-semibold text-foreground">{member.name}</h3>
+                <p className="text-sm text-muted-foreground">{member.role}</p>
                 {member.department && (
                   <Badge className={`mt-2 ${getDepartmentColor(member.department)}`}>
                     {member.department}
@@ -121,7 +112,7 @@ export default function TeamMembers({ teamMembers }: TeamMembersProps) {
                 )}
 
                 {(member.email || member.phone) && (
-                  <div className="pt-4 border-t space-y-2">
+                  <div className="pt-4 border-t border-border/40 space-y-2">
                     {member.email && (
                       <Button 
                         variant="ghost" 
@@ -152,30 +143,20 @@ export default function TeamMembers({ teamMembers }: TeamMembersProps) {
         </div>
 
         {/* Call to Action */}
-        <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/20 dark:to-teal-950/20 rounded-2xl p-8 md:p-12 text-center">
-          <h3 className="text-3xl font-bold text-foreground mb-4">
+        <div className="bg-muted/30 rounded-[var(--radius)] p-8 md:p-12 text-center">
+          <h3 className="text-2xl font-semibold text-foreground mb-4">
             Want to Connect with Our Team?
           </h3>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Our pastoral team is here to support you on your spiritual journey. Whether you need prayer, 
             guidance, or just want to connect, we'd love to hear from you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg"
-              className="bg-emerald-600 hover:bg-emerald-700 text-white"
-              onClick={() => window.open('/contact', '_blank')}
-            >
+            <Button size="lg" onClick={() => window.open('/contact', '_blank')}>
               <Mail className="w-5 h-5 mr-2" />
               Contact Us
             </Button>
-            <Button 
-              size="lg" 
-              variant="outline"
-              className="border-emerald-200 text-foreground hover:bg-emerald-50 dark:border-emerald-800 dark:hover:bg-emerald-950"
-              onClick={() => window.open('/get-involved', '_blank')}
-            >
-              <Handshake className="w-5 h-5 mr-2" />
+            <Button size="lg" variant="outline" onClick={() => window.open('/get-involved', '_blank')}>
               Get Involved
             </Button>
           </div>

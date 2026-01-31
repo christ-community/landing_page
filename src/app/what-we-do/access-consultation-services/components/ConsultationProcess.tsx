@@ -1,5 +1,4 @@
 import type { ConsultationProcessStep } from "@/types";
-import { Badge } from "@/components/ui/badge";
 
 interface ConsultationProcessProps {
     title: string;
@@ -9,13 +8,16 @@ interface ConsultationProcessProps {
 
 export default function ConsultationProcess({ title, subtitle, steps }: ConsultationProcessProps) {
     return (
-        <section className="py-24 bg-muted/30">
-            <div className="container mx-auto px-6 lg:px-12">
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl lg:text-5xl font-bold text-foreground">{title}</h2>
-                    <p className="text-xl text-muted-foreground mt-4 max-w-3xl mx-auto">{subtitle}</p>
+        <section className="section bg-muted/20">
+            <div className="section-inner">
+                <div className="text-center stack-lg mb-12">
+                    <div className="stack">
+                        <p className="eyebrow">Process</p>
+                        <h2 className="section-title">{title}</h2>
+                    </div>
+                    <p className="section-lead max-w-3xl mx-auto">{subtitle}</p>
                 </div>
-                <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {/* Connecting Line */}
                     <div className="absolute top-12 left-0 right-0 h-1 hidden md:block -translate-y-1/2">
                         <svg width="100%" height="100%">
@@ -28,15 +30,17 @@ export default function ConsultationProcess({ title, subtitle, steps }: Consulta
                         return (
                             <div key={step.step} className="relative z-10 text-center flex flex-col items-center">
                                 <div className="relative inline-flex">
-                                    <div className="w-24 h-24 bg-background rounded-full flex items-center justify-center shadow-lg border-4 border-muted/30">
-                                        <div className="w-20 h-20 bg-gradient-to-br from-primary to-blue-500 rounded-full flex items-center justify-center text-white">
-                                            <Icon className="w-10 h-10" />
+                                    <div className="w-20 h-20 bg-background rounded-full flex items-center justify-center shadow-sm border-2 border-border/40">
+                                        <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center text-foreground">
+                                            <Icon className="w-8 h-8" />
                                         </div>
                                     </div>
-                                    <Badge className="absolute -top-2 -right-2">{step.step}</Badge>
+                                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-semibold">
+                                      {step.step}
+                                    </div>
                                 </div>
                                 <div className="flex-grow mt-6 text-center">
-                                    <h3 className="text-xl font-bold text-foreground">{step.title}</h3>
+                                    <h3 className="text-lg font-semibold text-foreground">{step.title}</h3>
                                     <p className="text-muted-foreground mt-2">{step.description}</p>
                                 </div>
                             </div>

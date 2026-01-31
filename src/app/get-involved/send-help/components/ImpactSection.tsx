@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import type { ImpactStory } from '@/types';
 import type { IHelpImpact } from '../../../../../types/contentful';
 
@@ -30,51 +29,47 @@ interface ImpactSectionProps {
 }
 
 export default function ImpactSection({ stories = defaultStories, helpImpact }: ImpactSectionProps) {
-  console.log('helpImpact, ', helpImpact);
   return (
-    <section className="py-24 bg-muted/30">
-      <div className="container mx-auto px-6 lg:px-12">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <Badge className="mb-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white border-0 text-sm px-4 py-2">
-            Real-Life Impact
-          </Badge>
-          <h2 className="text-4xl lg:text-5xl font-bold text-foreground">Where Your Help Goes</h2>
-          <p className="text-xl text-muted-foreground mt-4 max-w-3xl mx-auto">
+    <section className="section bg-muted/20">
+      <div className="section-inner">
+        <div className="text-center stack-lg mb-12">
+          <div className="stack">
+            <p className="eyebrow">Impact</p>
+            <h2 className="section-title">Where Your Help Goes</h2>
+          </div>
+          <p className="section-lead max-w-3xl mx-auto">
             Your generosity isn't just a number—it's a story of changed lives and transformed communities.
           </p>
         </div>
 
         {/* Impact Stories */}
-        <div className="space-y-20">
+        <div className="space-y-16">
           {stories.map((story, index) => (
             <div key={story.id} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 !== 0 ? 'lg:grid-flow-col-dense' : ''}`}>
               {/* Image Side */}
               <div className={`relative h-96 lg:h-[500px] ${index % 2 !== 0 ? 'lg:order-2' : ''}`}>
-                <div className="absolute inset-0 bg-gradient-to-br from-red-200 to-pink-200 dark:from-red-900/30 dark:to-pink-900/30 rounded-3xl transform -rotate-3"></div>
-                <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl transform rotate-2">
+                <div className="relative w-full h-full rounded-[var(--radius)] overflow-hidden border border-border/40 shadow-sm">
                   <Image
                     src={story.image}
                     alt={story.title}
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent"></div>
                 </div>
               </div>
 
               {/* Content Side */}
               <div className="space-y-6">
-                <h3 className="text-3xl font-bold text-foreground">{story.title}</h3>
-                <p className="text-lg text-muted-foreground leading-relaxed">{story.description}</p>
+                <h3 className="text-2xl font-semibold text-foreground">{story.title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{story.description}</p>
                 <div className="flex items-center gap-6 pt-4">
                   <div className="text-center">
-                    <div className="text-5xl font-extrabold bg-gradient-to-r from-rose-600 via-red-600 to-pink-600 bg-clip-text text-transparent">
+                    <div className="text-4xl font-semibold text-foreground">
                       {story.stat.value}
                     </div>
                     <div className="text-sm font-semibold text-muted-foreground tracking-wider uppercase">{story.stat.label}</div>
                   </div>
-                  <Button variant="outline" className="border-2 border-rose-200 dark:border-rose-800">Read Full Story</Button>
+                  <Button variant="outline">Read Full Story</Button>
                 </div>
               </div>
             </div>

@@ -6,52 +6,53 @@ import { Users, MessageCircle, Music, Heart, Church, Globe } from 'lucide-react'
 export default function PhotozenInfo() {
   const features = [
     {
-      icon: <Users className="w-8 h-8 text-blue-500" />,
+      icon: <Users className="w-6 h-6 text-foreground" />,
       title: "Panel Session",
       description: "Leaders and representatives from up to 6 churches and 2 student Christian associations sharing wisdom and insights."
     },
     {
-      icon: <Music className="w-8 h-8 text-purple-500" />,
+      icon: <Music className="w-6 h-6 text-foreground" />,
       title: "Joint Choir Ministration",
       description: "Experience powerful worship as churches come together in unified praise and celebration."
     },
     {
-      icon: <MessageCircle className="w-8 h-8 text-green-500" />,
+      icon: <MessageCircle className="w-6 h-6 text-foreground" />,
       title: "Prayer & Networking",
       description: "Join in corporate prayer for the salvation of the region and connect with fellow believers."
     },
     {
-      icon: <Heart className="w-8 h-8 text-red-500" />,
+      icon: <Heart className="w-6 h-6 text-foreground" />,
       title: "Interdenominational Unity",
       description: "Promoting collaboration and cooperation among churches across South Wales."
     },
     {
-      icon: <Church className="w-8 h-8 text-indigo-500" />,
+      icon: <Church className="w-6 h-6 text-foreground" />,
       title: "Intergenerational Transfer",
       description: "Pivotal opportunity for wisdom and knowledge transfer from older to newer generations."
     },
     {
-      icon: <Globe className="w-8 h-8 text-orange-500" />,
+      icon: <Globe className="w-6 h-6 text-foreground" />,
       title: "Regional Impact",
       description: "Working together to foster the spread of the gospel in Wales and the United Kingdom."
     }
   ];
 
   return (
-    <section className="py-24 bg-muted/40">
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            About The Conference
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            There&apos;s no big church and there&apos;s no small church. But there&apos;s a <strong>Big Church</strong> when we come together: 
+    <section className="section bg-muted/20">
+      <div className="section-inner">
+        <div className="text-center stack-lg mb-12">
+          <div className="stack">
+            <p className="eyebrow">Conference</p>
+            <h2 className="section-title">About The Conference</h2>
+          </div>
+          <p className="section-lead max-w-3xl mx-auto">
+            There&apos;s no big church and there&apos;s no small church. But there&apos;s a <strong>Big Church</strong> when we come together:
             The commonwealth of Zion, the church of the Most High.
           </p>
         </div>
 
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 rounded-3xl p-8 lg:p-12 mb-16">
-          <div className="prose prose-lg dark:prose-invert max-w-none">
+        <div className="bg-muted/30 rounded-[var(--radius)] p-8 lg:p-12 mb-12">
+          <div className="max-w-none">
             <p className="text-muted-foreground leading-relaxed mb-6">
               The Big Church Conference is the gathering of Christians from different denominations in South Wales 
               to meet and pray together for the salvation of the region, to promote interdenominational collaboration 
@@ -67,10 +68,10 @@ export default function PhotozenInfo() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {features.map((feature, index) => (
-            <Card key={index} className="bg-card border border-border/10 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <CardContent className="p-8 text-center">
+            <Card key={index} className="bg-card border border-border/40 rounded-[var(--radius)] shadow-sm">
+              <CardContent className="p-6 text-center">
                 <div className="mb-6 flex justify-center">
                   {feature.icon}
                 </div>
@@ -85,8 +86,8 @@ export default function PhotozenInfo() {
           ))}
         </div>
 
-        <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 rounded-3xl p-8 lg:p-12">
-          <h3 className="text-3xl font-bold text-foreground mb-6">
+        <div className="bg-muted/30 rounded-[var(--radius)] p-8 lg:p-12">
+          <h3 className="text-2xl font-semibold text-foreground mb-6">
             Who We Are
           </h3>
           <div className="space-y-4 text-muted-foreground leading-relaxed">
@@ -97,7 +98,7 @@ export default function PhotozenInfo() {
             </p>
             <p>
               We believe in a united body of Christ, as the scripture says in Ephesians 4:4-5: 
-              <em className="block mt-2 pl-4 border-l-4 border-blue-500 italic">
+              <em className="block mt-2 pl-4 border-l-4 border-primary italic">
                 &quot;There is one body and one Spirit, just as you were called to one hope when you were called; 
                 one Lord, one faith, one baptism; one God and Father of all, who is over all and through all 
                 and in all.&quot;
@@ -112,36 +113,36 @@ export default function PhotozenInfo() {
               Christ Community also runs other missions and meetings which includes intercessory prayers for 
               soul winning in Wales, Free Bible Project, and Mission aid for Independent Missionaries across 
               the World. For more information about Christ Community, kindly visit{' '}
-              <a href="https://christcommunityglobal.org" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">
+              <a href="https://christcommunityglobal.org" target="_blank" rel="noopener noreferrer" className="text-foreground underline">
                 Christcommunityglobal.org
               </a>
             </p>
           </div>
         </div>
 
-        <div className="mt-16 bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-950/30 dark:to-blue-950/30 rounded-3xl p-8 lg:p-12">
-          <h3 className="text-3xl font-bold text-foreground mb-6">
+        <div className="mt-12 bg-muted/30 rounded-[var(--radius)] p-8 lg:p-12">
+          <h3 className="text-2xl font-semibold text-foreground mb-6">
             Benefits to You
           </h3>
           <ul className="space-y-4 text-muted-foreground">
             <li className="flex items-start">
-              <span className="text-blue-600 mr-3 text-xl">✓</span>
+              <span className="text-primary mr-3 text-xl">✓</span>
               <span>Opportunity to connect and learn from leaders in different ministries</span>
             </li>
             <li className="flex items-start">
-              <span className="text-blue-600 mr-3 text-xl">✓</span>
+              <span className="text-primary mr-3 text-xl">✓</span>
               <span>Opportunity to share God&apos;s revelation and vision with other believers to advance the Gospel</span>
             </li>
             <li className="flex items-start">
-              <span className="text-blue-600 mr-3 text-xl">✓</span>
+              <span className="text-primary mr-3 text-xl">✓</span>
               <span>Opportunity to connect with Christian student associations</span>
             </li>
             <li className="flex items-start">
-              <span className="text-blue-600 mr-3 text-xl">✓</span>
+              <span className="text-primary mr-3 text-xl">✓</span>
               <span>Experience the power of unified worship and intercession with believers from diverse backgrounds</span>
             </li>
             <li className="flex items-start">
-              <span className="text-blue-600 mr-3 text-xl">✓</span>
+              <span className="text-primary mr-3 text-xl">✓</span>
               <span>Most importantly, you&apos;ll be obeying God by playing a great part in fostering the unity of believers in South Wales</span>
             </li>
           </ul>

@@ -80,14 +80,15 @@ export default function VolunteerProcess({
   processes = defaultProcesses
 }: VolunteerProcessProps) {
   return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section className="section">
+      <div className="section-inner">
         {/* Header */}
         <div className="mb-12 grid lg:grid-cols-2 gap-8 items-center">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight text-foreground">
-            {title}
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-xl">
+          <div className="stack">
+            <p className="eyebrow">Process</p>
+            <h2 className="section-title">{title}</h2>
+          </div>
+          <p className="section-lead max-w-xl">
             {subtitle}
           </p>
         </div>
@@ -95,14 +96,14 @@ export default function VolunteerProcess({
         {/* Process Steps */}
         <div className="relative max-w-4xl mx-auto">
           {/* Connection Line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-tertiary/30 via-tertiary/50 to-tertiary/30 transform -translate-x-1/2 hidden lg:block" />
+          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-border transform -translate-x-1/2 hidden lg:block" />
 
           {processes.map((process, index) => (
             <div key={process.step} className="relative mb-16 last:mb-0">
               {/* Step Indicator */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-8 lg:top-16 z-10 hidden lg:block">
-                <div className="w-16 h-16 bg-tertiary rounded-full flex items-center justify-center shadow-lg">
-                  <span className="text-tertiary-foreground font-bold text-xl">{process.step}</span>
+                <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-8 lg:top-16 z-10 hidden lg:block">
+                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-sm">
+                  <span className="text-primary-foreground font-bold text-lg">{process.step}</span>
                 </div>
               </div>
 
@@ -112,10 +113,10 @@ export default function VolunteerProcess({
               }`}>
                 {/* Left Side (or Right for odd items) */}
                 <div className={`${index % 2 === 0 ? 'lg:pr-16' : 'lg:pl-16 lg:order-2'}`}>
-                  <Card className="border border-border/10 bg-card p-8 transition-all duration-300 hover:border-tertiary/40 hover:shadow-lg rounded-xl">
+                  <Card className="border border-border/40 bg-card p-6 transition-all duration-300 hover:shadow-md rounded-[var(--radius)]">
                     <div className="flex items-center mb-4 lg:hidden">
-                      <div className="w-12 h-12 bg-tertiary rounded-full flex items-center justify-center mr-4">
-                        <span className="text-tertiary-foreground font-bold">{process.step}</span>
+                      <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center mr-4">
+                        <span className="text-primary-foreground font-bold">{process.step}</span>
                       </div>
                       <Badge variant="outline" className="text-xs border-border/20">
                         <Clock className="w-3 h-3 mr-1" />
@@ -127,7 +128,7 @@ export default function VolunteerProcess({
                       {process.title}
                     </h3>
                     
-                    <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                    <p className="text-muted-foreground leading-relaxed mb-6">
                       {process.description}
                     </p>
 
@@ -135,7 +136,7 @@ export default function VolunteerProcess({
                       <ul className="space-y-2 mb-6">
                         {process.details.map((detail, detailIndex) => (
                           <li key={detailIndex} className="flex items-start text-sm text-muted-foreground">
-                            <CheckCircle className="w-4 h-4 text-tertiary mr-2 mt-0.5 flex-shrink-0" />
+                            <CheckCircle className="w-4 h-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
                             {detail}
                           </li>
                         ))}
@@ -151,8 +152,8 @@ export default function VolunteerProcess({
 
                 {/* Right Side (or Left for odd items) */}
                 <div className={`flex justify-center ${index % 2 === 0 ? 'lg:pl-16' : 'lg:pr-16 lg:order-1'}`}>
-                  <div className="w-32 h-32 bg-tertiary/10 rounded-full flex items-center justify-center shadow-lg">
-                    <div className="text-tertiary">
+                  <div className="w-24 h-24 bg-muted rounded-full flex items-center justify-center">
+                    <div className="text-foreground">
                       {process.icon}
                     </div>
                   </div>
@@ -163,11 +164,11 @@ export default function VolunteerProcess({
         </div>
 
         {/* Call to Action */}
-        <div className="text-center mt-16 p-8 bg-tertiary rounded-xl text-tertiary-foreground">
-          <h3 className="text-3xl font-bold mb-4">
+        <div className="text-center mt-16 p-8 bg-muted/30 rounded-[var(--radius)]">
+          <h3 className="text-2xl font-semibold text-foreground mb-4">
             Ready to Take the First Step?
           </h3>
-          <p className="text-xl mb-8 text-tertiary-foreground/90 max-w-2xl mx-auto">
+          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Join our community of volunteers and start making a meaningful difference today. 
             We're here to support you every step of the way.
           </p>
@@ -175,7 +176,6 @@ export default function VolunteerProcess({
             <Button 
               size="lg" 
               asChild
-              className="bg-background text-foreground hover:bg-background/90 px-8 py-4 text-lg font-semibold"
             >
               <a href="/contact">
                 Express Interest Now
@@ -186,7 +186,6 @@ export default function VolunteerProcess({
               size="lg" 
               variant="outline"
               asChild
-              className="border-2 border-tertiary-foreground/30 text-black hover:bg-tertiary-foreground/10 px-8 py-4 text-lg font-semibold"
             >
               <a href="/contact">
                 Contact Us First

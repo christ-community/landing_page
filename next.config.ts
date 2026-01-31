@@ -16,6 +16,16 @@ const nextConfig: NextConfig = {
       'images.ctfassets.net', // Contentful images
       'assets.ctfassets.net', // Contentful assets
     ],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '*.public.blob.vercel-storage.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.blob.vercel-storage.com',
+      },
+    ],
   },
 };
 

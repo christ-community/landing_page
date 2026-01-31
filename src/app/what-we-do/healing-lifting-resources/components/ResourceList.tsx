@@ -26,11 +26,10 @@ const formatIcons = {
 function ResourceCard({ resource }: { resource: HealingResource }) {
   const FormatIcon = formatIcons[resource.format];
   return (
-    <Card className="group overflow-hidden flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+    <Card className="group overflow-hidden flex flex-col transition-all duration-300 hover:shadow-md border-border/40">
       <div className="relative h-56">
         <Image src={resource.image} alt={resource.title} fill className="object-cover group-hover:scale-105 transition-transform"/>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-        <Badge className="absolute top-4 left-4 flex items-center gap-2">
+        <Badge className="absolute top-4 left-4 flex items-center gap-2 bg-background/80 text-foreground border border-border/40">
             <FormatIcon className="w-4 h-4" />
             {resource.format}
         </Badge>
@@ -63,13 +62,13 @@ export default function ResourceList({ resources }: ResourceListProps) {
   });
 
   return (
-    <div className="py-24 bg-background">
-      <div className="container mx-auto px-6 lg:px-12">
+    <section className="section">
+      <div className="section-inner">
         <div className="grid lg:grid-cols-4 gap-8 items-start">
           {/* Filters - Left Sidebar */}
           <aside className="lg:col-span-1">
-            <div className="p-6 bg-muted/40 rounded-xl sticky top-24">
-              <h3 className="text-xl font-bold mb-6">Filter Resources</h3>
+            <div className="p-6 bg-muted/30 rounded-[var(--radius)] sticky top-24 border border-border/40">
+              <h3 className="text-lg font-semibold mb-6">Filter Resources</h3>
               <div className="space-y-6">
                 <div>
                   <label className="text-sm font-medium mb-2 block">Search</label>
@@ -102,13 +101,13 @@ export default function ResourceList({ resources }: ResourceListProps) {
           {/* Resource Grid - Right Side */}
           <main className="lg:col-span-3">
             {filteredResources.length > 0 ? (
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid md:grid-cols-2 gap-6">
                     {filteredResources.map(resource => (
                         <ResourceCard key={resource.id} resource={resource} />
                     ))}
                 </div>
             ) : (
-                <div className="text-center py-20 bg-muted/20 rounded-xl">
+                <div className="text-center py-20 bg-muted/30 rounded-[var(--radius)] border border-border/40">
                     <Library className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
                     <h3 className="text-2xl font-bold text-foreground">No Resources Found</h3>
                     <p className="text-muted-foreground mt-2">
@@ -119,6 +118,6 @@ export default function ResourceList({ resources }: ResourceListProps) {
           </main>
         </div>
       </div>
-    </div>
+    </section>
   );
-} 
+}

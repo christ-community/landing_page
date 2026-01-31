@@ -75,7 +75,6 @@ function getPathsForContentType(contentType: string): string[] {
     // Get Involved
     volunteerOpportunity: ['/get-involved', '/get-involved/volunteer-with-us'],
     involvementOption: ['/get-involved'],
-    church: ['/get-involved/find-a-church'],
     tract: ['/get-involved/order-a-tract'],
     
     // What We Do

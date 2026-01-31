@@ -11,19 +11,29 @@ import Link from 'next/link';
 import { MapPin, Calendar, Search, Users } from 'lucide-react';
 import type { EventItem } from '@/types';
 
+interface FeaturedMedia {
+  type: 'image' | 'video';
+  src: string;
+  alt: string;
+  poster?: string;
+}
+
 interface EventListProps {
   events: EventItem[];
+  featuredMedia?: {
+    bigChurch?: FeaturedMedia;
+    tenCfc?: FeaturedMedia;
+  };
 }
 
 const categories = ['Community', 'Conference', 'Outreach', 'Webinar', 'Workshop'];
 
 function EventCard({ event }: { event: EventItem }) {
   return (
-    <Card className="group overflow-hidden flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+    <Card className="group overflow-hidden flex flex-col transition-all duration-300 hover:shadow-md border-border/40">
       <div className="relative h-56">
         <Image src={event.image} alt={event.title} fill className="object-cover group-hover:scale-105 transition-transform"/>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-        <Badge className="absolute top-4 left-4">{event.category}</Badge>
+        <Badge className="absolute top-4 left-4 bg-background/80 text-foreground border border-border/40">{event.category}</Badge>
       </div>
       <div className="p-6 flex flex-col flex-grow">
         <div className="flex justify-between items-start mb-2">
@@ -48,7 +58,7 @@ function EventCard({ event }: { event: EventItem }) {
   )
 }
 
-export default function EventList({ events }: EventListProps) {
+export default function EventList({ events, featuredMedia }: EventListProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
 
@@ -60,13 +70,13 @@ export default function EventList({ events }: EventListProps) {
   });
 
   return (
-    <div className="py-24 bg-background">
-      <div className="container mx-auto px-6 lg:px-12">
+    <section className="section">
+      <div className="section-inner">
         {/* Featured Event - Cardiff Outreach */}
-        <Card className="mb-12 overflow-hidden bg-gradient-to-r from-tertiary/10 to-red-50 dark:from-tertiary/20 dark:to-red-950/30 border-2 border-tertiary/30 dark:border-tertiary/50">
+        <Card className="mb-12 overflow-hidden bg-muted/30 border border-border/40">
           <div className="grid md:grid-cols-2 gap-6 p-8">
             <div className="flex flex-col justify-center">
-              <Badge className="bg-gradient-to-r from-tertiary to-red-600 text-white border-0 w-fit mb-4">
+              <Badge className="bg-background/80 text-foreground border border-border/40 w-fit mb-4">
                 Featured Event - Easter 2026
               </Badge>
               <h3 className="text-3xl font-bold text-foreground mb-3">
@@ -78,19 +88,19 @@ export default function EventList({ events }: EventListProps) {
               </p>
               <div className="space-y-2 text-sm text-muted-foreground mb-6">
                 <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-tertiary" />
+                  <Calendar className="w-4 h-4 text-primary" />
                   <span className="font-semibold">Saturday, April 4th, 2026</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-tertiary" />
+                  <MapPin className="w-4 h-4 text-primary" />
                   <span>Cardiff City Center</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Users className="w-4 h-4 text-tertiary" />
+                  <Users className="w-4 h-4 text-primary" />
                   <span>Target: 100 Believers</span>
                 </div>
               </div>
-              <Button asChild className="w-fit bg-gradient-to-r from-tertiary to-red-600 hover:from-red-700 hover:to-red-700">
+              <Button asChild className="w-fit">
                 <Link href="/what-we-do/cardiff-outreach">Sign Up Now</Link>
               </Button>
             </div>
@@ -106,10 +116,10 @@ export default function EventList({ events }: EventListProps) {
         </Card>
 
         {/* Past Event - Big Church Conference */}
-        <Card className="mb-12 overflow-hidden bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-950/30 dark:to-gray-900/30 border border-gray-200 dark:border-gray-800">
+        <Card className="mb-12 overflow-hidden bg-muted/20 border border-border/40">
           <div className="grid md:grid-cols-2 gap-6 p-8">
             <div className="flex flex-col justify-center">
-              <Badge className="bg-gray-600 text-white border-0 w-fit mb-4">
+              <Badge className="bg-background/80 text-foreground border border-border/40 w-fit mb-4">
                 Past Event
               </Badge>
               <h3 className="text-3xl font-bold text-foreground mb-3">
@@ -121,11 +131,11 @@ export default function EventList({ events }: EventListProps) {
               </p>
               <div className="space-y-2 text-sm text-muted-foreground mb-6">
                 <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-gray-600" />
+                  <Calendar className="w-4 h-4 text-primary" />
                   <span>Saturday, November 15th, 2025 • 5:00 PM - 8:00 PM</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-gray-600" />
+                  <MapPin className="w-4 h-4 text-primary" />
                   <span>47B Westbury Street, Swansea, SA1 4JW</span>
                 </div>
               </div>
@@ -134,12 +144,72 @@ export default function EventList({ events }: EventListProps) {
               </Button>
             </div>
             <div className="relative h-64 md:h-auto rounded-xl overflow-hidden">
-              <Image 
-                src="/Church-Conference.jpg" 
-                alt="Big Church Conference" 
-                fill 
-                className="object-cover"
-              />
+              {featuredMedia?.bigChurch?.type === 'video' ? (
+                <video
+                  className="h-full w-full object-cover"
+                  controls
+                  preload="metadata"
+                  poster={featuredMedia.bigChurch.poster}
+                >
+                  <source src={featuredMedia.bigChurch.src} />
+                </video>
+              ) : (
+                <Image
+                  src={featuredMedia?.bigChurch?.src || "/Church-Conference.jpg"}
+                  alt={featuredMedia?.bigChurch?.alt || "Big Church Conference"}
+                  fill
+                  className="object-cover"
+                />
+              )}
+            </div>
+          </div>
+        </Card>
+
+        {/* Outreach - 10 Welsh Cities for Christ */}
+        <Card className="mb-12 overflow-hidden bg-muted/20 border border-border/40">
+          <div className="grid md:grid-cols-2 gap-6 p-8">
+            <div className="flex flex-col justify-center">
+              <Badge className="bg-background/80 text-foreground border border-border/40 w-fit mb-4">
+                Outreach
+              </Badge>
+              <h3 className="text-3xl font-bold text-foreground mb-3">
+                10 Welsh Cities for Christ
+              </h3>
+              <p className="text-muted-foreground mb-4">
+                A multi-city outreach across Wales to share the Gospel through worship, prayer, and compassionate witness.
+              </p>
+              <div className="space-y-2 text-sm text-muted-foreground mb-6">
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-primary" />
+                  <span>Multiple cities across Wales</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-primary" />
+                  <span>Wales, United Kingdom</span>
+                </div>
+              </div>
+              <Button asChild variant="outline" className="w-fit">
+                <Link href="/what-we-do/10-cities-for-christ">View Highlights</Link>
+              </Button>
+            </div>
+            <div className="relative h-64 md:h-auto rounded-xl overflow-hidden">
+              {featuredMedia?.tenCfc?.type === 'video' ? (
+                <video
+                  className="h-full w-full object-cover"
+                  controls
+                  preload="metadata"
+                  poster={featuredMedia.tenCfc.poster}
+                >
+                  <source src={featuredMedia.tenCfc.src} />
+                </video>
+              ) : (
+                <Image
+                  src={featuredMedia?.tenCfc?.src || "/Church-Conference.jpg"}
+                  alt={featuredMedia?.tenCfc?.alt || "10 Welsh Cities for Christ"}
+                  fill
+                  className="object-cover"
+                />
+              )}
             </div>
           </div>
         </Card>
@@ -147,8 +217,8 @@ export default function EventList({ events }: EventListProps) {
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Filters - Left Sidebar */}
           <aside className="lg:col-span-1">
-            <div className="p-6 bg-muted/40 rounded-xl sticky top-24">
-              <h3 className="text-xl font-bold mb-6">Filter Events</h3>
+            <div className="p-6 bg-muted/30 rounded-[var(--radius)] sticky top-24 border border-border/40">
+              <h3 className="text-lg font-semibold mb-6">Filter Events</h3>
               <div className="space-y-6">
                 <div>
                   <label className="text-sm font-medium mb-2 block">Search</label>
@@ -179,9 +249,9 @@ export default function EventList({ events }: EventListProps) {
           </aside>
 
           {/* Event Grid - Right Side */}
-          <main className="lg:col-span-3">
+            <main className="lg:col-span-3">
             {filteredEvents.length > 0 ? (
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid md:grid-cols-2 gap-6">
                     {filteredEvents.map(event => (
                         <EventCard key={event.id} event={event} />
                     ))}
@@ -198,6 +268,6 @@ export default function EventList({ events }: EventListProps) {
           </main>
         </div>
       </div>
-    </div>
+    </section>
   );
-} 
+}

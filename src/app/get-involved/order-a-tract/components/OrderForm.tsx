@@ -114,16 +114,16 @@ export default function OrderForm({ tracts = [] }: OrderFormProps) {
 
   if (submissionStatus === 'success') {
     return (
-      <section className="py-24" id="order-form">
-        <div className="container mx-auto px-6 lg:px-12">
-            <Card className="max-w-3xl mx-auto text-center p-8 bg-teal-50 dark:bg-teal-950/30 border-2 border-teal-200 dark:border-teal-800/50 rounded-2xl shadow-xl">
-              <PartyPopper className="w-16 h-16 mx-auto text-teal-500 mb-4" />
-              <h3 className="text-3xl font-bold text-foreground">Request Received!</h3>
-              <p className="text-muted-foreground text-lg mt-3">Thank you for your request. We'll process it and get your tracts to you shortly.</p>
+      <section className="section" id="order-form">
+        <div className="section-inner">
+            <Card className="max-w-3xl mx-auto text-center p-8 border border-border/40 rounded-[var(--radius)] shadow-sm">
+              <PartyPopper className="w-12 h-12 mx-auto text-primary mb-4" />
+              <h3 className="text-2xl font-semibold text-foreground">Request Received!</h3>
+              <p className="text-muted-foreground mt-3">Thank you for your request. We'll process it and get your tracts to you shortly.</p>
               <Button onClick={() => {
                   setSubmissionStatus(null);
                   setFormData({ name: '', email: '', address: '', tractId: '', quantity: 100 });
-              }} className="mt-8 bg-teal-600 hover:bg-teal-700 text-white">
+              }} className="mt-6">
                 Make Another Request
               </Button>
             </Card>
@@ -133,12 +133,12 @@ export default function OrderForm({ tracts = [] }: OrderFormProps) {
   }
 
   return (
-    <section className="py-24 bg-muted/40" id="order-form">
-      <div className="container mx-auto px-6 lg:px-12">
-        <Card className="max-w-3xl mx-auto bg-card border border-border/10 rounded-2xl shadow-xl overflow-hidden">
+    <section className="section bg-muted/20" id="order-form">
+      <div className="section-inner">
+        <Card className="max-w-3xl mx-auto bg-card border border-border/40 rounded-[var(--radius)] shadow-sm overflow-hidden">
           <CardHeader className="text-center p-8">
-            <CardTitle className="text-3xl font-bold text-foreground">{formConfig.title}</CardTitle>
-            <CardDescription className="text-lg">{formConfig.subtitle}</CardDescription>
+            <CardTitle className="text-2xl font-semibold text-foreground">{formConfig.title}</CardTitle>
+            <CardDescription className="text-base">{formConfig.subtitle}</CardDescription>
           </CardHeader>
           <CardContent className="p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -181,13 +181,13 @@ export default function OrderForm({ tracts = [] }: OrderFormProps) {
                 <Textarea id="address" name="address" placeholder={formConfig.fields.address.placeholder} onChange={handleInputChange} value={formData.address} required />
                              </div>
                
-               <div className="bg-muted/20 p-4 rounded-lg border">
-                 <div className="flex justify-between items-center">
-                   <span className="text-lg font-medium text-foreground">Total Price:</span>
-                   <span className="text-3xl font-bold text-foreground">
-                     £{totalPrice.toFixed(2)}
-                   </span>
-                 </div>
+                <div className="bg-muted/20 p-4 rounded-[var(--radius)] border border-border/40">
+                  <div className="flex justify-between items-center">
+                    <span className="text-lg font-medium text-foreground">Total Price:</span>
+                    <span className="text-3xl font-bold text-foreground">
+                      £{totalPrice.toFixed(2)}
+                    </span>
+                  </div>
                  {selectedTract && formData.quantity > 0 && (
                    <p className="text-sm text-muted-foreground mt-2">
                      {formData.quantity} × {selectedTract.title}
@@ -196,9 +196,9 @@ export default function OrderForm({ tracts = [] }: OrderFormProps) {
                </div>
                                             
 
-              {submissionStatus === 'error' && <p className="text-sm text-red-500">Please fill out all required fields.</p>}
+              {submissionStatus === 'error' && <p className="text-sm text-muted-foreground">Please fill out all required fields.</p>}
               
-              <Button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white text-lg py-6" disabled={isSubmitting}>
+              <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
                 {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />

@@ -92,33 +92,30 @@ export default function ContactForm({ config }: ContactFormProps) {
   };
 
   return (
-    <section className="py-24 bg-background" data-section="contact-form">
-      <div className="container mx-auto px-6 lg:px-12">
-        <Card className="max-w-4xl mx-auto bg-card border-2 border-blue-100 dark:border-blue-900/50 rounded-2xl shadow-xl overflow-hidden">
+    <section className="section" data-section="contact-form">
+      <div className="section-inner">
+        <Card className="max-w-4xl mx-auto bg-card border border-border/40 rounded-[var(--radius)] shadow-sm overflow-hidden">
           <CardHeader className="text-center p-8 bg-muted/30">
-            <div className="inline-flex p-4 rounded-full bg-gradient-to-r from-blue-500 to-sky-500 text-white mb-4">
-              <Mail className="w-8 h-8" />
+            <div className="inline-flex p-3 rounded-full bg-muted text-foreground mb-4">
+              <Mail className="w-6 h-6" />
             </div>
-            <CardTitle className="text-3xl font-bold text-foreground">{formConfig.title}</CardTitle>
-            <CardDescription className="text-lg">{formConfig.subtitle}</CardDescription>
+            <CardTitle className="text-2xl font-semibold text-foreground">{formConfig.title}</CardTitle>
+            <CardDescription className="text-base">{formConfig.subtitle}</CardDescription>
           </CardHeader>
           
           <CardContent className="p-8">
             {submissionStatus === 'success' ? (
-              <div className="text-center py-8">
-                <CheckCircle className="w-16 h-16 mx-auto text-green-500 mb-4" />
-                <h3 className="text-2xl font-bold text-foreground">Message Sent Successfully!</h3>
-                <p className="text-muted-foreground mt-2 max-w-md mx-auto">
-                  Thank you for reaching out to us. We'll get back to you within 24-48 hours.
-                </p>
-                <Button 
-                  onClick={() => setSubmissionStatus(null)} 
-                  className="mt-6 bg-blue-600 hover:bg-blue-700 text-white"
-                >
-                  Send Another Message
-                </Button>
-              </div>
-            ) : (
+                <div className="text-center py-8 stack">
+                  <CheckCircle className="w-12 h-12 mx-auto text-primary" />
+                  <h3 className="text-2xl font-semibold text-foreground">Message Sent Successfully!</h3>
+                  <p className="text-muted-foreground max-w-md mx-auto">
+                    Thank you for reaching out to us. We'll get back to you within 24-48 hours.
+                  </p>
+                  <Button onClick={() => setSubmissionStatus(null)}>
+                    Send Another Message
+                  </Button>
+                </div>
+              ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
@@ -214,17 +211,18 @@ export default function ContactForm({ config }: ContactFormProps) {
                 </div>
 
                 {submissionStatus === 'error' && (
-                  <div className="flex items-center gap-2 p-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 rounded-lg">
-                    <AlertCircle className="w-5 h-5 text-red-500" />
-                    <p className="text-sm text-red-700 dark:text-red-400">
+                  <div className="flex items-center gap-2 p-4 bg-muted border border-border/40 rounded-[var(--radius)]">
+                    <AlertCircle className="w-5 h-5 text-primary" />
+                    <p className="text-sm text-muted-foreground">
                       There was an error sending your message. Please try again or contact us directly.
                     </p>
                   </div>
                 )}
 
-                <Button 
-                  type="submit" 
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-6 shadow-lg hover:shadow-xl transition-all duration-300" 
+                <Button
+                  type="submit"
+                  className="w-full"
+                  size="lg"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (

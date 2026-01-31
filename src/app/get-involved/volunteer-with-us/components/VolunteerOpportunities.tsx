@@ -127,9 +127,9 @@ const categories = [
 ];
 
 const locationColors = {
-  remote: 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300',
-  onsite: 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300',
-  hybrid: 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300'
+  remote: 'bg-muted text-foreground',
+  onsite: 'bg-muted text-foreground',
+  hybrid: 'bg-muted text-foreground'
 };
 
 export default function VolunteerOpportunities({
@@ -149,14 +149,15 @@ export default function VolunteerOpportunities({
     : filteredOpportunities.slice(0, 6);
 
   return (
-    <section className="py-20 bg-background" data-section="volunteer-opportunities">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section className="section" data-section="volunteer-opportunities">
+      <div className="section-inner">
         {/* Header */}
         <div className="mb-12 grid lg:grid-cols-2 gap-8 items-center">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight text-foreground">
-            {title}
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-xl">
+          <div className="stack">
+            <p className="eyebrow">Opportunities</p>
+            <h2 className="section-title">{title}</h2>
+          </div>
+          <p className="section-lead max-w-xl">
             {subtitle}
           </p>
         </div>
@@ -168,11 +169,7 @@ export default function VolunteerOpportunities({
               key={category.id}
               variant={selectedCategory === category.id ? "default" : "outline"}
               onClick={() => setSelectedCategory(category.id)}
-              className={`rounded-lg px-6 py-2 transition-all duration-300 ${
-                selectedCategory === category.id 
-                  ? 'bg-tertiary text-tertiary-foreground hover:bg-tertiary/90' 
-                  : 'border-border/20 text-foreground hover:bg-tertiary/10 hover:border-tertiary/40'
-              }`}
+              className="rounded-[var(--radius)] px-4"
             >
               <category.icon className="w-4 h-4 mr-2" />
               {category.label}
@@ -183,21 +180,21 @@ export default function VolunteerOpportunities({
         {/* Opportunities Grid */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-12">
           {displayedOpportunities.map((opportunity) => (
-            <Card key={opportunity.id} className="group relative overflow-hidden border border-border/10 bg-card p-6 transition-all duration-300 hover:border-tertiary/40 hover:shadow-lg rounded-xl">
+            <Card key={opportunity.id} className="group relative overflow-hidden border border-border/40 bg-card p-6 transition-all duration-300 hover:shadow-md">
               <CardHeader className="pb-4 p-0">
                 <div className="flex items-start justify-between mb-4">
-                  <div className="p-3 bg-tertiary/10 rounded-lg">
+                  <div className="p-3 bg-muted rounded-[var(--radius)]">
                     {opportunity.icon}
                   </div>
                   <div className="flex flex-col gap-2">
                     {opportunity.isPopular && (
-                      <Badge className="bg-tertiary/20 text-tertiary">
+                      <Badge className="bg-muted text-foreground">
                         <Star className="w-3 h-3 mr-1" />
                         Popular
                       </Badge>
                     )}
                     {opportunity.isUrgent && (
-                      <Badge className="bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300">
+                      <Badge className="bg-muted text-foreground">
                         Urgent
                       </Badge>
                     )}
@@ -213,20 +210,20 @@ export default function VolunteerOpportunities({
                 </p>
               </CardHeader>
 
-              <CardContent className="space-y-4 p-0">
-                {/* Details */}
-                <div className="space-y-2">
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <Clock className="w-4 h-4 mr-2 text-tertiary" />
-                    {opportunity.timeCommitment}
+                <CardContent className="space-y-4 p-0">
+                  {/* Details */}
+                  <div className="space-y-2">
+                    <div className="flex items-center text-sm text-muted-foreground">
+                      <Clock className="w-4 h-4 mr-2 text-primary" />
+                      {opportunity.timeCommitment}
+                    </div>
+                    <div className="flex items-center text-sm">
+                      <MapPin className="w-4 h-4 mr-2 text-primary" />
+                      <Badge variant="secondary" className={locationColors[opportunity.location]}>
+                        {opportunity.location.charAt(0).toUpperCase() + opportunity.location.slice(1)}
+                      </Badge>
+                    </div>
                   </div>
-                  <div className="flex items-center text-sm">
-                    <MapPin className="w-4 h-4 mr-2 text-tertiary" />
-                    <Badge variant="secondary" className={locationColors[opportunity.location]}>
-                      {opportunity.location.charAt(0).toUpperCase() + opportunity.location.slice(1)}
-                    </Badge>
-                  </div>
-                </div>
 
                 {/* Tags */}
                 {opportunity.tags && (
@@ -240,10 +237,7 @@ export default function VolunteerOpportunities({
                 )}
 
                 {/* Action Button */}
-                <Button
-                  asChild
-                  className="w-full mt-4 bg-tertiary hover:bg-tertiary/90 text-tertiary-foreground"
-                >
+                <Button asChild className="w-full mt-4">
                   <a href="/contact">
                     Learn More
                     <ArrowRight className="w-4 h-4 ml-2" />
@@ -261,7 +255,6 @@ export default function VolunteerOpportunities({
               variant="outline"
               size="lg"
               onClick={() => setShowAll(!showAll)}
-              className="border-2 border-tertiary/20 text-foreground hover:bg-tertiary/10 hover:border-tertiary/40 px-8"
             >
               <Filter className="w-5 h-5 mr-2" />
               {showAll ? 'Show Less' : `Show All ${filteredOpportunities.length} Opportunities`}
@@ -270,14 +263,14 @@ export default function VolunteerOpportunities({
         )}
 
         {/* Call to Action */}
-        <div className="text-center mt-16 p-8 bg-card border border-border/10 rounded-xl">
-          <h3 className="text-2xl font-bold text-foreground mb-4">
+        <div className="text-center mt-16 p-8 bg-muted/30 border border-border/40 rounded-[var(--radius)]">
+          <h3 className="text-2xl font-semibold text-foreground mb-4">
             Don't See the Perfect Fit?
           </h3>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             We're always looking for passionate volunteers with unique skills. Contact us to discuss how your talents can make a difference.
           </p>
-          <Button className="bg-tertiary hover:bg-tertiary/90 text-tertiary-foreground px-8">
+          <Button className="px-8">
             Contact Our Volunteer Coordinator
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>

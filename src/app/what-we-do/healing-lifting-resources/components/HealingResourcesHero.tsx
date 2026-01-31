@@ -7,14 +7,15 @@ interface HealingResourcesHeroProps {
 
 export default function HealingResourcesHero({ title, subtitle }: HealingResourcesHeroProps) {
     return (
-        <section className="bg-gradient-to-br from-gray-50 via-sky-100/40 to-blue-100/50 dark:from-gray-900 dark:via-sky-950/20 dark:to-blue-950/30 py-24">
-            <div className="container mx-auto px-6 lg:px-12 text-center">
-                <h1 className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight mb-4">
-                    {title}
-                </h1>
-                <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-                    {subtitle}
-                </p>
+        <section className="section bg-muted/20">
+            <div className="section-inner text-center">
+                <div className="max-w-3xl mx-auto stack-lg">
+                    <div className="stack">
+                        <p className="eyebrow">Resources</p>
+                        <h1>{title}</h1>
+                    </div>
+                    <p className="section-lead">{subtitle}</p>
+                </div>
             </div>
         </section>
     )

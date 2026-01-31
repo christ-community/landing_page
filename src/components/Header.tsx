@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import * as React from "react";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -29,8 +28,6 @@ import {
   Calendar,
   HeartPulse,
   Handshake,
-  HelpCircle,
-  Church,
   HandHelping,
   ChevronDown,
   LayoutGrid,
@@ -82,6 +79,12 @@ const defaultHeaderConfig: HeaderConfig = {
           description: "Find upcoming meetings and community events.",
         },
         {
+          href: "/what-we-do/10-cities-for-christ",
+          label: "10 Welsh Cities for Christ",
+          icon: HeartPulse,
+          description: "Outreach across Wales to share the Gospel.",
+        },
+        {
           href: "/what-we-do/access-consultation-services",
           label: "Consultation Services",
           icon: Handshake,
@@ -89,31 +92,25 @@ const defaultHeaderConfig: HeaderConfig = {
         },
       ],
     },
-    {
-      href: "/get-involved",
-      label: "Get Involved",
-      children: [
         {
-          href: "/get-involved/volunteer-with-us",
-          label: "Volunteer With Us",
-          icon: HandHelping,
-          description: "Use your gifts to serve the community.",
-        },
+          href: "/get-involved",
+          label: "Get Involved",
+          children: [
+            {
+              href: "/get-involved/volunteer-with-us",
+              label: "Volunteer With Us",
+              icon: HandHelping,
+              description: "Use your gifts to serve the community.",
+            },
 
-        {
-          href: "/get-involved/order-a-tract",
-          label: "Order a Tract",
-          icon: BookOpen,
-          description: "Share your faith with gospel literature.",
+            {
+              href: "/get-involved/order-a-tract",
+              label: "Order a Tract",
+              icon: BookOpen,
+              description: "Share your faith with gospel literature.",
+            },
+          ],
         },
-        {
-          href: "/get-involved/find-a-church",
-          label: "Find a Church",
-          icon: Church,
-          description: "Locate a like-minded church in another area.",
-        },
-      ],
-    },
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
   ],
@@ -153,20 +150,49 @@ const Header = ({ config }: HeaderProps) => {
     mobileMenuTitle,
     mobileMenuDescription,
   } = headerConfig;
+  const visibleActions = actionButtons.filter((button) => button.href);
 
+  const pathname = usePathname();
   const [openDropdown, setOpenDropdown] = React.useState<string | null>(null);
+  const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const normalizePath = (value?: string) => {
+    if (!value) return "";
+    if (value === "/") return "/";
+    return value.replace(/\/+$/, "");
+  };
+
+  const normalizedPath = normalizePath(pathname || "/");
+
+  const isActiveRoute = (href?: string) => {
+    if (!href) return false;
+    const normalizedHref = normalizePath(href);
+    if (normalizedHref === "/") return normalizedPath === "/";
+    return normalizedPath === normalizedHref || normalizedPath.startsWith(`${normalizedHref}/`);
+  };
+
+  const cancelClose = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+  };
 
   const handleMouseEnter = (label: string) => {
+    cancelClose();
     setOpenDropdown(label);
   };
 
   const handleMouseLeave = () => {
-    setOpenDropdown(null);
+    cancelClose();
+    closeTimeoutRef.current = setTimeout(() => {
+      setOpenDropdown(null);
+    }, 300);
   };
 
   return (
-    <header className="w-full bg-background/95 backdrop-blur-sm border-b border-border/20 sticky top-0 z-50">
-      <div className="container mx-auto px-4 lg:px-8">
+    <header className="w-full bg-background/95 backdrop-blur-sm border-b border-border/60 sticky top-0 z-50">
+      <div className="section-inner">
         <div className="flex items-center justify-between h-20">
           <a href="/" className="flex items-center">
             <img
@@ -178,23 +204,39 @@ const Header = ({ config }: HeaderProps) => {
             />
           </a>
 
-          <nav className="hidden lg:flex items-center space-x-1">
+          <nav className="hidden lg:flex items-center">
             <NavigationMenu>
-              <NavigationMenuList>
-                {navigationItems.map((item) => (
-                  <NavigationMenuItem key={item.label}>
+              <NavigationMenuList className="gap-2">
+                {navigationItems.map((item) => {
+                  const isParentActive = isActiveRoute(item.href) || item.children?.some((child) => isActiveRoute(child.href));
+
+                  return (
+                  <NavigationMenuItem
+                    key={item.label}
+                    onMouseEnter={() => item.children && handleMouseEnter(item.label)}
+                    onMouseLeave={handleMouseLeave}
+                  >
                     {item.children ? (
                       <>
-                        <NavigationMenuTrigger className="text-base bg-transparent">
+                        <NavigationMenuTrigger
+                          className={cn(
+                            "text-base bg-transparent",
+                            isParentActive
+                              ? "text-primary bg-accent/60"
+                              : ""
+                          )}
+                          onMouseEnter={() => handleMouseEnter(item.label)}
+                          onFocus={() => handleMouseEnter(item.label)}
+                        >
                           {item.label}
                         </NavigationMenuTrigger>
                         {openDropdown === item.label && (
-                          <NavigationMenuContent onMouseEnter={() => handleMouseEnter(item.label)} onMouseLeave={handleMouseLeave}>
-                            <div className="flex w-[600px] md:w-[700px] lg:w-[850px] shadow-lg" style={{ marginLeft: '-50%' }}>
-                              <div className="relative overflow-hidden w-[300px] p-6 flex flex-col justify-center bg-gradient-to-b from-accent/60 via-background to-background rounded-l-md border-r border-border/20">
-                                <div className="absolute top-0 left-0 w-40 h-40 bg-tertiary/10 rounded-full -translate-x-1/3 -translate-y-1/3 blur-sm" />
-                                <div className="absolute bottom-0 right-0 w-56 h-56 bg-primary/10 rounded-full translate-x-1/4 translate-y-1/4 blur-sm" />
-                                <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-secondary/5 -translate-x-1/2 -translate-y-1/2 rounded-full blur-md" />
+                          <NavigationMenuContent
+                            onMouseEnter={() => handleMouseEnter(item.label)}
+                            onMouseLeave={handleMouseLeave}
+                          >
+                            <div className="flex w-[600px] md:w-[720px] lg:w-[840px] shadow-lg" style={{ marginLeft: '-50%' }}>
+                              <div className="relative overflow-hidden w-[300px] p-6 flex flex-col justify-center bg-muted/60 rounded-l-[var(--radius)] border-r border-border/40">
                                 <div className="relative z-10">
                                   <h3 className="text-xl font-bold text-foreground">
                                     {menuHighlights[
@@ -209,14 +251,17 @@ const Header = ({ config }: HeaderProps) => {
                                   </p>
                                 </div>
                               </div>
-                              <ul className="grid flex-1 gap-3 p-4 md:grid-cols-2">
+                              <ul className="grid flex-1 gap-4 p-6 md:grid-cols-2">
                                 <ListItem
                                   key={`${item.label}-overview`}
                                   title={`${item.label} Overview`}
                                   href={item.href}
                                   icon={LayoutGrid}
                                   liClassName="md:col-span-2"
-                                  className="bg-accent/50 border border-border/30"
+                                  className={cn(
+                                    "bg-accent/50 border border-border/40",
+                                    isActiveRoute(item.href) ? "bg-accent text-accent-foreground" : ""
+                                  )}
                                 >
                                   Get a complete overview of the{" "}
                                   {item.label.toLowerCase()} section.
@@ -227,6 +272,9 @@ const Header = ({ config }: HeaderProps) => {
                                     title={component.label}
                                     href={component.href}
                                     icon={component.icon}
+                                    className={cn(
+                                      isActiveRoute(component.href) ? "bg-accent text-accent-foreground" : ""
+                                    )}
                                   >
                                     {component.description}
                                   </ListItem>
@@ -242,29 +290,28 @@ const Header = ({ config }: HeaderProps) => {
                           href={item.href}
                           className={cn(
                             navigationMenuTriggerStyle(),
-                            "text-base bg-transparent"
+                            "text-base bg-transparent",
+                            isParentActive ? "bg-accent/60 text-primary" : ""
                           )}
+                          aria-current={isParentActive ? "page" : undefined}
                         >
                           {item.label}
                         </a>
                       </NavigationMenuLink>
                     )}
                   </NavigationMenuItem>
-                ))}
+                );
+                })}
               </NavigationMenuList>
             </NavigationMenu>
           </nav>
 
-          <div className="flex items-center space-x-3">
-            <div className="hidden sm:flex items-center space-x-3">
-              {actionButtons.map((button) => (
-                <a
-                  key={button.label}
-                  href={button.href || "#"}
-                  className="inline-flex items-center justify-center px-6 py-2 bg-tertiary text-tertiary-foreground hover:bg-tertiary/90 shadow-md hover:shadow-lg transition-all rounded-md font-medium text-sm"
-                >
-                  {button.label}
-                </a>
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:flex items-center gap-4">
+              {visibleActions.map((button) => (
+                <Button key={button.label} asChild size="default">
+                  <a href={button.href}>{button.label}</a>
+                </Button>
               ))}
             </div>
 
@@ -275,9 +322,9 @@ const Header = ({ config }: HeaderProps) => {
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px] flex flex-col">
+              <SheetContent side="right" className="w-[320px] sm:w-[400px] flex flex-col">
                 <SheetHeader className="flex-shrink-0">
-                  <SheetTitle className="flex items-center space-x-3">
+                  <SheetTitle className="flex items-center gap-4">
                     <img
                       src={logo.src}
                       alt={logo.alt}
@@ -290,23 +337,37 @@ const Header = ({ config }: HeaderProps) => {
                 </SheetHeader>
 
                 <div className="flex-1 overflow-y-auto py-4">
-                  <div className="flex flex-col space-y-1">
+                  <div className="flex flex-col gap-2">
                     {navigationItems.map((item) => (
-                      <div key={item.label} className="flex flex-col space-y-1">
+                      <div key={item.label} className="flex flex-col gap-2">
                         <a
                           href={item.href}
-                          className="flex items-center justify-between py-3 px-4 text-foreground hover:text-tertiary hover:bg-accent rounded-md transition-all duration-200 font-medium border border-transparent"
+                          className={cn(
+                            "flex items-center justify-between py-2 px-4 text-foreground hover:text-primary hover:bg-accent rounded-[var(--radius)] transition-all duration-200 font-medium border border-transparent",
+                            isActiveRoute(item.href) || item.children?.some((child) => isActiveRoute(child.href))
+                              ? "bg-accent/60 text-primary"
+                              : ""
+                          )}
+                          aria-current={
+                            isActiveRoute(item.href) || item.children?.some((child) => isActiveRoute(child.href))
+                              ? "page"
+                              : undefined
+                          }
                         >
                           <span>{item.label}</span>
                           {item.children && <ChevronDown className="h-4 w-4" />}
                         </a>
                         {item.children && (
-                          <div className="ml-4 flex flex-col space-y-1">
+                          <div className="ml-4 flex flex-col gap-2">
                             {item.children.map((child) => (
                               <a
                                 key={child.label}
                                 href={child.href}
-                                className="flex items-center py-2 px-3 text-sm text-muted-foreground hover:text-tertiary hover:bg-accent rounded-md transition-all duration-200"
+                                className={cn(
+                                  "flex items-center py-2 px-3 text-sm text-muted-foreground hover:text-primary hover:bg-accent rounded-[var(--radius)] transition-all duration-200",
+                                  isActiveRoute(child.href) ? "bg-accent/50 text-primary" : ""
+                                )}
+                                aria-current={isActiveRoute(child.href) ? "page" : undefined}
                               >
                                 {child.icon && (
                                   <child.icon className="w-4 h-4 mr-2" />
@@ -322,15 +383,15 @@ const Header = ({ config }: HeaderProps) => {
                 </div>
 
                 <div className="flex-shrink-0 border-t pt-4">
-                  <div className="flex flex-col space-y-3">
-                    {actionButtons.map((button) => (
-                      <a
+                  <div className="flex flex-col gap-4">
+                    {visibleActions.map((button) => (
+                      <Button
                         key={button.label}
-                        href={button.href || "#"}
-                        className="w-full inline-flex items-center justify-center px-6 py-3 bg-tertiary text-tertiary-foreground hover:bg-tertiary/90 rounded-md font-medium transition-colors"
+                        asChild
+                        size="lg"
                       >
-                        {button.label}
-                      </a>
+                        <a href={button.href}>{button.label}</a>
+                      </Button>
                     ))}
                   </div>
                 </div>
@@ -355,33 +416,33 @@ const ListItem = React.forwardRef<
     ref
   ) => {
     return (
-      <li className={cn(liClassName)}>
-        <NavigationMenuLink asChild>
-          <a
-            href={href || "#"}
-            ref={ref}
-            className={cn(
-              "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-              className
-            )}
-            {...props}
-          >
-            <div className="flex items-start space-x-3">
-              {Icon && (
-                <div className="p-1.5 bg-tertiary/10 rounded-md mt-1 flex-shrink-0">
-                  <Icon className="h-5 w-5 text-tertiary" />
-                </div>
+        <li className={cn(liClassName)}>
+          <NavigationMenuLink asChild>
+            <a
+              href={href || "#"}
+              ref={ref}
+              className={cn(
+                "block select-none space-y-2 rounded-[var(--radius)] p-4 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                className
               )}
-              <div>
-                <div className="text-base font-medium text-foreground">
-                  {title}
+              {...props}
+            >
+              <div className="flex items-start gap-4">
+                {Icon && (
+                  <div className="p-2 bg-accent rounded-[var(--radius)] mt-2 flex-shrink-0">
+                    <Icon className="h-5 w-5 text-primary" />
+                  </div>
+                )}
+                <div>
+                  <div className="text-base font-medium text-foreground">
+                    {title}
+                  </div>
+                  <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                    {children}
+                  </p>
                 </div>
-                <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                  {children}
-                </p>
               </div>
-            </div>
-          </a>
+            </a>
         </NavigationMenuLink>
       </li>
     );

@@ -16,9 +16,6 @@ export const metadata: Metadata = {
 
 export default async function OrderATractPage() {
     const tracts = await getTracts();
-    console.log('Raw tracts from Contentful:', tracts);
-    console.log('Number of tracts:', tracts.length);
-    
     // Process tract assets on server side with proper error handling
     const processedTracts = tracts.map((tract: any) => {
         try {

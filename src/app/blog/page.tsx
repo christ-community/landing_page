@@ -11,20 +11,21 @@ const BlogPage = async () => {
   ]);
 
   return (
-    <div className="py-24">
-      <div className="container mx-auto px-6 lg:px-12">
-        <header className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-foreground mb-4">
-            {pageHero?.title || "Insights & Resources"}
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+    <div className="section">
+      <div className="section-inner">
+        <header className="text-center stack-lg mb-12">
+          <div className="stack">
+            <p className="eyebrow">Blog</p>
+            <h1>{pageHero?.title || "Insights & Resources"}</h1>
+          </div>
+          <p className="section-lead max-w-2xl mx-auto">
             {pageHero?.subtitle || "Explore our latest articles, case studies, and resources to help your community thrive."}
           </p>
         </header>
 
         <BlogContent blogPosts={blogPosts} categories={categories} />
       </div>
-      <div className="mt-24">
+      <div className="mt-12">
         <NewsletterSection />
       </div>
     </div>

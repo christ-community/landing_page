@@ -3,7 +3,6 @@ import WhatWeDoSection from '@/app/(home)/components/WhatWeDoSection';
 import UpcomingEventsSection from '@/components/UpcomingEventsSection';
 import NewsletterSection from '@/components/NewsletterSection';
 import HelpSection from '@/components/HelpSection';
-import ChurchFinderSection from '@/components/ChurchFinderSection';
 import GiveToday from '@/components/GiveToday';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import { getHighlightedTestimonials, getMinistryActivities, getPageContent, getUpcomingEvents, getPageHero, getChurches, processAsset } from '../../../lib/contentful-api';
@@ -47,7 +46,6 @@ export default async function HomePage() {
       <TestimonialsSection testimonials={testimonials} />
       <UpcomingEventsSection events={upcomingEvents} />
       <NewsletterSection />
-      <ChurchFinderSection />
       <HelpSection />
     </>
   );

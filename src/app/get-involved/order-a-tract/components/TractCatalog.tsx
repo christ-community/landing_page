@@ -60,16 +60,11 @@ export default function TractCatalog({ tracts = [], contentfulTracts = [] }: Tra
   };
 
   const handlePreview = (tract: any) => {
-    console.log('Preview clicked for tract:', tract.title);
-    console.log('Sample pages:', tract.samplePages);
     setPreviewTract(tract);
     setCurrentImageIndex(0);
   };
 
   const handleDownload = async (tract: any) => {
-    console.log('Download clicked for tract:', tract.title);
-    console.log('Sample pages:', tract.samplePages);
-    
     // Get all images (cover + sample pages)
     const allImages = [tract.coverImage, ...(tract.samplePages || [])].filter(Boolean);
     
@@ -106,18 +101,21 @@ export default function TractCatalog({ tracts = [], contentfulTracts = [] }: Tra
   };
 
   return (
-    <section className="py-24 bg-background" data-section="tract-catalog">
-      <div className="container mx-auto px-6 lg:px-12">
+    <section className="section" data-section="tract-catalog">
+      <div className="section-inner">
         {/* Header and Filters */}
         <div className="mb-12">
-          <div className="text-center mb-8">
-            <h2 className="text-4xl lg:text-5xl font-bold text-foreground">Our Tract Catalog</h2>
-            <p className="text-xl text-muted-foreground mt-4 max-w-3xl mx-auto">
+          <div className="text-center stack-lg mb-8">
+            <div className="stack">
+              <p className="eyebrow">Catalog</p>
+              <h2 className="section-title">Our Tract Catalog</h2>
+            </div>
+            <p className="section-lead max-w-3xl mx-auto">
               Browse our collection of gospel tracts. Use the filters to find the perfect one for your ministry needs.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-muted/50 rounded-xl border border-border/10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-muted/30 rounded-[var(--radius)] border border-border/40">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
               <Input
@@ -154,9 +152,9 @@ export default function TractCatalog({ tracts = [], contentfulTracts = [] }: Tra
         </div>
 
         {/* Tracts Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredTracts.map((tract) => (
-            <Card key={tract.id} className="group overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 bg-card border border-border/10 rounded-xl">
+            <Card key={tract.id} className="group overflow-hidden flex flex-col justify-between hover:shadow-md transition-all duration-300 bg-card border border-border/40">
               <div>
                 <CardHeader className="p-0">
                   <div className="relative h-56">
@@ -166,9 +164,8 @@ export default function TractCatalog({ tracts = [], contentfulTracts = [] }: Tra
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     {tract.isPopular && (
-                      <Badge className="absolute top-4 left-4 bg-gradient-to-r from-amber-500 to-yellow-400 text-white">
+                      <Badge className="absolute top-4 left-4 bg-background/80 text-foreground border border-border/40">
                         <Star className="w-4 h-4 mr-2" />
                         Popular
                       </Badge>
@@ -176,7 +173,7 @@ export default function TractCatalog({ tracts = [], contentfulTracts = [] }: Tra
                   </div>
                 </CardHeader>
                 <CardContent className="p-6 space-y-4">
-                  <CardTitle className="text-xl font-bold text-foreground group-hover:text-red-600 transition-colors">
+                  <CardTitle className="text-xl font-semibold text-foreground">
                     {tract.title}
                   </CardTitle>
                   <CardDescription className="leading-relaxed line-clamp-3">
@@ -195,7 +192,7 @@ export default function TractCatalog({ tracts = [], contentfulTracts = [] }: Tra
                 </CardContent>
               </div>
               <div className="p-6 pt-0 flex flex-col gap-2">
-                <Button className="w-full bg-red-600 hover:bg-red-700 text-white" onClick={() => handleSelectTract(tract.id)}>
+                <Button className="w-full" onClick={() => handleSelectTract(tract.id)}>
                   <ShoppingCart className="w-4 h-4 mr-2" />
                   Request This Tract
                 </Button>

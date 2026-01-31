@@ -5,6 +5,9 @@ import EventList from './components/EventList';
 import type { EventsPageConfig, EventItem } from '@/types';
 import { getPageHero, getUpcomingEvents } from '../../../../lib/contentful-api';
 import { processAsset } from '../../../../lib/contentful-api';
+import { getEventMedia } from '@/lib/event-media';
+
+export const dynamic = 'force-dynamic';
 
 // Dummy Data
 const dummyEvents: EventItem[] = [
@@ -74,9 +77,11 @@ export const metadata: Metadata = {
 };
 
 export default async function EventsAndOutreachesPage() {
-    const [pageHero, contentfulEvents] = await Promise.all([
+    const [pageHero, contentfulEvents, bigChurchMedia, tenCfcMedia] = await Promise.all([
         getPageHero('events-outreaches'),
-        getUpcomingEvents()
+        getUpcomingEvents(),
+        getEventMedia('BigChurch'),
+        getEventMedia('10CFC')
     ]);
 
     // Use Contentful hero data if available, otherwise fall back to hardcoded config
@@ -120,13 +125,19 @@ export default async function EventsAndOutreachesPage() {
             <EventsHero 
                 {...heroConfig}
                 brandIconNode={
-                    <div className="flex items-center gap-3 mb-6 bg-white/5 p-2 rounded-lg">
-                        <Calendar className="w-7 h-7" />
-                        <span className="font-semibold text-lg">Christ Community</span>
+                    <div className="flex items-center gap-3 mb-6 bg-muted/40 p-2 rounded-[var(--radius)]">
+                        <Calendar className="w-6 h-6 text-foreground" />
+                        <span className="font-semibold text-foreground">Christ Community</span>
                     </div>
                 }
             />
-            <EventList events={events} />
+            <EventList
+                events={events}
+                featuredMedia={{
+                    bigChurch: bigChurchMedia[0],
+                    tenCfc: tenCfcMedia[0],
+                }}
+            />
         </main>
     );
-} 
+}

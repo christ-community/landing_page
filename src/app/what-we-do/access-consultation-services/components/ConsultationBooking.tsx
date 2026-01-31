@@ -32,16 +32,16 @@ export default function ConsultationBooking({ title, subtitle, offerings }: Cons
     };
 
     return (
-        <section className="py-24 bg-background">
-            <div className="container mx-auto px-6 lg:px-12">
-                <Card className="grid lg:grid-cols-2 gap-0 overflow-hidden shadow-2xl">
+        <section className="section">
+            <div className="section-inner">
+                <Card className="grid lg:grid-cols-2 gap-0 overflow-hidden border border-border/40 shadow-sm">
                     <div className="p-10 lg:p-16 flex flex-col justify-center">
-                        <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{title}</h2>
-                        <p className="text-lg text-muted-foreground mb-8">{subtitle}</p>
+                        <h2 className="text-2xl font-semibold text-foreground mb-4">{title}</h2>
+                        <p className="text-muted-foreground mb-8">{subtitle}</p>
 
                         {status === 'success' ? (
-                            <div className="text-center bg-green-100 dark:bg-green-900/30 p-8 rounded-lg">
-                                <h3 className="text-2xl font-bold text-green-700 dark:text-green-400">Thank You!</h3>
+                            <div className="text-center bg-muted/30 p-8 rounded-[var(--radius)] border border-border/40">
+                                <h3 className="text-xl font-semibold text-foreground">Thank You!</h3>
                                 <p className="text-muted-foreground mt-2">Your consultation request has been sent. We'll be in touch within 24 hours.</p>
                             </div>
                         ) : (
@@ -75,16 +75,14 @@ export default function ConsultationBooking({ title, subtitle, offerings }: Cons
                                     <Label htmlFor="message">Your Message</Label>
                                     <Textarea id="message" placeholder="Tell us a bit about your needs..." required rows={4}/>
                                 </div>
-                                {status === 'error' && <p className="text-red-500 text-sm">Something went wrong. Please try again.</p>}
-                                <Button type="submit" className="w-full text-lg py-6" disabled={status === 'submitting'}>
+                                {status === 'error' && <p className="text-muted-foreground text-sm">Something went wrong. Please try again.</p>}
+                                <Button type="submit" className="w-full" size="lg" disabled={status === 'submitting'}>
                                     {status === 'submitting' ? 'Sending...' : 'Request Consultation'}
                                 </Button>
                             </form>
                         )}
                     </div>
-                    <div className="hidden lg:block relative bg-muted/30">
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-100/60 via-sky-50/40 to-blue-200/50 dark:from-blue-950/30 dark:via-blue-900/20 dark:to-blue-800/30" />
-                    </div>
+                    <div className="hidden lg:block relative bg-muted/30" />
                 </Card>
             </div>
         </section>

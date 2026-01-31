@@ -33,25 +33,25 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
   const otherPosts = allPosts.filter((p: any) => p.slug !== post.slug).slice(0, 3);
 
   return (
-    <div className="py-24">
-      <div className="container mx-auto px-6 lg:px-12">
+    <div className="section">
+      <div className="section-inner">
         <article>
-          <header className="max-w-3xl mx-auto text-center mb-12">
-            <Badge variant="secondary" className="mb-4">
+          <header className="max-w-3xl mx-auto text-center stack mb-12">
+            <Badge variant="secondary" className="mx-auto">
               {typeof post.category?.fields?.name === 'string' ? post.category.fields.name : 'Uncategorized'}
             </Badge>
-            <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">{post.title}</h1>
-            <div className="text-muted-foreground flex items-center justify-center space-x-4">
+            <h1 className="section-title">{post.title}</h1>
+            <div className="text-muted-foreground flex flex-wrap items-center justify-center gap-3 text-sm">
               <span>By {typeof post.author?.fields?.name === 'string' ? post.author.fields.name : 'Christ Community Team'}</span>
-              <span className="text-sm">•</span>
-              <span>{new Date(post.publishDate).toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
+              <span aria-hidden="true">•</span>
+              <span>{new Date(post.publishDate).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
               })}</span>
-              <span className="text-sm">•</span>
-              <span className="flex items-center">
-                <BookOpen className="w-4 h-4 mr-1.5" /> {stats.text}
+              <span aria-hidden="true">•</span>
+              <span className="flex items-center gap-1.5">
+                <BookOpen className="h-4 w-4" /> {stats.text}
               </span>
             </div>
           </header>
@@ -62,34 +62,34 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
               alt={post.title}
               width={1200}
               height={675}
-              className="object-cover w-full h-auto rounded-2xl shadow-lg max-w-5xl mx-auto"
+              className="object-cover w-full h-auto rounded-[var(--radius)] shadow-sm max-w-5xl mx-auto"
             />
           </div>
 
-          <RichTextRenderer 
+          <RichTextRenderer
             content={post.content}
-            className="prose prose-xl dark:prose-invert mx-auto max-w-3xl"
+            className="prose prose-lg dark:prose-invert mx-auto max-w-3xl"
           />
         </article>
 
-        <div className="mt-24 border-t border-border/50 pt-16">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl font-bold">More From the Blog</h2>
-            <p className="text-muted-foreground mt-2">
+        <div className="mt-16 border-t border-border/40 pt-12">
+          <div className="text-center max-w-2xl mx-auto mb-10 stack">
+            <h2 className="text-2xl font-semibold text-foreground">More From the Blog</h2>
+            <p className="text-muted-foreground">
               Explore other articles from our community. We share insights, stories, and resources to encourage you on your faith journey.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {otherPosts.map((p: any) => {
               const transformedPost = {
                 ...p,
                 href: `/blog/${p.slug}`,
                 imageUrl: p.featuredImage?.fields?.file?.url ? `https:${p.featuredImage.fields.file.url}` : '/default-blog-image.jpg',
                 author: typeof p.author?.fields?.name === 'string' ? { name: p.author.fields.name } : { name: 'Christ Community Team' },
-                date: new Date(p.publishDate).toLocaleDateString('en-US', { 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric' 
+                date: new Date(p.publishDate).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
                 }),
                 category: typeof p.category?.fields?.name === 'string' ? p.category.fields.name : 'Uncategorized'
               };
@@ -98,7 +98,7 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
           </div>
         </div>
       </div>
-      <div className="mt-24">
+      <div className="mt-16">
         <NewsletterSection />
       </div>
     </div>

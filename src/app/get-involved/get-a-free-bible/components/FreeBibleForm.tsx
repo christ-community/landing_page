@@ -89,15 +89,15 @@ export default function FreeBibleForm() {
 
   if (submissionStatus === 'success') {
     return (
-      <section className="py-24" id="bible-form">
-        <div className="container mx-auto px-6 lg:px-12">
-          <Card className="max-w-3xl mx-auto text-center p-8 bg-blue-50 dark:bg-blue-950/30 border-2 border-blue-200 dark:border-blue-800/50 rounded-2xl shadow-xl">
-            <PartyPopper className="w-16 h-16 mx-auto text-blue-500 mb-4" />
-            <h3 className="text-3xl font-bold text-foreground">Request Received!</h3>
-            <p className="text-muted-foreground text-lg mt-3 mb-6">
+      <section className="section" id="bible-form">
+        <div className="section-inner">
+          <Card className="max-w-3xl mx-auto text-center p-8 border border-border/40 rounded-[var(--radius)] shadow-sm">
+            <PartyPopper className="w-12 h-12 mx-auto text-primary mb-4" />
+            <h3 className="text-2xl font-semibold text-foreground">Request Received!</h3>
+            <p className="text-muted-foreground mt-3 mb-6">
               Thank you for your request! We'll process your free Bible order and send it to you within 2-3 business days.
             </p>
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 mb-6">
+            <div className="bg-background rounded-[var(--radius)] p-6 mb-6 border border-border/40">
               <h4 className="font-semibold text-foreground mb-2">What happens next?</h4>
               <ul className="text-sm text-muted-foreground text-left space-y-2">
                 <li>• Your Bible will be shipped to: {formData.address}, {formData.city}, {formData.state} {formData.zipCode}</li>
@@ -113,7 +113,7 @@ export default function FreeBibleForm() {
                   city: '', state: '', zipCode: '', country: 'United States',
                   translation: '', specialRequests: ''
                 });
-            }} className="bg-blue-600 hover:bg-blue-700 text-white">
+            }}>
               Request Another Bible
             </Button>
           </Card>
@@ -123,15 +123,15 @@ export default function FreeBibleForm() {
   }
 
   return (
-    <section className="py-24 bg-muted/40" id="bible-form">
-      <div className="container mx-auto px-6 lg:px-12">
-        <Card className="max-w-4xl mx-auto bg-card border border-border/10 rounded-2xl shadow-xl overflow-hidden">
-          <CardHeader className="text-center p-8 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30">
-            <CardTitle className="text-3xl font-bold text-foreground flex items-center justify-center">
-              <BookOpen className="w-8 h-8 mr-3 text-blue-500" />
+    <section className="section bg-muted/20" id="bible-form">
+      <div className="section-inner">
+        <Card className="max-w-4xl mx-auto bg-card border border-border/40 rounded-[var(--radius)] shadow-sm overflow-hidden">
+          <CardHeader className="text-center p-8 bg-muted/30">
+            <CardTitle className="text-2xl font-semibold text-foreground flex items-center justify-center">
+              <BookOpen className="w-6 h-6 mr-3 text-primary" />
               Request Your Free Bible
             </CardTitle>
-            <CardDescription className="text-lg">
+            <CardDescription className="text-base">
               Fill out the form below and we'll send you a complimentary Bible at no cost to you.
             </CardDescription>
           </CardHeader>
@@ -140,7 +140,7 @@ export default function FreeBibleForm() {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Personal Information */}
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-foreground border-b border-border/20 pb-2">
+                <h3 className="text-lg font-semibold text-foreground border-b border-border/20 pb-2">
                   Personal Information
                 </h3>
                 
@@ -202,8 +202,8 @@ export default function FreeBibleForm() {
 
               {/* Shipping Address */}
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-foreground border-b border-border/20 pb-2 flex items-center">
-                  <MapPin className="w-5 h-5 mr-2 text-blue-500" />
+                <h3 className="text-lg font-semibold text-foreground border-b border-border/20 pb-2 flex items-center">
+                  <MapPin className="w-5 h-5 mr-2 text-primary" />
                   Shipping Address
                 </h3>
                 
@@ -270,7 +270,7 @@ export default function FreeBibleForm() {
 
               {/* Bible Preferences */}
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-foreground border-b border-border/20 pb-2">
+                <h3 className="text-lg font-semibold text-foreground border-b border-border/20 pb-2">
                   Bible Preferences
                 </h3>
                 
@@ -315,12 +315,13 @@ export default function FreeBibleForm() {
               </Card>
 
               {submissionStatus === 'error' && (
-                <p className="text-sm text-red-500">Please fill out all required fields marked with *</p>
+                <p className="text-sm text-muted-foreground">Please fill out all required fields marked with *</p>
               )}
               
               <Button 
                 type="submit" 
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-6" 
+                className="w-full" 
+                size="lg"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (

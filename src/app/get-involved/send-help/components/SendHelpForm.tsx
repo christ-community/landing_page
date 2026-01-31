@@ -65,23 +65,23 @@ export default function SendHelpForm({ config }: SendHelpFormProps) {
   };
 
   return (
-    <section className="py-24 bg-background">
-      <div className="container mx-auto px-6 lg:px-12">
-        <Card className="max-w-3xl mx-auto bg-card border-2 border-red-100 dark:border-red-900/50 rounded-2xl shadow-xl overflow-hidden">
+    <section className="section">
+      <div className="section-inner">
+        <Card className="max-w-3xl mx-auto bg-card border border-border/40 rounded-[var(--radius)] shadow-sm overflow-hidden">
           <CardHeader className="text-center p-8 bg-muted/30">
-            <div className="inline-flex p-4 rounded-full bg-gradient-to-r from-red-500 to-rose-500 text-white mb-4">
-              <Mail className="w-8 h-8" />
+            <div className="inline-flex p-3 rounded-full bg-muted text-foreground mb-4">
+              <Mail className="w-6 h-6" />
             </div>
-            <CardTitle className="text-3xl font-bold text-foreground">{formConfig.title}</CardTitle>
-            <CardDescription className="text-lg">{formConfig.subtitle}</CardDescription>
+            <CardTitle className="text-2xl font-semibold text-foreground">{formConfig.title}</CardTitle>
+            <CardDescription className="text-base">{formConfig.subtitle}</CardDescription>
           </CardHeader>
           <CardContent className="p-8">
             {submissionStatus === 'success' ? (
-              <div className="text-center py-8">
-                <Mail className="w-16 h-16 mx-auto text-green-500 mb-4" />
-                <h3 className="text-2xl font-bold text-foreground">Message Sent!</h3>
-                <p className="text-muted-foreground mt-2">Thank you for reaching out. We'll be in touch soon.</p>
-                <Button onClick={() => setSubmissionStatus(null)} className="mt-6 bg-red-600 hover:bg-red-700 text-white">Send Another Message</Button>
+              <div className="text-center py-8 stack">
+                <Mail className="w-12 h-12 mx-auto text-primary" />
+                <h3 className="text-2xl font-semibold text-foreground">Message Sent!</h3>
+                <p className="text-muted-foreground">Thank you for reaching out. We'll be in touch soon.</p>
+                <Button onClick={() => setSubmissionStatus(null)} className="mt-4">Send Another Message</Button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -103,8 +103,8 @@ export default function SendHelpForm({ config }: SendHelpFormProps) {
                   <Label htmlFor="message">{formConfig.fields.message.label}</Label>
                   <Textarea id="message" name="message" placeholder={formConfig.fields.message.placeholder} onChange={handleInputChange} value={formData.message} required rows={5} />
                 </div>
-                {submissionStatus === 'error' && <p className="text-sm text-red-500">Please fill out all required fields.</p>}
-                <Button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white text-lg py-6" disabled={isSubmitting}>
+                {submissionStatus === 'error' && <p className="text-sm text-muted-foreground">Please fill out all required fields.</p>}
+                <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 h-5 w-5 animate-spin" />

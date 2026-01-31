@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Loader2 } from 'lucide-react';
 import type { NewsletterConfig } from '@/types';
 import { useState } from 'react';
 
@@ -26,14 +27,15 @@ export default function NewsletterSection({ config, onSubmit }: NewsletterSectio
   };
 
   const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (onSubmit) {
-      await onSubmit(email);
-    } else {
-      // Default behavior - call newsletter API
-      try {
+    setIsSubmitting(true);
+
+    try {
+      if (onSubmit) {
+        await onSubmit(email);
+      } else {
         const response = await fetch('/api/newsletter', {
           method: 'POST',
           headers: {
@@ -44,22 +46,22 @@ export default function NewsletterSection({ config, onSubmit }: NewsletterSectio
 
         if (response.ok) {
           console.log('Newsletter subscription successful');
-          // You might want to show a success message here
         } else {
           console.error('Newsletter subscription failed');
         }
-      } catch (error) {
-        console.error('Newsletter subscription error:', error);
       }
+      setEmail('');
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
+    } finally {
+      setIsSubmitting(false);
     }
-    
-    setEmail('');
   };
 
   return (
-    <section className="py-16">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="relative rounded-2xl overflow-hidden shadow-xl">
+    <section className="section">
+      <div className="section-inner">
+        <div className="relative rounded-[var(--radius)] overflow-hidden border border-border/40 bg-card shadow-sm">
           <Image
             src={backgroundImage}
             alt="newsletter background"
@@ -67,13 +69,12 @@ export default function NewsletterSection({ config, onSubmit }: NewsletterSectio
             className="object-cover"
             priority
           />
-          {/* overlay gradient to ensure contrast */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
-          <div className="relative z-10 p-8 sm:p-12 lg:p-16 max-w-xl text-white space-y-6">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+          <div className="absolute inset-0 bg-secondary/70" />
+          <div className="relative z-10 p-8 sm:p-12 lg:p-16 max-w-xl text-secondary-foreground space-y-6">
+            <h2 className="section-title">
               {title}
             </h2>
-            {subtitle && <p className="text-lg text-white/90">{subtitle}</p>}
+            {subtitle && <p className="section-lead text-secondary-foreground/80">{subtitle}</p>}
             <form onSubmit={handleSubmit} className="flex w-full max-w-md">
               <Input
                 type="email"
@@ -81,10 +82,17 @@ export default function NewsletterSection({ config, onSubmit }: NewsletterSectio
                 placeholder={placeholder}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="rounded-r-none bg-white text-foreground flex-1"
+                className="rounded-none rounded-l-[var(--radius)] bg-white text-foreground flex-1"
               />
-              <Button type="submit" className="rounded-l-none bg-tertiary text-tertiary-foreground hover:bg-tertiary/90">
-                {buttonLabel}
+              <Button type="submit" className="rounded-none rounded-r-[var(--radius)]" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Joining
+                  </>
+                ) : (
+                  buttonLabel
+                )}
               </Button>
             </form>
           </div>

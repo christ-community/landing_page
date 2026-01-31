@@ -1,24 +1,49 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fraunces, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import HeaderFixed from "@/components/HeaderFixed";
 import Footer from "@/components/Footer";
 import { ChatIntegration } from "@/components/chat";
 import { getFooter } from "../../lib/contentful-api";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const bodyFont = Source_Sans_3({
+  variable: "--font-body",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const headingFont = Fraunces({
+  variable: "--font-heading",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Christ Community",
-  description: "Welcome to Christ Community Church",
+  title: {
+    default: "Christ Community",
+    template: "%s | Christ Community",
+  },
+  description:
+    "Christ Community is a church family serving Swansea and beyond through worship, outreach, and practical support.",
+  openGraph: {
+    title: "Christ Community",
+    description:
+      "Christ Community is a church family serving Swansea and beyond through worship, outreach, and practical support.",
+    type: "website",
+    images: [
+      {
+        url: "/Church-Conference.jpg",
+        alt: "Christ Community",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Christ Community",
+    description:
+      "Christ Community is a church family serving Swansea and beyond through worship, outreach, and practical support.",
+    images: ["/Church-Conference.jpg"],
+  },
   icons: {
     icon: "/Logo .PNG",
     shortcut: "/Logo .PNG",
@@ -68,11 +93,10 @@ export default async function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`${bodyFont.variable} ${headingFont.variable} antialiased bg-background text-foreground`}
       >
-        <div className="h-1 bg-gradient-to-r from-tertiary/80 via-primary/80 to-tertiary/80" />
         <HeaderFixed />
-        <main className="bg-gradient-to-br from-background via-accent/20 to-background">
+        <main className="bg-background">
           {children}
           <ChatIntegration />
         </main>

@@ -1,6 +1,5 @@
 'use client';
 
-import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Package, ClipboardList, Truck, Smile } from 'lucide-react';
 import type { HowItWorksStep } from '@/types';
@@ -24,19 +23,18 @@ export default function HowItWorks({
   steps = defaultSteps
 }: HowItWorksProps) {
   return (
-    <section className="py-24 bg-muted/30">
-      <div className="container mx-auto px-6 lg:px-12">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <Badge className="mb-4 bg-gradient-to-r from-sky-500 to-blue-500 text-white border-0 text-sm px-4 py-2">
-            How It Works
-          </Badge>
-          <h2 className="text-4xl lg:text-5xl font-bold text-foreground">{title}</h2>
-          <p className="text-xl text-muted-foreground mt-4 max-w-3xl mx-auto">{subtitle}</p>
+    <section className="section bg-muted/20">
+      <div className="section-inner">
+        <div className="text-center stack-lg mb-12">
+          <div className="stack">
+            <p className="eyebrow">How It Works</p>
+            <h2 className="section-title">{title}</h2>
+          </div>
+          <p className="section-lead max-w-3xl mx-auto">{subtitle}</p>
         </div>
 
         {/* Steps Grid */}
-        <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Connecting Line */}
           <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-1 hidden md:block">
             <svg width="100%" height="100%">
@@ -47,16 +45,16 @@ export default function HowItWorks({
           {steps.map((step, index) => (
             <div key={index} className="relative z-10 text-center space-y-4">
               <div className="relative inline-flex">
-                <div className="w-24 h-24 bg-background rounded-full flex items-center justify-center shadow-lg border-4 border-muted/30">
-                  <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center text-white">
+                <div className="w-20 h-20 bg-background rounded-full flex items-center justify-center shadow-sm border-2 border-border/40">
+                  <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center text-foreground">
                     <step.icon className="w-10 h-10" />
                   </div>
                 </div>
-                <div className="absolute -top-2 -right-2 w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-md border-2 border-background">
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm shadow-sm border-2 border-background">
                   {step.step}
                 </div>
               </div>
-              <h3 className="text-xl font-bold text-foreground pt-2 group-hover:text-red-600 transition-colors">{step.title}</h3>
+              <h3 className="text-lg font-semibold text-foreground pt-2">{step.title}</h3>
               <p className="text-muted-foreground">{step.description}</p>
             </div>
           ))}
