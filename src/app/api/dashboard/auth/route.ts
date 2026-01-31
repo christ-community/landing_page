@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
     const { username, password } = await request.json();
 
     // Validate input
-    if (!username || !password) {
+    if (!username || !password) { 
       return NextResponse.json(
         { error: "Username and password are required" },
         { status: 400 }
